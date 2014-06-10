@@ -18,6 +18,7 @@
 		14CC879319471C2000C0D5BC /* OSLocationServiceTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 14CC879219471C2000C0D5BC /* OSLocationServiceTests.m */; };
 		14CC879D19471CC200C0D5BC /* OSMap.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 14CC879C19471CC200C0D5BC /* OSMap.framework */; };
 		14CC87CE194723FC00C0D5BC /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 14CC87CD194723FC00C0D5BC /* UIKit.framework */; };
+		14CC87CF1947253100C0D5BC /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 14CC878419471C2000C0D5BC /* XCTest.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -64,6 +65,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				14CC87CF1947253100C0D5BC /* XCTest.framework in Frameworks */,
 				14CC877719471C2000C0D5BC /* Foundation.framework in Frameworks */,
 				14CC87CE194723FC00C0D5BC /* UIKit.framework in Frameworks */,
 				14CC879D19471CC200C0D5BC /* OSMap.framework in Frameworks */,
@@ -341,6 +343,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					/Users/lgordon/Projects/OSLocateCrowdSource/OSLocateMe/StaticFrameworks,
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "OSLocationService/OSLocationService-Prefix.pch";
@@ -357,6 +360,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					/Users/lgordon/Projects/OSLocateCrowdSource/OSLocateMe/StaticFrameworks,
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "OSLocationService/OSLocationService-Prefix.pch";

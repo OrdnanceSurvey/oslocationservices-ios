@@ -230,24 +230,24 @@ static OSLocationService *sharedServiceProviderInstance = nil;
 
 - (void) locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations
 {
-    //  NSArray *documentPaths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-    //  NSString *documentsDirectory = [documentPaths objectAtIndex:0];
-    //  NSString *documentTXTPath = [documentsDirectory stringByAppendingPathComponent:@"tracklog.txt"];
+      NSArray *documentPaths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+      NSString *documentsDirectory = [documentPaths objectAtIndex:0];
+      NSString *documentTXTPath = [documentsDirectory stringByAppendingPathComponent:@"tracklog.txt"];
     
     
     [self setCurrentLatLongPosition: [locations lastObject]];
     float alt = [[self currentLatLongPosition] altitude];
-    // NSString *stralt = [NSString stringWithFormat:@"%f", alt];
+     NSString *stralt = [NSString stringWithFormat:@"%f", alt];
     
     
-    /*for (CLLocation *location in locations) {
+    for (CLLocation *location in locations) {
      NSString *locationlogentry;
      
      locationlogentry = [NSString stringWithFormat:@"%@%@%@%s%f\n", [location description], @
      ",altitide, ",stralt, ",vertical accuracy,", [location verticalAccuracy]];
      NSLog(@"locationlogentry %@",locationlogentry);
      
-     NSFileHandle *myHandle = [NSFileHandle fileHandleForUpdatingAtPath:documentTXTPath ];
+     NSFileHandle *myHandle = [NSFileHandle fileHandleForUpdatingAtPath:documentTXTPath];
      
      
      if(myHandle == nil) {
@@ -258,7 +258,7 @@ static OSLocationService *sharedServiceProviderInstance = nil;
      [myHandle closeFile];
      }
      }
-     */
+    
     if ([self currentLatLongPosition] != nil)
     {
         //update display
