@@ -20,7 +20,7 @@
 @property (assign, nonatomic, readonly) float latitude;
 
 /**
- *  Longitude in float formate.
+ *  Longitude in float format.
  */
 @property (assign, nonatomic, readonly) float longitude;
 
@@ -33,8 +33,6 @@
  *  The latitude and longitude of this location returned as a Core Location object.
  */
 @property (assign, nonatomic, readonly) CLLocationCoordinate2D coordinate;
-
-
 
 /** @name Initializers */
 

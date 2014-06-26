@@ -8,6 +8,10 @@
 
 #import "OSLocationService.h"
 
+@interface OSLocationService ()
+
+@end
+
 @implementation OSLocationService
 
 + (instancetype)defaultService
@@ -20,5 +24,25 @@
     });
     return sharedInstance;
 }
+
+#pragma mark - Starting updates
+
+- (OSLocationServiceUpdateOptions)startUpdatingWithOptions:(OSLocationServiceUpdateOptions)updateOptions sender:(id)sender
+{
+    return OSLocationServiceNoUpdates;
+}
+
+#pragma mark - Stopping updates
+
+- (void)stopUpdatesForOptions:(OSLocationServiceUpdateOptions)options sender:(id)sender
+{
+    
+}
+
+- (void)stopUpdatesForSender:(id)sender
+{
+    [self stopUpdatesForOptions:OSLocationServiceAllOptions sender:sender];
+}
+
 
 @end

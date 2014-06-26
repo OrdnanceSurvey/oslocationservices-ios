@@ -19,6 +19,9 @@
 		14CC87CF1947253100C0D5BC /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 14CC878419471C2000C0D5BC /* XCTest.framework */; };
 		D65D515A195C235600F94337 /* OSLocationService.m in Sources */ = {isa = PBXBuildFile; fileRef = D65D5159195C235600F94337 /* OSLocationService.m */; };
 		D65D515D195C244700F94337 /* OSLocation.m in Sources */ = {isa = PBXBuildFile; fileRef = D65D515C195C244700F94337 /* OSLocation.m */; };
+		D6C0C937195C2CE300C168ED /* OSLocationTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D6C0C936195C2CE300C168ED /* OSLocationTests.m */; };
+		D6C0C93A195C35CC00C168ED /* OSServiceRelationshipManager.m in Sources */ = {isa = PBXBuildFile; fileRef = D6C0C939195C35CC00C168ED /* OSServiceRelationshipManager.m */; };
+		D6C0C93D195C402C00C168ED /* OSServiceRelationshipManagerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D6C0C93C195C402C00C168ED /* OSServiceRelationshipManagerTests.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -55,10 +58,15 @@
 		14CC879219471C2000C0D5BC /* OSLocationServiceTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OSLocationServiceTests.m; sourceTree = "<group>"; };
 		14CC879C19471CC200C0D5BC /* OSMap.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OSMap.framework; path = ../OSLocateCrowdSource/OSLocateMe/StaticFrameworks/OSMap.framework; sourceTree = "<group>"; };
 		14CC87CD194723FC00C0D5BC /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS7.1.sdk/System/Library/Frameworks/UIKit.framework; sourceTree = "<absolute>"; };
-		D65D5158195C235600F94337 /* OSLocationService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OSLocationService.h; sourceTree = "<group>"; };
-		D65D5159195C235600F94337 /* OSLocationService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OSLocationService.m; sourceTree = "<group>"; };
-		D65D515B195C244700F94337 /* OSLocation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OSLocation.h; sourceTree = "<group>"; };
-		D65D515C195C244700F94337 /* OSLocation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OSLocation.m; sourceTree = "<group>"; };
+		D65D5158195C235600F94337 /* OSLocationService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OSLocationService.h; sourceTree = SOURCE_ROOT; };
+		D65D5159195C235600F94337 /* OSLocationService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OSLocationService.m; sourceTree = SOURCE_ROOT; };
+		D65D515B195C244700F94337 /* OSLocation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OSLocation.h; path = ../OSLocation.h; sourceTree = "<group>"; };
+		D65D515C195C244700F94337 /* OSLocation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = OSLocation.m; path = ../OSLocation.m; sourceTree = "<group>"; };
+		D6C0C936195C2CE300C168ED /* OSLocationTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OSLocationTests.m; sourceTree = "<group>"; };
+		D6C0C938195C35CC00C168ED /* OSServiceRelationshipManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OSServiceRelationshipManager.h; path = ../OSServiceRelationshipManager.h; sourceTree = "<group>"; };
+		D6C0C939195C35CC00C168ED /* OSServiceRelationshipManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = OSServiceRelationshipManager.m; path = ../OSServiceRelationshipManager.m; sourceTree = "<group>"; };
+		D6C0C93B195C368B00C168ED /* OSLocationServiceOptions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OSLocationServiceOptions.h; sourceTree = SOURCE_ROOT; };
+		D6C0C93C195C402C00C168ED /* OSServiceRelationshipManagerTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = OSServiceRelationshipManagerTests.m; path = ../OSServiceRelationshipManagerTests.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -90,10 +98,6 @@
 		14CC876A19471C2000C0D5BC = {
 			isa = PBXGroup;
 			children = (
-				D65D5158195C235600F94337 /* OSLocationService.h */,
-				D65D5159195C235600F94337 /* OSLocationService.m */,
-				D65D515B195C244700F94337 /* OSLocation.h */,
-				D65D515C195C244700F94337 /* OSLocation.m */,
 				14CC877819471C2000C0D5BC /* OSLocationService */,
 				14CC878C19471C2000C0D5BC /* OSLocationServiceTests */,
 				14CC877519471C2000C0D5BC /* Frameworks */,
@@ -125,6 +129,13 @@
 		14CC877819471C2000C0D5BC /* OSLocationService */ = {
 			isa = PBXGroup;
 			children = (
+				D65D5158195C235600F94337 /* OSLocationService.h */,
+				D65D5159195C235600F94337 /* OSLocationService.m */,
+				D6C0C93B195C368B00C168ED /* OSLocationServiceOptions.h */,
+				D6C0C938195C35CC00C168ED /* OSServiceRelationshipManager.h */,
+				D6C0C939195C35CC00C168ED /* OSServiceRelationshipManager.m */,
+				D65D515B195C244700F94337 /* OSLocation.h */,
+				D65D515C195C244700F94337 /* OSLocation.m */,
 				14CC877919471C2000C0D5BC /* Supporting Files */,
 			);
 			path = OSLocationService;
@@ -142,6 +153,8 @@
 			isa = PBXGroup;
 			children = (
 				14CC879219471C2000C0D5BC /* OSLocationServiceTests.m */,
+				D6C0C936195C2CE300C168ED /* OSLocationTests.m */,
+				D6C0C93C195C402C00C168ED /* OSServiceRelationshipManagerTests.m */,
 				14CC878D19471C2000C0D5BC /* Supporting Files */,
 			);
 			path = OSLocationServiceTests;
@@ -157,6 +170,16 @@
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		D6C0C972195C440000C168ED /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
 		14CC877219471C2000C0D5BC /* OSLocationService */ = {
@@ -183,6 +206,7 @@
 				14CC877F19471C2000C0D5BC /* Sources */,
 				14CC878019471C2000C0D5BC /* Frameworks */,
 				14CC878119471C2000C0D5BC /* Resources */,
+				D6C0C972195C440000C168ED /* Headers */,
 			);
 			buildRules = (
 			);
@@ -237,6 +261,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D6C0C93A195C35CC00C168ED /* OSServiceRelationshipManager.m in Sources */,
 				D65D515D195C244700F94337 /* OSLocation.m in Sources */,
 				D65D515A195C235600F94337 /* OSLocationService.m in Sources */,
 			);
@@ -246,6 +271,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D6C0C937195C2CE300C168ED /* OSLocationTests.m in Sources */,
+				D6C0C93D195C402C00C168ED /* OSServiceRelationshipManagerTests.m in Sources */,
 				14CC879319471C2000C0D5BC /* OSLocationServiceTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
