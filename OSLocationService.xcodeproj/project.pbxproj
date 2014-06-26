@@ -8,8 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		14CC877719471C2000C0D5BC /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 14CC877619471C2000C0D5BC /* Foundation.framework */; };
-		14CC877C19471C2000C0D5BC /* OSLocationService.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 14CC877B19471C2000C0D5BC /* OSLocationService.h */; };
-		14CC877E19471C2000C0D5BC /* OSLocationService.m in Sources */ = {isa = PBXBuildFile; fileRef = 14CC877D19471C2000C0D5BC /* OSLocationService.m */; };
 		14CC878519471C2000C0D5BC /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 14CC878419471C2000C0D5BC /* XCTest.framework */; };
 		14CC878619471C2000C0D5BC /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 14CC877619471C2000C0D5BC /* Foundation.framework */; };
 		14CC878819471C2000C0D5BC /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 14CC878719471C2000C0D5BC /* UIKit.framework */; };
@@ -19,6 +17,8 @@
 		14CC879D19471CC200C0D5BC /* OSMap.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 14CC879C19471CC200C0D5BC /* OSMap.framework */; };
 		14CC87CE194723FC00C0D5BC /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 14CC87CD194723FC00C0D5BC /* UIKit.framework */; };
 		14CC87CF1947253100C0D5BC /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 14CC878419471C2000C0D5BC /* XCTest.framework */; };
+		D65D515A195C235600F94337 /* OSLocationService.m in Sources */ = {isa = PBXBuildFile; fileRef = D65D5159195C235600F94337 /* OSLocationService.m */; };
+		D65D515D195C244700F94337 /* OSLocation.m in Sources */ = {isa = PBXBuildFile; fileRef = D65D515C195C244700F94337 /* OSLocation.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -38,7 +38,6 @@
 			dstPath = "include/$(PRODUCT_NAME)";
 			dstSubfolderSpec = 16;
 			files = (
-				14CC877C19471C2000C0D5BC /* OSLocationService.h in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -48,8 +47,6 @@
 		14CC877319471C2000C0D5BC /* libOSLocationService.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libOSLocationService.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		14CC877619471C2000C0D5BC /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		14CC877A19471C2000C0D5BC /* OSLocationService-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "OSLocationService-Prefix.pch"; sourceTree = "<group>"; };
-		14CC877B19471C2000C0D5BC /* OSLocationService.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OSLocationService.h; sourceTree = "<group>"; };
-		14CC877D19471C2000C0D5BC /* OSLocationService.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OSLocationService.m; sourceTree = "<group>"; };
 		14CC878319471C2000C0D5BC /* OSLocationServiceTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = OSLocationServiceTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		14CC878419471C2000C0D5BC /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		14CC878719471C2000C0D5BC /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = Library/Frameworks/UIKit.framework; sourceTree = DEVELOPER_DIR; };
@@ -58,6 +55,10 @@
 		14CC879219471C2000C0D5BC /* OSLocationServiceTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OSLocationServiceTests.m; sourceTree = "<group>"; };
 		14CC879C19471CC200C0D5BC /* OSMap.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OSMap.framework; path = ../OSLocateCrowdSource/OSLocateMe/StaticFrameworks/OSMap.framework; sourceTree = "<group>"; };
 		14CC87CD194723FC00C0D5BC /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS7.1.sdk/System/Library/Frameworks/UIKit.framework; sourceTree = "<absolute>"; };
+		D65D5158195C235600F94337 /* OSLocationService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OSLocationService.h; sourceTree = "<group>"; };
+		D65D5159195C235600F94337 /* OSLocationService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OSLocationService.m; sourceTree = "<group>"; };
+		D65D515B195C244700F94337 /* OSLocation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OSLocation.h; sourceTree = "<group>"; };
+		D65D515C195C244700F94337 /* OSLocation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OSLocation.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -89,6 +90,10 @@
 		14CC876A19471C2000C0D5BC = {
 			isa = PBXGroup;
 			children = (
+				D65D5158195C235600F94337 /* OSLocationService.h */,
+				D65D5159195C235600F94337 /* OSLocationService.m */,
+				D65D515B195C244700F94337 /* OSLocation.h */,
+				D65D515C195C244700F94337 /* OSLocation.m */,
 				14CC877819471C2000C0D5BC /* OSLocationService */,
 				14CC878C19471C2000C0D5BC /* OSLocationServiceTests */,
 				14CC877519471C2000C0D5BC /* Frameworks */,
@@ -120,8 +125,6 @@
 		14CC877819471C2000C0D5BC /* OSLocationService */ = {
 			isa = PBXGroup;
 			children = (
-				14CC877B19471C2000C0D5BC /* OSLocationService.h */,
-				14CC877D19471C2000C0D5BC /* OSLocationService.m */,
 				14CC877919471C2000C0D5BC /* Supporting Files */,
 			);
 			path = OSLocationService;
@@ -234,7 +237,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				14CC877E19471C2000C0D5BC /* OSLocationService.m in Sources */,
+				D65D515D195C244700F94337 /* OSLocation.m in Sources */,
+				D65D515A195C235600F94337 /* OSLocationService.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -425,6 +429,7 @@
 				14CC879819471C2000C0D5BC /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		14CC879919471C2000C0D5BC /* Build configuration list for PBXNativeTarget "OSLocationServiceTests" */ = {
 			isa = XCConfigurationList;
@@ -433,6 +438,7 @@
 				14CC879B19471C2000C0D5BC /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

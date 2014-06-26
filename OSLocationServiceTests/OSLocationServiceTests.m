@@ -6,7 +6,7 @@
 //  Copyright (c) 2014 Ordnance Survey. All rights reserved.
 //
 
-/*#import <XCTest/XCTest.h>
+#import <XCTest/XCTest.h>
 
 @interface OSLocationServiceTests : XCTestCase
 
@@ -32,4 +32,3 @@
 }
 
 @end
-*/
