@@ -46,10 +46,21 @@
         [exception raise];
     }
     
-    if ([self optionsForObject:object] == OSLocationServiceNoUpdates) {
+    OSLocationServiceUpdateOptions currentOptions = [self optionsForObject:object];
+    
+    if (currentOptions == OSLocationServiceNoUpdates) {
         return OSLocationServiceNoUpdates;
     } else {
-        [self.relationshipDictionary removeObjectForKey:object];
+        
+        OSLocationServiceUpdateOptions newOptions = (currentOptions & (~options)); //A material nonimplication operation: http://en.wikipedia.org/wiki/Material_nonimplication
+        
+        if (newOptions == OSLocationServiceNoUpdates) {
+            [self.relationshipDictionary removeObjectForKey:object];
+        } else {
+            [self.relationshipDictionary setObject:@(newOptions) forKey:object];
+        }
+        
+        return newOptions;
     }
     
     return OSLocationServiceNoUpdates;

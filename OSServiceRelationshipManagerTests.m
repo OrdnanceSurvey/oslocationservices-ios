@@ -76,7 +76,9 @@
     
     [relationshipManager addOptions:passedOptions1 forObject:dummyObject1];
     
-    OSLocationServiceUpdateOptions remainingOptions = [relationshipManager removeOptions:OSLocationServiceHeadingUpdates forObject:dummyObject1];
+    OSLocationServiceUpdateOptions optionsToBeRemoved = OSLocationServiceHeadingUpdates;
+    
+    OSLocationServiceUpdateOptions remainingOptions = [relationshipManager removeOptions:optionsToBeRemoved forObject:dummyObject1];
     OSLocationServiceUpdateOptions expectedRemaining = OSLocationServiceLocationUpdates;
     XCTAssertEqual(remainingOptions, expectedRemaining, @"Remaining Options were not correct");
 }
