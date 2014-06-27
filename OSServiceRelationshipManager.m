@@ -78,6 +78,19 @@
     return OSLocationServiceNoUpdates; //You should never reach here!
 }
 
+- (OSLocationServiceUpdateOptions)cumulativeOptions
+{
+    NSEnumerator *keys = [self.relationshipDictionary keyEnumerator];
+    OSLocationServiceUpdateOptions cumulativeOptions = OSLocationServiceNoUpdates;
+    
+    for (NSObject *key in keys) {
+        OSLocationServiceUpdateOptions optionsForThisKey = [self optionsForObject:key];
+        cumulativeOptions = cumulativeOptions | optionsForThisKey;
+    }
+    
+    return cumulativeOptions;
+}
+
 - (NSString *)whatDoesITStandFor
 {
     return @"Internet Things";

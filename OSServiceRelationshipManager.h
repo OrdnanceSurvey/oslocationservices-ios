@@ -42,4 +42,11 @@
  */
 - (OSLocationServiceUpdateOptions)optionsForObject:(id)object;
 
+/**
+ *  The sum of all Options that all tracked objects want.
+ *
+ *  @return Options that all objects want in total.
+ */
+- (OSLocationServiceUpdateOptions)cumulativeOptions;
+
 @end

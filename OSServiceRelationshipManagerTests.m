@@ -135,4 +135,60 @@
     XCTAssertEqual(expectedOptions, actualOptions, @"Options were not removed properly");
 }
 
+- (void)testCumulativeOptionsWithNoRelationshipsEstablished
+{
+    OSServiceRelationshipManager *relationshipManager = [[OSServiceRelationshipManager alloc] init];
+    
+    OSLocationServiceUpdateOptions expectedOptions = OSLocationServiceNoUpdates;
+    OSLocationServiceUpdateOptions actualOptions = [relationshipManager cumulativeOptions];
+    
+    XCTAssertEqual(expectedOptions, actualOptions, @"Options returned were not correct");
+}
+
+- (void)testCumlativeOptionsWithOnlyOneRelationshipEstablished
+{
+    OSServiceRelationshipManager *relationshipManager = [[OSServiceRelationshipManager alloc] init];
+
+    OSLocationServiceUpdateOptions options1 = OSLocationServiceHeadingUpdates;
+    NSString *dummy1 = @"Dummy";
+    
+    [relationshipManager addOptions:options1 forObject:dummy1];
+    
+    OSLocationServiceUpdateOptions expectedOptions = options1;
+    OSLocationServiceUpdateOptions actualOptions = [relationshipManager cumulativeOptions];
+    
+    XCTAssertEqual(expectedOptions, actualOptions, @"Options returned were not correct");
+}
+
+- (void)testCumulativeOptionsWithMultipleRelationshipsEstablished
+{
+    OSServiceRelationshipManager *relationshipManager = [[OSServiceRelationshipManager alloc] init];
+
+    //Test with 2 relationships
+    OSLocationServiceUpdateOptions options1 = OSLocationServiceHeadingUpdates;
+    NSString *dummy1 = @"Dummy1";
+    [relationshipManager addOptions:options1 forObject:dummy1];
+    
+    OSLocationServiceUpdateOptions options2 = OSLocationServiceLocationUpdates;
+    NSString *dummy2 = @"Dummy2";
+    [relationshipManager addOptions:options2 forObject:dummy2];
+    
+    OSLocationServiceUpdateOptions expectedOptions = OSLocationServiceLocationUpdates | OSLocationServiceHeadingUpdates;
+    OSLocationServiceUpdateOptions actualOptions = [relationshipManager cumulativeOptions];
+    
+    XCTAssertEqual(expectedOptions, actualOptions, @"Options returned were not correct");
+    
+    //Test with 3 relationships
+    OSLocationServiceUpdateOptions options3 = OSLocationServiceHeadingUpdates;
+    NSString *dummy3 = @"Dummy3";
+    
+    [relationshipManager addOptions:options3 forObject:dummy3];
+    
+    expectedOptions = OSLocationServiceHeadingUpdates | OSLocationServiceLocationUpdates;
+    actualOptions = [relationshipManager cumulativeOptions];
+    
+    XCTAssertEqual(expectedOptions, actualOptions, @"Options returned were not correct");
+    
+}
+
 @end

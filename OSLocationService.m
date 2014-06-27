@@ -7,8 +7,12 @@
 //
 
 #import "OSLocationService.h"
+#import "OSServiceRelationshipManager.h"
 
 @interface OSLocationService ()
+
+@property (strong, nonatomic) OSServiceRelationshipManager *relationshipManager;
+
 
 @end
 
@@ -23,6 +27,15 @@
         sharedInstance = [[self alloc] init];
     });
     return sharedInstance;
+}
+
+- (instancetype)init
+{
+    self = [super init];
+    if (self) {
+        _relationshipManager = [[OSServiceRelationshipManager alloc] init];
+    }
+    return self;
 }
 
 #pragma mark - Starting updates
