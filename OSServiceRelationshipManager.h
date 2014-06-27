@@ -9,7 +9,19 @@
 #import <Foundation/Foundation.h>
 #import "OSLocationServiceOptions.h"
 
+@class OSServiceRelationshipManager;
+
+@protocol OSServiceRelationshipManagerDelegate <NSObject>
+
+@optional
+- (void)relationshipManagerDidChangeRelationships:(OSServiceRelationshipManager *)manager;
+
+@end
+
 @interface OSServiceRelationshipManager : NSObject
+
+@property (weak, nonatomic) id<OSServiceRelationshipManagerDelegate> delegate;
+
 
 /** @name Managing Options */
 

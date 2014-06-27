@@ -35,8 +35,9 @@
     OSLocationServiceUpdateOptions oldOptions = [self optionsForObject:object];
     OSLocationServiceUpdateOptions newOptions = oldOptions | options;
     [self.relationshipDictionary setObject:@(newOptions) forKey:object];
-    return newOptions;
+    [self notifyDelegateOfChanges];
     
+    return newOptions;
 }
 
 - (OSLocationServiceUpdateOptions)removeOptions:(OSLocationServiceUpdateOptions)options forObject:(id)object
@@ -59,6 +60,8 @@
         } else {
             [self.relationshipDictionary setObject:@(newOptions) forKey:object];
         }
+        
+        [self notifyDelegateOfChanges];
         
         return newOptions;
     }
@@ -89,6 +92,13 @@
     }
     
     return cumulativeOptions;
+}
+
+- (void)notifyDelegateOfChanges
+{
+    if ([self.delegate respondsToSelector:@selector(relationshipManagerDidChangeRelationships:)]) {
+        [self.delegate relationshipManagerDidChangeRelationships:self];
+    }
 }
 
 - (NSString *)whatDoesITStandFor

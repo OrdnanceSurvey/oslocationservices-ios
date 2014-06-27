@@ -10,12 +10,9 @@
 		14CC877719471C2000C0D5BC /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 14CC877619471C2000C0D5BC /* Foundation.framework */; };
 		14CC878519471C2000C0D5BC /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 14CC878419471C2000C0D5BC /* XCTest.framework */; };
 		14CC878619471C2000C0D5BC /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 14CC877619471C2000C0D5BC /* Foundation.framework */; };
-		14CC878819471C2000C0D5BC /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 14CC878719471C2000C0D5BC /* UIKit.framework */; };
 		14CC878B19471C2000C0D5BC /* libOSLocationService.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 14CC877319471C2000C0D5BC /* libOSLocationService.a */; };
 		14CC879119471C2000C0D5BC /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 14CC878F19471C2000C0D5BC /* InfoPlist.strings */; };
 		14CC879319471C2000C0D5BC /* OSLocationServiceTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 14CC879219471C2000C0D5BC /* OSLocationServiceTests.m */; };
-		14CC879D19471CC200C0D5BC /* OSMap.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 14CC879C19471CC200C0D5BC /* OSMap.framework */; };
-		14CC87CE194723FC00C0D5BC /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 14CC87CD194723FC00C0D5BC /* UIKit.framework */; };
 		14CC87CF1947253100C0D5BC /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 14CC878419471C2000C0D5BC /* XCTest.framework */; };
 		D65D515A195C235600F94337 /* OSLocationService.m in Sources */ = {isa = PBXBuildFile; fileRef = D65D5159195C235600F94337 /* OSLocationService.m */; };
 		D65D515D195C244700F94337 /* OSLocation.m in Sources */ = {isa = PBXBuildFile; fileRef = D65D515C195C244700F94337 /* OSLocation.m */; };
@@ -52,12 +49,9 @@
 		14CC877A19471C2000C0D5BC /* OSLocationService-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "OSLocationService-Prefix.pch"; sourceTree = "<group>"; };
 		14CC878319471C2000C0D5BC /* OSLocationServiceTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = OSLocationServiceTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		14CC878419471C2000C0D5BC /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
-		14CC878719471C2000C0D5BC /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = Library/Frameworks/UIKit.framework; sourceTree = DEVELOPER_DIR; };
 		14CC878E19471C2000C0D5BC /* OSLocationServiceTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "OSLocationServiceTests-Info.plist"; sourceTree = "<group>"; };
 		14CC879019471C2000C0D5BC /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		14CC879219471C2000C0D5BC /* OSLocationServiceTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OSLocationServiceTests.m; sourceTree = "<group>"; };
-		14CC879C19471CC200C0D5BC /* OSMap.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OSMap.framework; path = ../OSLocateCrowdSource/OSLocateMe/StaticFrameworks/OSMap.framework; sourceTree = "<group>"; };
-		14CC87CD194723FC00C0D5BC /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS7.1.sdk/System/Library/Frameworks/UIKit.framework; sourceTree = "<absolute>"; };
 		D65D5158195C235600F94337 /* OSLocationService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OSLocationService.h; sourceTree = SOURCE_ROOT; };
 		D65D5159195C235600F94337 /* OSLocationService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OSLocationService.m; sourceTree = SOURCE_ROOT; };
 		D65D515B195C244700F94337 /* OSLocation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OSLocation.h; path = ../OSLocation.h; sourceTree = "<group>"; };
@@ -76,8 +70,6 @@
 			files = (
 				14CC87CF1947253100C0D5BC /* XCTest.framework in Frameworks */,
 				14CC877719471C2000C0D5BC /* Foundation.framework in Frameworks */,
-				14CC87CE194723FC00C0D5BC /* UIKit.framework in Frameworks */,
-				14CC879D19471CC200C0D5BC /* OSMap.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -87,7 +79,6 @@
 			files = (
 				14CC878B19471C2000C0D5BC /* libOSLocationService.a in Frameworks */,
 				14CC878519471C2000C0D5BC /* XCTest.framework in Frameworks */,
-				14CC878819471C2000C0D5BC /* UIKit.framework in Frameworks */,
 				14CC878619471C2000C0D5BC /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -117,11 +108,8 @@
 		14CC877519471C2000C0D5BC /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				14CC87CD194723FC00C0D5BC /* UIKit.framework */,
-				14CC879C19471CC200C0D5BC /* OSMap.framework */,
 				14CC877619471C2000C0D5BC /* Foundation.framework */,
 				14CC878419471C2000C0D5BC /* XCTest.framework */,
-				14CC878719471C2000C0D5BC /* UIKit.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
