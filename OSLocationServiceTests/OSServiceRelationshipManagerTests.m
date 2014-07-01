@@ -191,4 +191,22 @@
     
 }
 
+- (void)testPassingNilToAddOptionsThrowsException
+{
+    OSServiceRelationshipManager *relationshipManager = [[OSServiceRelationshipManager alloc] init];
+    
+    OSLocationServiceUpdateOptions options = OSLocationServiceLocationUpdates;
+    
+    XCTAssertThrows([relationshipManager addOptions:options forObject:nil], @"Should throw exception when passing a nil object");
+}
+
+- (void)testPassingNilToRemoveOptionsThrowsException
+{
+    OSServiceRelationshipManager *relationshipManager = [[OSServiceRelationshipManager alloc] init];
+    
+    OSLocationServiceUpdateOptions options = OSLocationServiceLocationUpdates;
+    
+    XCTAssertThrows([relationshipManager removeOptions:options forObject:nil], @"Should throw exception when passing a nil object");
+}
+
 @end
