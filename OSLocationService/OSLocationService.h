@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "OSLocation.h"
 #import "OSLocationServiceOptions.h"
+#import "OSLocationServicePreferences.h"
 
 @interface OSLocationService : NSObject
 
@@ -33,7 +34,9 @@
 + (OSLocationServiceUpdateOptions)availableOptions;
 
 
-/** @name Properties */
+/** @name KVO Properties */
+
+/** You should Observe these values for changes after turning on updates */
 
 /**
  *  The last available location. Only updates when OSLocationServiceLocationUpdates is on.
@@ -61,6 +64,27 @@
  *  The accuracy of the heading values given.
  */
 @property (assign, nonatomic, readonly) double headingAccuracy;
+
+
+/** @name Service Preferences */
+/** Set preferences for the service, such as accuracies */
+
+/**
+ *  Whether to show the system compass calibration screen. Defaults to YES.
+ */
+@property (assign, nonatomic) BOOL shouldShowHeadingCalibration;
+
+
+/**
+ *  The number of degrees the heading must change before values are updated. Set to 0 for no filter (all events).
+ */
+@property (assign, nonatomic) float headingFilter;
+
+/**
+ *  Find whether the app is authorized to use Location Services. Required for OSLocationServiceLocationUpdates. If not allowed, the option is not available. Observe this property for changes to the authorization status.
+ */
+@property (assign, nonatomic, readonly) OSLocationServiceAuthorizationStatus locationAuthorizationStatus;
+
 
 
 /** @name Starting updates */

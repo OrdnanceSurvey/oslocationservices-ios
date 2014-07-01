@@ -8,6 +8,7 @@
 
 #import "OSLocationService.h"
 #import "OSServiceRelationshipManager.h"
+#import "OSLocationServiceObserverProtocol.h"
 
 @import CoreLocation;
 
@@ -53,6 +54,8 @@
         _relationshipManager = [[OSServiceRelationshipManager alloc] init];
         _coreLocationManager = [[CLLocationManager alloc] init];
         _coreLocationManager.delegate = self;
+        _shouldShowHeadingCalibration = YES;
+        _locationAuthorizationStatus = [self OSAuthorizationStatusFromCLAuthorizationStatus:[CLLocationManager authorizationStatus]];
     }
     return self;
 }
@@ -61,10 +64,16 @@
 
 - (OSLocationServiceUpdateOptions)startUpdatingWithOptions:(OSLocationServiceUpdateOptions)updateOptions sender:(id)sender
 {
+    NSAssert([self objectIsAcceptableForRelationshipManager:sender], @"Passed Sender object is not suitable");
+    
+    id identifyingObject = [self identifyingObjectFromObject:sender];
+    
     OSLocationServiceUpdateOptions availableOptions = [OSLocationService availableOptions];
     OSLocationServiceUpdateOptions wantedAvailableOptions = updateOptions | availableOptions;
     
-    OSLocationServiceUpdateOptions updatedOptions = [self.relationshipManager addOptions:wantedAvailableOptions forObject:sender];
+    OSLocationServiceUpdateOptions updatedOptions = [self.relationshipManager addOptions:wantedAvailableOptions forObject:identifyingObject];
+    
+    [self reactToNewCumulativeOptions];
     
     return updatedOptions;
 }
@@ -73,19 +82,54 @@
 
 - (OSLocationServiceUpdateOptions)stopUpdatesForOptions:(OSLocationServiceUpdateOptions)options sender:(id)sender
 {
-    OSLocationServiceUpdateOptions remainingOptions = [self.relationshipManager removeOptions:options forObject:sender];
+    NSAssert([self objectIsAcceptableForRelationshipManager:sender], @"Passed Sender object is not suitable");
+    
+    id identifyingObject = [self identifyingObjectFromObject:sender];
+    
+    OSLocationServiceUpdateOptions remainingOptions = [self.relationshipManager removeOptions:options forObject:identifyingObject];
+    
+    [self reactToNewCumulativeOptions];
     
     return remainingOptions;
 }
 
 - (void)stopUpdatesForSender:(id)sender
 {
-    OSLocationServiceUpdateOptions remainingOptions = [self stopUpdatesForOptions:OSLocationServiceAllOptions sender:sender];
+    NSAssert([self objectIsAcceptableForRelationshipManager:sender], @"Passed Sender object is not suitable");
+    
+    id identifyingObject = [self identifyingObjectFromObject:sender];
+    
+    OSLocationServiceUpdateOptions remainingOptions = [self stopUpdatesForOptions:OSLocationServiceAllOptions sender:identifyingObject];
     
     if (remainingOptions != OSLocationServiceNoUpdates) {
         NSDictionary *userInfo = @{@"object": sender, @"Options that could not be removed": @(remainingOptions)};
         NSException *exception = [NSException exceptionWithName:@"Error removing all Options for object" reason:@"Could not remove some options for the specified object" userInfo:userInfo];
         [exception raise];
+    }
+    
+    [self reactToNewCumulativeOptions];
+}
+
+- (BOOL)objectIsAcceptableForRelationshipManager:(id)object
+{
+    if ([object conformsToProtocol:@protocol(OSLocationServiceObserverProtocol)]) {
+        return YES;
+    } else if ([object conformsToProtocol:@protocol(NSCopying)]) {
+        return YES;
+    } else {
+        return NO;
+    }
+}
+
+- (id)identifyingObjectFromObject:(id)object
+{
+    if ([object conformsToProtocol:@protocol(OSLocationServiceObserverProtocol)]) {
+        id<OSLocationServiceObserverProtocol> objectWithProtocol = object;
+        return [objectWithProtocol locationServiceIdentifier];
+    } else if ([object conformsToProtocol:@protocol(NSCopying)]) {
+        return object;
+    } else {
+        return nil;
     }
 }
 
@@ -95,6 +139,11 @@
     if (manager == self.relationshipManager) {
         [self reactToNewCumulativeOptions:[manager cumulativeOptions]];
     }
+}
+
+- (void)reactToNewCumulativeOptions
+{
+    [self reactToNewCumulativeOptions:[self.relationshipManager cumulativeOptions]];
 }
 
 - (void)reactToNewCumulativeOptions:(OSLocationServiceUpdateOptions)options
@@ -121,12 +170,29 @@
     }
     
     if (wantsHeadingUpdates) {
-        self.coreLocationManager.headingFilter = kCLHeadingFilterNone;
+        if (self.headingFilter == 0) {
+            self.coreLocationManager.headingFilter = kCLHeadingFilterNone;
+        } else {
+            self.coreLocationManager.headingFilter = self.headingFilter;
+        }
+        
         [self.coreLocationManager startUpdatingHeading];
     } else {
         [self.coreLocationManager stopUpdatingHeading];
     }
 
+}
+
+#pragma mark - Updating Preferences
+- (void)setHeadingFilter:(float)headingFilter
+{
+    if (headingFilter == 0) {
+        self.coreLocationManager.headingFilter = kCLHeadingFilterNone;
+    } else {
+        self.coreLocationManager.headingFilter = headingFilter;
+    }
+    
+    _headingFilter = headingFilter;
 }
 
 #pragma mark - Core Location Manager Delegate
@@ -138,19 +204,75 @@
             OSLocation *osLocation = [[OSLocation alloc] initWithCoordinate:location.coordinate dateTaken:location.timestamp];
             [osLocations addObject:osLocation];
         }
+        
+        [self willChangeValueForKey:@"cachedLocations"];
+        _cachedLocations = [osLocations copy];
+        [self didChangeValueForKey:@"cachedLocations"];
     }
     
     CLLocation *mostRecentUpdate = [locations lastObject];
     CLLocationCoordinate2D coordinate = mostRecentUpdate.coordinate;
     OSLocation *currentLocation = [[OSLocation alloc] initWithCoordinate:coordinate dateTaken:[NSDate date]];
+    [self willChangeValueForKey:@"currentLocation"];
     _currentLocation = currentLocation;
+    [self didChangeValueForKey:@"currentLocation"];
 }
 
 - (void)locationManager:(CLLocationManager *)manager didUpdateHeading:(CLHeading *)newHeading
 {
+    [self willChangeValueForKey:@"headingTrueDegrees"];
     _headingTrueDegrees = newHeading.trueHeading;
+    [self didChangeValueForKey:@"headingTrueDegrees"];
+    
+    [self willChangeValueForKey:@"headingMagneticDegrees"];
     _headingMagneticDegrees = newHeading.magneticHeading;
+    [self didChangeValueForKey:@"headingMagneticDegrees"];
+    
+    [self willChangeValueForKey:@"headingAccuracy"];
     _headingAccuracy = newHeading.headingAccuracy;
+    [self didChangeValueForKey:@"headingAccuracy"];
+}
+
+- (BOOL)locationManagerShouldDisplayHeadingCalibration:(CLLocationManager *)manager
+{
+    return self.shouldShowHeadingCalibration;
+}
+
+- (void)locationManager:(CLLocationManager *)manager didChangeAuthorizationStatus:(CLAuthorizationStatus)status
+{
+    OSLocationServiceAuthorizationStatus newStatus = [self OSAuthorizationStatusFromCLAuthorizationStatus:status];
+    
+    [self willChangeValueForKey:@"locationAuthorizationStatus"];
+    _locationAuthorizationStatus = newStatus;
+    [self didChangeValueForKey:@"locationAuthorizationStatus"];
+}
+
+- (OSLocationServiceAuthorizationStatus)OSAuthorizationStatusFromCLAuthorizationStatus:(CLAuthorizationStatus)clAuthorizationStatus
+{
+    switch (clAuthorizationStatus) {
+        case kCLAuthorizationStatusNotDetermined:
+            return OSLocationServiceAuthorizationNotDetermined;
+            break;
+            
+        case kCLAuthorizationStatusRestricted:
+            return OSLocationServiceAuthorizationRestricted;
+            break;
+            
+        case kCLAuthorizationStatusDenied:
+            return OSLocationServiceAuthorizationDenied;
+            break;
+            
+        case kCLAuthorizationStatusAuthorized:
+            return OSLocationServiceAuthorizationAllowedAlways;
+            break;
+            
+            //To be added: kCLAuthorizationStatusAuthorizedWhenInUse for iOS8
+            
+        default:
+            break;
+    }
+    
+    return OSLocationServiceAuthorizationUnknown;
 }
 
 @end

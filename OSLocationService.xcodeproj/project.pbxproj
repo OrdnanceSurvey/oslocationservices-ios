@@ -19,6 +19,11 @@
 		D6BA2F94195DB0CE0099B7F7 /* OSServiceRelationshipManager.m in Sources */ = {isa = PBXBuildFile; fileRef = D6BA2F91195DB0CE0099B7F7 /* OSServiceRelationshipManager.m */; };
 		D6BA2F96195DB0DE0099B7F7 /* OSServiceRelationshipManagerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D6BA2F95195DB0DE0099B7F7 /* OSServiceRelationshipManagerTests.m */; };
 		D6C0C937195C2CE300C168ED /* OSLocationTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D6C0C936195C2CE300C168ED /* OSLocationTests.m */; };
+		D6D628741962EE2100E3B8DA /* OSLocationService.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = D6BA2F8D195DB0CE0099B7F7 /* OSLocationService.h */; };
+		D6D628751962EE2400E3B8DA /* OSLocation.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = D6BA2F8B195DB0CE0099B7F7 /* OSLocation.h */; };
+		D6D628831962EECE00E3B8DA /* OSLocationServiceOptions.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = D6BA2F8F195DB0CE0099B7F7 /* OSLocationServiceOptions.h */; };
+		D6D628871962F25400E3B8DA /* OSLocationServiceObserverProtocol.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = D6D628861962F16400E3B8DA /* OSLocationServiceObserverProtocol.h */; };
+		D6D628891962F9F000E3B8DA /* OSLocationServicePreferences.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = D6D628881962F94000E3B8DA /* OSLocationServicePreferences.h */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -38,6 +43,11 @@
 			dstPath = "include/$(PRODUCT_NAME)";
 			dstSubfolderSpec = 16;
 			files = (
+				D6D628891962F9F000E3B8DA /* OSLocationServicePreferences.h in CopyFiles */,
+				D6D628871962F25400E3B8DA /* OSLocationServiceObserverProtocol.h in CopyFiles */,
+				D6D628831962EECE00E3B8DA /* OSLocationServiceOptions.h in CopyFiles */,
+				D6D628751962EE2400E3B8DA /* OSLocation.h in CopyFiles */,
+				D6D628741962EE2100E3B8DA /* OSLocationService.h in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -61,6 +71,8 @@
 		D6BA2F91195DB0CE0099B7F7 /* OSServiceRelationshipManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OSServiceRelationshipManager.m; sourceTree = "<group>"; };
 		D6BA2F95195DB0DE0099B7F7 /* OSServiceRelationshipManagerTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OSServiceRelationshipManagerTests.m; sourceTree = "<group>"; };
 		D6C0C936195C2CE300C168ED /* OSLocationTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OSLocationTests.m; sourceTree = "<group>"; };
+		D6D628861962F16400E3B8DA /* OSLocationServiceObserverProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OSLocationServiceObserverProtocol.h; sourceTree = "<group>"; };
+		D6D628881962F94000E3B8DA /* OSLocationServicePreferences.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OSLocationServicePreferences.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -122,6 +134,8 @@
 				D6BA2F8D195DB0CE0099B7F7 /* OSLocationService.h */,
 				D6BA2F8E195DB0CE0099B7F7 /* OSLocationService.m */,
 				D6BA2F8F195DB0CE0099B7F7 /* OSLocationServiceOptions.h */,
+				D6D628881962F94000E3B8DA /* OSLocationServicePreferences.h */,
+				D6D628861962F16400E3B8DA /* OSLocationServiceObserverProtocol.h */,
 				D6BA2F90195DB0CE0099B7F7 /* OSServiceRelationshipManager.h */,
 				D6BA2F91195DB0CE0099B7F7 /* OSServiceRelationshipManager.m */,
 				14CC877919471C2000C0D5BC /* Supporting Files */,
