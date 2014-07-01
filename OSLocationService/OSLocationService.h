@@ -61,7 +61,7 @@
 @property (assign, nonatomic, readonly) double headingTrueDegrees;
 
 /**
- *  The accuracy of the heading values given.
+ *  The accuracy of the heading values given. Only updates when OSLocationServiceHeadingUpdates is on.
  */
 @property (assign, nonatomic, readonly) double headingAccuracy;
 
@@ -88,8 +88,6 @@
 
 
 /** @name Starting updates */
-
-
 
 /**
  *  Trigger the location service to start getting updates.

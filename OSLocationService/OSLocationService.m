@@ -214,6 +214,7 @@
     CLLocation *mostRecentUpdate = [locations lastObject];
     CLLocationCoordinate2D coordinate = mostRecentUpdate.coordinate;
     OSLocation *currentLocation = [[OSLocation alloc] initWithCoordinate:coordinate dateTaken:[NSDate date]];
+    
     [self willChangeValueForKey:@"currentLocation"];
     _currentLocation = currentLocation;
     [self didChangeValueForKey:@"currentLocation"];

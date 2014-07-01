@@ -42,4 +42,9 @@
     return CLLocationCoordinate2DMake(self.latitude, self.longitude);
 }
 
+- (OSGridPoint)gridPoint
+{
+    return OSGridPointForCoordinate([self coordinate]);
+}
+
 @end

@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <OSMap/OSMap.h>
 
 @import CoreLocation;
 
@@ -33,6 +34,10 @@
  *  The latitude and longitude of this location returned as a Core Location object.
  */
 @property (assign, nonatomic, readonly) CLLocationCoordinate2D coordinate;
+
+
+@property (assign, nonatomic, readonly) OSGridPoint gridPoint;
+
 
 /** @name Initializers */
 
