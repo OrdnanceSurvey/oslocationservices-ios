@@ -69,7 +69,7 @@
     id identifyingObject = [self identifyingObjectFromObject:sender];
     
     OSLocationServiceUpdateOptions availableOptions = [OSLocationService availableOptions];
-    OSLocationServiceUpdateOptions wantedAvailableOptions = updateOptions | availableOptions;
+    OSLocationServiceUpdateOptions wantedAvailableOptions = updateOptions & availableOptions;
     
     OSLocationServiceUpdateOptions updatedOptions = [self.relationshipManager addOptions:wantedAvailableOptions forObject:identifyingObject];
     
