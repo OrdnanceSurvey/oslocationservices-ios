@@ -25,7 +25,8 @@
 {
     OSLocationServiceUpdateOptions availableOptions = OSLocationServiceNoUpdates;
     
-    if ([CLLocationManager authorizationStatus] == kCLAuthorizationStatusAuthorized) {
+    if ([CLLocationManager authorizationStatus] == kCLAuthorizationStatusAuthorized ||
+        [CLLocationManager authorizationStatus] == kCLAuthorizationStatusNotDetermined) {
         availableOptions = availableOptions | OSLocationServiceLocationUpdates;
     }
     
