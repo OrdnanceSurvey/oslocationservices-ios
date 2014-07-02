@@ -53,7 +53,9 @@
         return OSLocationServiceNoUpdates;
     } else {
         
-        OSLocationServiceUpdateOptions newOptions = (currentOptions & (~options)); //A material nonimplication operation: http://en.wikipedia.org/wiki/Material_nonimplication
+        /* A material nonimplication operation: http://en.wikipedia.org/wiki/Material_nonimplication
+         We use it to deduct the given Options from the current Options */
+        OSLocationServiceUpdateOptions newOptions = (currentOptions & (~options));
         
         if (newOptions == OSLocationServiceNoUpdates) {
             [self.relationshipDictionary removeObjectForKey:object];
@@ -66,7 +68,7 @@
         return newOptions;
     }
     
-    return OSLocationServiceNoUpdates;
+//    return OSLocationServiceNoUpdates;
 }
 
 - (OSLocationServiceUpdateOptions)optionsForObject:(id)object
@@ -78,7 +80,7 @@
         OSLocationServiceUpdateOptions options = [number integerValue];
         return options;
     }
-    return OSLocationServiceNoUpdates; //You should never reach here!
+//    return OSLocationServiceNoUpdates; //You should never reach here!
 }
 
 - (OSLocationServiceUpdateOptions)cumulativeOptions
