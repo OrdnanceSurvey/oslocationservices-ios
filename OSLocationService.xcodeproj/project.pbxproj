@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1432165419642E54005BC003 /* OSMap.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1432165319642E54005BC003 /* OSMap.framework */; };
 		14CC877719471C2000C0D5BC /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 14CC877619471C2000C0D5BC /* Foundation.framework */; };
 		14CC878519471C2000C0D5BC /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 14CC878419471C2000C0D5BC /* XCTest.framework */; };
 		14CC878619471C2000C0D5BC /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 14CC877619471C2000C0D5BC /* Foundation.framework */; };
@@ -56,6 +57,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		1432165319642E54005BC003 /* OSMap.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OSMap.framework; path = StaticFrameworks/OSMap.framework; sourceTree = "<group>"; };
 		14CC877319471C2000C0D5BC /* libOSLocationService.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libOSLocationService.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		14CC877619471C2000C0D5BC /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		14CC877A19471C2000C0D5BC /* OSLocationService-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "OSLocationService-Prefix.pch"; sourceTree = "<group>"; };
@@ -83,6 +85,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1432165419642E54005BC003 /* OSMap.framework in Frameworks */,
 				14CC87CF1947253100C0D5BC /* XCTest.framework in Frameworks */,
 				D66B362619630B9D0050DBC3 /* OSMap.framework in Frameworks */,
 				14CC877719471C2000C0D5BC /* Foundation.framework in Frameworks */,
@@ -400,7 +403,6 @@
 				DSTROOT = /tmp/OSLocationService.dst;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					/Users/lgordon/Projects/OSLocateCrowdSource/OSLocateMe/StaticFrameworks,
 					"$(DEVELOPER_FRAMEWORKS_DIR)",
 					"$(PROJECT_DIR)",
 				);
@@ -419,7 +421,6 @@
 				DSTROOT = /tmp/OSLocationService.dst;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					/Users/lgordon/Projects/OSLocateCrowdSource/OSLocateMe/StaticFrameworks,
 					"$(DEVELOPER_FRAMEWORKS_DIR)",
 					"$(PROJECT_DIR)",
 				);
