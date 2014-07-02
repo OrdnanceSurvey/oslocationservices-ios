@@ -32,7 +32,7 @@
 
 - (void)testLocationReturnsCorrectCoordinate
 {
-    OSLocation *location = [[OSLocation alloc] initWithLatitude:50.720754f longitude:-3.5016017f];
+    OSLocation *location = [[OSLocation alloc] initWithLatitude:50.720754f longitude:-3.5016017f horizontalAccuracy:5];
     CLLocationCoordinate2D actualCoordinate = CLLocationCoordinate2DMake(50.720754f, -3.5016017f);
     CLLocationCoordinate2D testCoordinate = location.coordinate;
     XCTAssertEqual(actualCoordinate.latitude, testCoordinate.latitude, @"Coordinate returned's latitude was not equal");
@@ -44,12 +44,14 @@
     float latitude = 50.938149;
     float longitude = -1.4703144;
     float timeIntervalSince1970 = 15673;
+    float horizontalAccuracy = 5.0f;
     CLLocationCoordinate2D coordinate = CLLocationCoordinate2DMake(latitude, longitude);
-    OSLocation *location = [[OSLocation alloc] initWithCoordinate:coordinate dateTaken:[NSDate dateWithTimeIntervalSince1970:timeIntervalSince1970]];
+    OSLocation *location = [[OSLocation alloc] initWithCoordinate:coordinate dateTaken:[NSDate dateWithTimeIntervalSince1970:timeIntervalSince1970] horizontalAccuracy:horizontalAccuracy];
     
     XCTAssertEqual(location.latitude, latitude, @"Latitude was not equal");
     XCTAssertEqual(location.longitude, longitude, @"Longitude was not equal");
     XCTAssertEqual([location.dateTaken timeIntervalSince1970], timeIntervalSince1970, @"Date was not equal");
+    XCTAssertEqual(location.horizontalAccuracyMeters, horizontalAccuracy, @"Horizontal accuracy was not equal");
 }
 
 - (void)testLocationReturnsCorrectGridPoint
@@ -59,8 +61,9 @@
     float longitude = -1.4703144;
     float eastings = 437315;
     float northings = 115545;
+    float horizontalAccuracy = 5.0f;
     
-    OSLocation *location = [[OSLocation alloc] initWithLatitude:latitude longitude:longitude];
+    OSLocation *location = [[OSLocation alloc] initWithLatitude:latitude longitude:longitude horizontalAccuracy:horizontalAccuracy];
     OSGridPoint gridPoint = location.gridPoint;
     
     //Rounded because we allow a certain amount of inaccuracy

@@ -14,6 +14,8 @@
 		14CC879119471C2000C0D5BC /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 14CC878F19471C2000C0D5BC /* InfoPlist.strings */; };
 		14CC879319471C2000C0D5BC /* OSLocationServiceTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 14CC879219471C2000C0D5BC /* OSLocationServiceTests.m */; };
 		14CC87CF1947253100C0D5BC /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 14CC878419471C2000C0D5BC /* XCTest.framework */; };
+		D66B362619630B9D0050DBC3 /* OSMap.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D66B362519630B9D0050DBC3 /* OSMap.framework */; };
+		D66B3628196310480050DBC3 /* OSMap.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D66B362519630B9D0050DBC3 /* OSMap.framework */; };
 		D6BA2F92195DB0CE0099B7F7 /* OSLocation.m in Sources */ = {isa = PBXBuildFile; fileRef = D6BA2F8C195DB0CE0099B7F7 /* OSLocation.m */; };
 		D6BA2F93195DB0CE0099B7F7 /* OSLocationService.m in Sources */ = {isa = PBXBuildFile; fileRef = D6BA2F8E195DB0CE0099B7F7 /* OSLocationService.m */; };
 		D6BA2F94195DB0CE0099B7F7 /* OSServiceRelationshipManager.m in Sources */ = {isa = PBXBuildFile; fileRef = D6BA2F91195DB0CE0099B7F7 /* OSServiceRelationshipManager.m */; };
@@ -62,6 +64,7 @@
 		14CC878E19471C2000C0D5BC /* OSLocationServiceTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "OSLocationServiceTests-Info.plist"; sourceTree = "<group>"; };
 		14CC879019471C2000C0D5BC /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		14CC879219471C2000C0D5BC /* OSLocationServiceTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OSLocationServiceTests.m; sourceTree = "<group>"; };
+		D66B362519630B9D0050DBC3 /* OSMap.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = OSMap.framework; sourceTree = "<group>"; };
 		D6BA2F8B195DB0CE0099B7F7 /* OSLocation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OSLocation.h; sourceTree = "<group>"; };
 		D6BA2F8C195DB0CE0099B7F7 /* OSLocation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OSLocation.m; sourceTree = "<group>"; };
 		D6BA2F8D195DB0CE0099B7F7 /* OSLocationService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OSLocationService.h; sourceTree = "<group>"; };
@@ -81,6 +84,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				14CC87CF1947253100C0D5BC /* XCTest.framework in Frameworks */,
+				D66B362619630B9D0050DBC3 /* OSMap.framework in Frameworks */,
 				14CC877719471C2000C0D5BC /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -89,6 +93,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D66B3628196310480050DBC3 /* OSMap.framework in Frameworks */,
 				14CC878B19471C2000C0D5BC /* libOSLocationService.a in Frameworks */,
 				14CC878519471C2000C0D5BC /* XCTest.framework in Frameworks */,
 				14CC878619471C2000C0D5BC /* Foundation.framework in Frameworks */,
@@ -120,6 +125,7 @@
 		14CC877519471C2000C0D5BC /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				D66B362519630B9D0050DBC3 /* OSMap.framework */,
 				14CC877619471C2000C0D5BC /* Foundation.framework */,
 				14CC878419471C2000C0D5BC /* XCTest.framework */,
 			);
@@ -188,6 +194,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 14CC879619471C2000C0D5BC /* Build configuration list for PBXNativeTarget "OSLocationService" */;
 			buildPhases = (
+				D66B362719630FBC0050DBC3 /* ShellScript */,
 				14CC876F19471C2000C0D5BC /* Sources */,
 				14CC877019471C2000C0D5BC /* Frameworks */,
 				14CC877119471C2000C0D5BC /* CopyFiles */,
@@ -258,6 +265,22 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		D66B362719630FBC0050DBC3 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "sh XcodeCoverage/exportenv.sh";
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		14CC876F19471C2000C0D5BC /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -320,6 +343,8 @@
 				COPY_PHASE_STRIP = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_GENERATE_TEST_COVERAGE_FILES = YES;
+				GCC_INSTRUMENT_PROGRAM_FLOW_ARCS = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
@@ -377,12 +402,14 @@
 					"$(inherited)",
 					/Users/lgordon/Projects/OSLocateCrowdSource/OSLocateMe/StaticFrameworks,
 					"$(DEVELOPER_FRAMEWORKS_DIR)",
+					"$(PROJECT_DIR)",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "OSLocationService/OSLocationService-Prefix.pch";
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
+				VALID_ARCHS = "armv7 armv7s";
 			};
 			name = Debug;
 		};
@@ -394,12 +421,14 @@
 					"$(inherited)",
 					/Users/lgordon/Projects/OSLocateCrowdSource/OSLocateMe/StaticFrameworks,
 					"$(DEVELOPER_FRAMEWORKS_DIR)",
+					"$(PROJECT_DIR)",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "OSLocationService/OSLocationService-Prefix.pch";
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
+				VALID_ARCHS = "armv7 armv7s";
 			};
 			name = Release;
 		};
@@ -410,7 +439,10 @@
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
 					"$(DEVELOPER_FRAMEWORKS_DIR)",
+					"$(PROJECT_DIR)",
 				);
+				GCC_GENERATE_TEST_COVERAGE_FILES = YES;
+				GCC_INSTRUMENT_PROGRAM_FLOW_ARCS = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "OSLocationService/OSLocationService-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -419,6 +451,7 @@
 				);
 				INFOPLIST_FILE = "OSLocationServiceTests/OSLocationServiceTests-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				VALID_ARCHS = "armv7 armv7s";
 				WRAPPER_EXTENSION = xctest;
 			};
 			name = Debug;
@@ -430,11 +463,14 @@
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
 					"$(DEVELOPER_FRAMEWORKS_DIR)",
+					"$(PROJECT_DIR)",
 				);
+				GCC_INSTRUMENT_PROGRAM_FLOW_ARCS = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "OSLocationService/OSLocationService-Prefix.pch";
 				INFOPLIST_FILE = "OSLocationServiceTests/OSLocationServiceTests-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				VALID_ARCHS = "armv7 armv7s";
 				WRAPPER_EXTENSION = xctest;
 			};
 			name = Release;

@@ -202,7 +202,7 @@
     if ([locations count] > 1) {
         NSMutableArray *osLocations = [NSMutableArray arrayWithCapacity:[locations count]];
         for (CLLocation *location in locations) {
-            OSLocation *osLocation = [[OSLocation alloc] initWithCoordinate:location.coordinate dateTaken:location.timestamp];
+            OSLocation *osLocation = [[OSLocation alloc] initWithCoordinate:location.coordinate dateTaken:location.timestamp horizontalAccuracy:location.horizontalAccuracy];
             [osLocations addObject:osLocation];
         }
         
@@ -213,7 +213,7 @@
     
     CLLocation *mostRecentUpdate = [locations lastObject];
     CLLocationCoordinate2D coordinate = mostRecentUpdate.coordinate;
-    OSLocation *currentLocation = [[OSLocation alloc] initWithCoordinate:coordinate dateTaken:[NSDate date]];
+    OSLocation *currentLocation = [[OSLocation alloc] initWithCoordinate:coordinate dateTaken:[NSDate date] horizontalAccuracy:mostRecentUpdate.horizontalAccuracy];
     
     [self willChangeValueForKey:@"currentLocation"];
     _currentLocation = currentLocation;
