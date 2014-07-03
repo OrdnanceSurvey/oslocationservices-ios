@@ -9,6 +9,7 @@
 #import "OSLocationService.h"
 #import "OSServiceRelationshipManager.h"
 #import "OSLocationServiceObserverProtocol.h"
+#import "OSCoreLocationManager.h"
 
 @import CoreLocation;
 
@@ -32,12 +33,11 @@
 {
     OSLocationServiceUpdateOptions availableOptions = OSLocationServiceNoUpdates;
     
-    if ([CLLocationManager authorizationStatus] == kCLAuthorizationStatusAuthorized ||
-        [CLLocationManager authorizationStatus] == kCLAuthorizationStatusNotDetermined) {
+    if ([OSCoreLocationManager locationUpdatesAvailable]) {
         availableOptions = availableOptions | OSLocationServiceLocationUpdates;
     }
     
-    if ([CLLocationManager headingAvailable]) {
+    if ([OSCoreLocationManager headingUpdatesAvailable]) {
         availableOptions = availableOptions | OSLocationServiceHeadingUpdates;
     }
     
@@ -60,10 +60,9 @@
     self = [super init];
     if (self) {
         _relationshipManager = [[OSServiceRelationshipManager alloc] init];
-        _coreLocationManager = [[CLLocationManager alloc] init];
         _coreLocationManager.delegate = self;
         _shouldShowHeadingCalibration = YES;
-        _locationAuthorizationStatus = [self OSAuthorizationStatusFromCLAuthorizationStatus:[CLLocationManager authorizationStatus]];
+        _locationAuthorizationStatus = [OSCoreLocationManager authorizatonStatus];
     }
     return self;
 }
@@ -118,9 +117,21 @@
     [self reactToNewCumulativeOptions];
 }
 
+#pragma mark - Current Options
+- (OSLocationServiceUpdateOptions)optionsForSender:(id)sender
+{
+    if (![self objectIsAcceptableForRelationshipManager:sender]) {
+        return OSLocationServiceNoUpdates;
+    }
+    
+    return [self.relationshipManager optionsForObject:sender];
+}
+
 - (BOOL)objectIsAcceptableForRelationshipManager:(id)object
 {
-    if ([object conformsToProtocol:@protocol(OSLocationServiceObserverProtocol)]) {
+    if (object == nil) {
+        return NO;
+    } else if ([object conformsToProtocol:@protocol(OSLocationServiceObserverProtocol)]) {
         return YES;
     } else if ([object conformsToProtocol:@protocol(NSCopying)]) {
         return YES;
@@ -249,39 +260,11 @@
 
 - (void)locationManager:(CLLocationManager *)manager didChangeAuthorizationStatus:(CLAuthorizationStatus)status
 {
-    OSLocationServiceAuthorizationStatus newStatus = [self OSAuthorizationStatusFromCLAuthorizationStatus:status];
+    OSLocationServiceAuthorizationStatus newStatus = [OSCoreLocationManager OSAuthorizationStatusFromCLAuthorizationStatus:status];
     
     [self willChangeValueForKey:@"locationAuthorizationStatus"];
     _locationAuthorizationStatus = newStatus;
     [self didChangeValueForKey:@"locationAuthorizationStatus"];
-}
-
-- (OSLocationServiceAuthorizationStatus)OSAuthorizationStatusFromCLAuthorizationStatus:(CLAuthorizationStatus)clAuthorizationStatus
-{
-    switch (clAuthorizationStatus) {
-        case kCLAuthorizationStatusNotDetermined:
-            return OSLocationServiceAuthorizationNotDetermined;
-            break;
-            
-        case kCLAuthorizationStatusRestricted:
-            return OSLocationServiceAuthorizationRestricted;
-            break;
-            
-        case kCLAuthorizationStatusDenied:
-            return OSLocationServiceAuthorizationDenied;
-            break;
-            
-        case kCLAuthorizationStatusAuthorized:
-            return OSLocationServiceAuthorizationAllowedAlways;
-            break;
-            
-            //To be added: kCLAuthorizationStatusAuthorizedWhenInUse for iOS8
-            
-        default:
-            break;
-    }
-    
-    return OSLocationServiceAuthorizationUnknown;
 }
 
 @end

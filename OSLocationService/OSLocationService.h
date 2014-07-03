@@ -120,4 +120,13 @@
  */
 - (OSLocationServiceUpdateOptions)stopUpdatesForOptions:(OSLocationServiceUpdateOptions)options sender:(id)sender;
 
+/**
+ *  The currently active Options for the object passed.
+ *
+ *  @param sender The object to lookup
+ *
+ *  @return The Options for the object
+ */
+- (OSLocationServiceUpdateOptions)optionsForSender:(id)sender;
+
 @end
