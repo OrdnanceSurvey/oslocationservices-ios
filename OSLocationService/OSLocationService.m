@@ -62,7 +62,7 @@
         _relationshipManager = [[OSServiceRelationshipManager alloc] init];
         _coreLocationManager.delegate = self;
         _shouldShowHeadingCalibration = YES;
-        _locationAuthorizationStatus = [OSCoreLocationManager authorizatonStatus];
+        _locationAuthorizationStatus = [OSCoreLocationManager authorizationStatus];
     }
     return self;
 }
