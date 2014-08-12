@@ -15,9 +15,7 @@
 		14CC879319471C2000C0D5BC /* OSLocationServiceTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 14CC879219471C2000C0D5BC /* OSLocationServiceTests.m */; };
 		14CC87CF1947253100C0D5BC /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 14CC878419471C2000C0D5BC /* XCTest.framework */; };
 		14EC3F0C196C2A9E00F37648 /* OSMap.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 14EC3F0B196C2A9E00F37648 /* OSMap.framework */; };
-		6828414CEEFC483B9682BF21 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E0B2FD1E65B54B05828D7166 /* libPods.a */; };
 		7A67C5A06468446BB30685C1 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E0B2FD1E65B54B05828D7166 /* libPods.a */; };
-		D6A23982196562BB00167DAB /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = D6A23981196562BB00167DAB /* libsqlite3.dylib */; };
 		D6A23983196562C500167DAB /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = D6A23981196562BB00167DAB /* libsqlite3.dylib */; };
 		D6A23985196562D700167DAB /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D6A23984196562D700167DAB /* SystemConfiguration.framework */; };
 		D6A23986196562DE00167DAB /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D6A23984196562D700167DAB /* SystemConfiguration.framework */; };
@@ -113,10 +111,8 @@
 				D6A2398E1965642500167DAB /* CoreLocation.framework in Frameworks */,
 				D6A2398C1965641E00167DAB /* CoreGraphics.framework in Frameworks */,
 				D6A23986196562DE00167DAB /* SystemConfiguration.framework in Frameworks */,
-				D6A23982196562BB00167DAB /* libsqlite3.dylib in Frameworks */,
 				14CC87CF1947253100C0D5BC /* XCTest.framework in Frameworks */,
 				14CC877719471C2000C0D5BC /* Foundation.framework in Frameworks */,
-				6828414CEEFC483B9682BF21 /* libPods.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
