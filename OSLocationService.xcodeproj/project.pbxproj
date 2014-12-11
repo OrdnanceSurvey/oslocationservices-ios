@@ -8,18 +8,16 @@
 
 /* Begin PBXBuildFile section */
 		14CC877719471C2000C0D5BC /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 14CC877619471C2000C0D5BC /* Foundation.framework */; };
-		14CC878519471C2000C0D5BC /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 14CC878419471C2000C0D5BC /* XCTest.framework */; };
 		14CC878619471C2000C0D5BC /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 14CC877619471C2000C0D5BC /* Foundation.framework */; };
 		14CC878B19471C2000C0D5BC /* libOSLocationService.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 14CC877319471C2000C0D5BC /* libOSLocationService.a */; };
 		14CC879119471C2000C0D5BC /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 14CC878F19471C2000C0D5BC /* InfoPlist.strings */; };
 		14CC879319471C2000C0D5BC /* OSLocationServiceTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 14CC879219471C2000C0D5BC /* OSLocationServiceTests.m */; };
-		14CC87CF1947253100C0D5BC /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 14CC878419471C2000C0D5BC /* XCTest.framework */; };
-		14EC3F0C196C2A9E00F37648 /* OSMap.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 14EC3F0B196C2A9E00F37648 /* OSMap.framework */; };
-		7A67C5A06468446BB30685C1 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E0B2FD1E65B54B05828D7166 /* libPods.a */; };
-		D6A23983196562C500167DAB /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = D6A23981196562BB00167DAB /* libsqlite3.dylib */; };
+		B33986C61A39ECF4000B6099 /* OSGridPointConversion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B33986C51A39ECF4000B6099 /* OSGridPointConversion.framework */; };
+		B33986C81A39EE3C000B6099 /* MIQTestingFramework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B33986C71A39EE3C000B6099 /* MIQTestingFramework.framework */; };
+		B33986CA1A39EE7B000B6099 /* DHCoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B33986C91A39EE7B000B6099 /* DHCoreData.framework */; };
+		B33986CC1A39EF36000B6099 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B33986CB1A39EF36000B6099 /* CoreData.framework */; };
 		D6A23985196562D700167DAB /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D6A23984196562D700167DAB /* SystemConfiguration.framework */; };
 		D6A23986196562DE00167DAB /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D6A23984196562D700167DAB /* SystemConfiguration.framework */; };
-		D6A2398A1965635600167DAB /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = D6A239871965630200167DAB /* libz.dylib */; };
 		D6A2398C1965641E00167DAB /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D6A2398B1965641E00167DAB /* CoreGraphics.framework */; };
 		D6A2398E1965642500167DAB /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D6A2398D1965642500167DAB /* CoreLocation.framework */; };
 		D6A239901965642E00167DAB /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D6A2398F1965642E00167DAB /* QuartzCore.framework */; };
@@ -72,15 +70,15 @@
 		14CC877619471C2000C0D5BC /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		14CC877A19471C2000C0D5BC /* OSLocationService-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "OSLocationService-Prefix.pch"; sourceTree = "<group>"; };
 		14CC878319471C2000C0D5BC /* OSLocationServiceTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = OSLocationServiceTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		14CC878419471C2000C0D5BC /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		14CC878E19471C2000C0D5BC /* OSLocationServiceTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "OSLocationServiceTests-Info.plist"; sourceTree = "<group>"; };
 		14CC879019471C2000C0D5BC /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		14CC879219471C2000C0D5BC /* OSLocationServiceTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OSLocationServiceTests.m; sourceTree = "<group>"; };
-		14EC3F0B196C2A9E00F37648 /* OSMap.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = OSMap.framework; sourceTree = "<group>"; };
 		29AB5A4C90B1433AA4E55AF4 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
-		D6A23981196562BB00167DAB /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
+		B33986C51A39ECF4000B6099 /* OSGridPointConversion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = OSGridPointConversion.framework; sourceTree = "<group>"; };
+		B33986C71A39EE3C000B6099 /* MIQTestingFramework.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = MIQTestingFramework.framework; sourceTree = "<group>"; };
+		B33986C91A39EE7B000B6099 /* DHCoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = DHCoreData.framework; sourceTree = "<group>"; };
+		B33986CB1A39EF36000B6099 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		D6A23984196562D700167DAB /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
-		D6A239871965630200167DAB /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
 		D6A2398B1965641E00167DAB /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		D6A2398D1965642500167DAB /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		D6A2398F1965642E00167DAB /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
@@ -98,7 +96,6 @@
 		D6C0C936195C2CE300C168ED /* OSLocationTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OSLocationTests.m; sourceTree = "<group>"; };
 		D6D628861962F16400E3B8DA /* OSLocationServiceObserverProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OSLocationServiceObserverProtocol.h; sourceTree = "<group>"; };
 		D6D628881962F94000E3B8DA /* OSLocationServicePreferences.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OSLocationServicePreferences.h; sourceTree = "<group>"; };
-		E0B2FD1E65B54B05828D7166 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -106,13 +103,12 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				14EC3F0C196C2A9E00F37648 /* OSMap.framework in Frameworks */,
 				D6A239901965642E00167DAB /* QuartzCore.framework in Frameworks */,
 				D6A2398E1965642500167DAB /* CoreLocation.framework in Frameworks */,
 				D6A2398C1965641E00167DAB /* CoreGraphics.framework in Frameworks */,
 				D6A23986196562DE00167DAB /* SystemConfiguration.framework in Frameworks */,
-				14CC87CF1947253100C0D5BC /* XCTest.framework in Frameworks */,
 				14CC877719471C2000C0D5BC /* Foundation.framework in Frameworks */,
+				B33986C61A39ECF4000B6099 /* OSGridPointConversion.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -120,16 +116,15 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B33986CC1A39EF36000B6099 /* CoreData.framework in Frameworks */,
 				D6A239931965645200167DAB /* CoreLocation.framework in Frameworks */,
 				D6A239921965644500167DAB /* CoreGraphics.framework in Frameworks */,
 				D6A239911965643E00167DAB /* QuartzCore.framework in Frameworks */,
-				D6A2398A1965635600167DAB /* libz.dylib in Frameworks */,
 				D6A23985196562D700167DAB /* SystemConfiguration.framework in Frameworks */,
-				D6A23983196562C500167DAB /* libsqlite3.dylib in Frameworks */,
 				14CC878B19471C2000C0D5BC /* libOSLocationService.a in Frameworks */,
-				14CC878519471C2000C0D5BC /* XCTest.framework in Frameworks */,
+				B33986CA1A39EE7B000B6099 /* DHCoreData.framework in Frameworks */,
+				B33986C81A39EE3C000B6099 /* MIQTestingFramework.framework in Frameworks */,
 				14CC878619471C2000C0D5BC /* Foundation.framework in Frameworks */,
-				7A67C5A06468446BB30685C1 /* libPods.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -159,16 +154,15 @@
 		14CC877519471C2000C0D5BC /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				14EC3F0B196C2A9E00F37648 /* OSMap.framework */,
+				B33986CB1A39EF36000B6099 /* CoreData.framework */,
+				B33986C91A39EE7B000B6099 /* DHCoreData.framework */,
+				B33986C71A39EE3C000B6099 /* MIQTestingFramework.framework */,
+				B33986C51A39ECF4000B6099 /* OSGridPointConversion.framework */,
 				D6A2398F1965642E00167DAB /* QuartzCore.framework */,
 				D6A2398D1965642500167DAB /* CoreLocation.framework */,
 				D6A2398B1965641E00167DAB /* CoreGraphics.framework */,
-				D6A239871965630200167DAB /* libz.dylib */,
 				D6A23984196562D700167DAB /* SystemConfiguration.framework */,
-				D6A23981196562BB00167DAB /* libsqlite3.dylib */,
 				14CC877619471C2000C0D5BC /* Foundation.framework */,
-				14CC878419471C2000C0D5BC /* XCTest.framework */,
-				E0B2FD1E65B54B05828D7166 /* libPods.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -467,7 +461,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 			};
@@ -498,7 +492,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -516,6 +510,7 @@
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "OSLocationService/OSLocationService-Prefix.pch";
+				ONLY_ACTIVE_ARCH = NO;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -546,6 +541,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 29AB5A4C90B1433AA4E55AF4 /* Pods.xcconfig */;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
@@ -565,6 +561,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/OSLocationServiceTests",
 				);
+				ONLY_ACTIVE_ARCH = NO;
 				OTHER_LDFLAGS = (
 					"-framework",
 					XCTest,
@@ -580,6 +577,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 29AB5A4C90B1433AA4E55AF4 /* Pods.xcconfig */;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",

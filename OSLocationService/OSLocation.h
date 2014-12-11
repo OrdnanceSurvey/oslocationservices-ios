@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import <OSMap/OSMap.h>
+@import OSGridPointConversion;
 
 @import CoreLocation;
 
@@ -35,7 +35,6 @@
  */
 @property (assign, nonatomic, readonly) float horizontalAccuracyMeters;
 
-
 /**
  *  The latitude and longitude of this location returned as a Core Location object.
  */
@@ -45,7 +44,6 @@
  *  The location as an British National Grid Point in eastings and northings
  */
 @property (assign, nonatomic, readonly) OSGridPoint gridPoint;
-
 
 /** @name Initializers */
 
