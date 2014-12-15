@@ -6,8 +6,7 @@
 //  Copyright (c) 2014 Ordnance Survey. All rights reserved.
 //
 
-#import <XCTest/XCTest.h>
-#import <OCMock/OCMock.h>
+@import MIQTestingFramework;
 #import "OSLocationService.h"
 #import "OSCoreLocationManager.h"
 #import "OSLocationServiceObserverProtocol.h"

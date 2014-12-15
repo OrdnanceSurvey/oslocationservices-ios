@@ -1,0 +1,6 @@
+framework module OSGridPointConversion {
+  umbrella header "OSGridPointConversion.h"
+
+  export *
+  module * { export * }
+}

@@ -8,7 +8,7 @@
 
 #import <XCTest/XCTest.h>
 #import "OSLocation.h"
-#import <OSMap/OSMap.h>
+#import <OSGridPointConversion/OSGridPoint.h>
 
 @import CoreLocation;
 
@@ -18,20 +18,17 @@
 
 @implementation OSLocationTests
 
-- (void)setUp
-{
+- (void)setUp {
     [super setUp];
     // Put setup code here. This method is called before the invocation of each test method in the class.
 }
 
-- (void)tearDown
-{
+- (void)tearDown {
     // Put teardown code here. This method is called after the invocation of each test method in the class.
     [super tearDown];
 }
 
-- (void)testLocationReturnsCorrectCoordinate
-{
+- (void)testLocationReturnsCorrectCoordinate {
     OSLocation *location = [[OSLocation alloc] initWithLatitude:50.720754f longitude:-3.5016017f horizontalAccuracy:5];
     CLLocationCoordinate2D actualCoordinate = CLLocationCoordinate2DMake(50.720754f, -3.5016017f);
     CLLocationCoordinate2D testCoordinate = location.coordinate;
@@ -39,37 +36,34 @@
     XCTAssertEqual(actualCoordinate.longitude, testCoordinate.longitude, @"Coordinate returned's longitude was not equal");
 }
 
-- (void)testLocationInitialzesWithCorrectInfo
-{
+- (void)testLocationInitialzesWithCorrectInfo {
     float latitude = 50.938149;
     float longitude = -1.4703144;
     float timeIntervalSince1970 = 15673;
     float horizontalAccuracy = 5.0f;
     CLLocationCoordinate2D coordinate = CLLocationCoordinate2DMake(latitude, longitude);
     OSLocation *location = [[OSLocation alloc] initWithCoordinate:coordinate dateTaken:[NSDate dateWithTimeIntervalSince1970:timeIntervalSince1970] horizontalAccuracy:horizontalAccuracy];
-    
+
     XCTAssertEqual(location.latitude, latitude, @"Latitude was not equal");
     XCTAssertEqual(location.longitude, longitude, @"Longitude was not equal");
     XCTAssertEqual([location.dateTaken timeIntervalSince1970], timeIntervalSince1970, @"Date was not equal");
     XCTAssertEqual(location.horizontalAccuracyMeters, horizontalAccuracy, @"Horizontal accuracy was not equal");
 }
 
-- (void)testLocationReturnsCorrectGridPoint
-{
+- (void)testLocationReturnsCorrectGridPoint {
     //These figures verified as correct externally from frameworks. Should be Explorer House coordinates/grid ref
     float latitude = 50.938149;
     float longitude = -1.4703144;
     float eastings = 437315;
     float northings = 115545;
     float horizontalAccuracy = 5.0f;
-    
+
     OSLocation *location = [[OSLocation alloc] initWithLatitude:latitude longitude:longitude horizontalAccuracy:horizontalAccuracy];
     OSGridPoint gridPoint = location.gridPoint;
-    
+
     //Rounded because we allow a certain amount of inaccuracy
     XCTAssertEqual(round(gridPoint.easting), eastings, @"Eastings was not correct");
     XCTAssertEqual(round(gridPoint.northing), northings, @"Northings was not correct");
-    
 }
 
 @end
