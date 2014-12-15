@@ -14,7 +14,6 @@
 		14CC879319471C2000C0D5BC /* OSLocationServiceTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 14CC879219471C2000C0D5BC /* OSLocationServiceTests.m */; };
 		B33986C61A39ECF4000B6099 /* OSGridPointConversion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B33986C51A39ECF4000B6099 /* OSGridPointConversion.framework */; };
 		B33986C81A39EE3C000B6099 /* MIQTestingFramework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B33986C71A39EE3C000B6099 /* MIQTestingFramework.framework */; };
-		B33986CA1A39EE7B000B6099 /* DHCoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B33986C91A39EE7B000B6099 /* DHCoreData.framework */; };
 		B33986CC1A39EF36000B6099 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B33986CB1A39EF36000B6099 /* CoreData.framework */; };
 		D6A23985196562D700167DAB /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D6A23984196562D700167DAB /* SystemConfiguration.framework */; };
 		D6A23986196562DE00167DAB /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D6A23984196562D700167DAB /* SystemConfiguration.framework */; };
@@ -73,10 +72,8 @@
 		14CC878E19471C2000C0D5BC /* OSLocationServiceTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "OSLocationServiceTests-Info.plist"; sourceTree = "<group>"; };
 		14CC879019471C2000C0D5BC /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		14CC879219471C2000C0D5BC /* OSLocationServiceTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OSLocationServiceTests.m; sourceTree = "<group>"; };
-		29AB5A4C90B1433AA4E55AF4 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
 		B33986C51A39ECF4000B6099 /* OSGridPointConversion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = OSGridPointConversion.framework; sourceTree = "<group>"; };
 		B33986C71A39EE3C000B6099 /* MIQTestingFramework.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = MIQTestingFramework.framework; sourceTree = "<group>"; };
-		B33986C91A39EE7B000B6099 /* DHCoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = DHCoreData.framework; sourceTree = "<group>"; };
 		B33986CB1A39EF36000B6099 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		D6A23984196562D700167DAB /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		D6A2398B1965641E00167DAB /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -122,7 +119,6 @@
 				D6A239911965643E00167DAB /* QuartzCore.framework in Frameworks */,
 				D6A23985196562D700167DAB /* SystemConfiguration.framework in Frameworks */,
 				14CC878B19471C2000C0D5BC /* libOSLocationService.a in Frameworks */,
-				B33986CA1A39EE7B000B6099 /* DHCoreData.framework in Frameworks */,
 				B33986C81A39EE3C000B6099 /* MIQTestingFramework.framework in Frameworks */,
 				14CC878619471C2000C0D5BC /* Foundation.framework in Frameworks */,
 			);
@@ -138,7 +134,6 @@
 				14CC878C19471C2000C0D5BC /* OSLocationServiceTests */,
 				14CC877519471C2000C0D5BC /* Frameworks */,
 				14CC877419471C2000C0D5BC /* Products */,
-				29AB5A4C90B1433AA4E55AF4 /* Pods.xcconfig */,
 			);
 			sourceTree = "<group>";
 		};
@@ -155,7 +150,6 @@
 			isa = PBXGroup;
 			children = (
 				B33986CB1A39EF36000B6099 /* CoreData.framework */,
-				B33986C91A39EE7B000B6099 /* DHCoreData.framework */,
 				B33986C71A39EE3C000B6099 /* MIQTestingFramework.framework */,
 				B33986C51A39ECF4000B6099 /* OSGridPointConversion.framework */,
 				D6A2398F1965642E00167DAB /* QuartzCore.framework */,
@@ -232,12 +226,10 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 14CC879619471C2000C0D5BC /* Build configuration list for PBXNativeTarget "OSLocationService" */;
 			buildPhases = (
-				969D6BCCB02A457BB553030E /* Check Pods Manifest.lock */,
 				D66B362719630FBC0050DBC3 /* ShellScript */,
 				14CC876F19471C2000C0D5BC /* Sources */,
 				14CC877019471C2000C0D5BC /* Frameworks */,
 				14CC877119471C2000C0D5BC /* CopyFiles */,
-				A2F02841DAB4465785DBEFAF /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -252,12 +244,10 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 14CC879919471C2000C0D5BC /* Build configuration list for PBXNativeTarget "OSLocationServiceTests" */;
 			buildPhases = (
-				3B84CCDC4A554008BBB73BB0 /* Check Pods Manifest.lock */,
 				14CC877F19471C2000C0D5BC /* Sources */,
 				14CC878019471C2000C0D5BC /* Frameworks */,
 				14CC878119471C2000C0D5BC /* Resources */,
 				D6C0C972195C440000C168ED /* Headers */,
-				73F9228B9C384CA685910041 /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -308,66 +298,6 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		3B84CCDC4A554008BBB73BB0 /* Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Check Pods Manifest.lock";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
-			showEnvVarsInLog = 0;
-		};
-		73F9228B9C384CA685910041 /* Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Pods-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		969D6BCCB02A457BB553030E /* Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Check Pods Manifest.lock";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
-			showEnvVarsInLog = 0;
-		};
-		A2F02841DAB4465785DBEFAF /* Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Pods-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 		D66B362719630FBC0050DBC3 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -500,7 +430,6 @@
 		};
 		14CC879719471C2000C0D5BC /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 29AB5A4C90B1433AA4E55AF4 /* Pods.xcconfig */;
 			buildSettings = {
 				DSTROOT = /tmp/OSLocationService.dst;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -520,7 +449,6 @@
 		};
 		14CC879819471C2000C0D5BC /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 29AB5A4C90B1433AA4E55AF4 /* Pods.xcconfig */;
 			buildSettings = {
 				DSTROOT = /tmp/OSLocationService.dst;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -539,7 +467,6 @@
 		};
 		14CC879A19471C2000C0D5BC /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 29AB5A4C90B1433AA4E55AF4 /* Pods.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
@@ -575,7 +502,6 @@
 		};
 		14CC879B19471C2000C0D5BC /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 29AB5A4C90B1433AA4E55AF4 /* Pods.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (

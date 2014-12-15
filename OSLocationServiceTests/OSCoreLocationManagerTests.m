@@ -7,7 +7,7 @@
 //
 
 #import <XCTest/XCTest.h>
-#import <OCMock/OCMock.h>
+@import MIQTestingFramework;
 #import "OSCoreLocationManager.h"
 
 @import CoreLocation;
