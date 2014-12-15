@@ -14,9 +14,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "B3A082C51A3EFAF400DAFF3E"
-               BuildableName = "OSLocationTestApp.app"
-               BlueprintName = "OSLocationTestApp"
+               BlueprintIdentifier = "B3A0831C1A3EFF6100DAFF3E"
+               BuildableName = "OSLocationTestHost.app"
+               BlueprintName = "OSLocationTestHost"
                ReferencedContainer = "container:OSLocationService.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -28,9 +28,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "B3A082DD1A3EFAF400DAFF3E"
-               BuildableName = "OSLocationTestAppTests.xctest"
-               BlueprintName = "OSLocationTestAppTests"
+               BlueprintIdentifier = "B3A083341A3EFF6100DAFF3E"
+               BuildableName = "OSLocationTestHostTests.xctest"
+               BlueprintName = "OSLocationTestHostTests"
                ReferencedContainer = "container:OSLocationService.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -46,9 +46,9 @@
             skipped = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "B3A082DD1A3EFAF400DAFF3E"
-               BuildableName = "OSLocationTestAppTests.xctest"
-               BlueprintName = "OSLocationTestAppTests"
+               BlueprintIdentifier = "B3A083341A3EFF6100DAFF3E"
+               BuildableName = "OSLocationTestHostTests.xctest"
+               BlueprintName = "OSLocationTestHostTests"
                ReferencedContainer = "container:OSLocationService.xcodeproj">
             </BuildableReference>
          </TestableReference>
@@ -56,9 +56,9 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "B3A082C51A3EFAF400DAFF3E"
-            BuildableName = "OSLocationTestApp.app"
-            BlueprintName = "OSLocationTestApp"
+            BlueprintIdentifier = "B3A0831C1A3EFF6100DAFF3E"
+            BuildableName = "OSLocationTestHost.app"
+            BlueprintName = "OSLocationTestHost"
             ReferencedContainer = "container:OSLocationService.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
@@ -75,9 +75,9 @@
       <BuildableProductRunnable>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "B3A082C51A3EFAF400DAFF3E"
-            BuildableName = "OSLocationTestApp.app"
-            BlueprintName = "OSLocationTestApp"
+            BlueprintIdentifier = "B3A0831C1A3EFF6100DAFF3E"
+            BuildableName = "OSLocationTestHost.app"
+            BlueprintName = "OSLocationTestHost"
             ReferencedContainer = "container:OSLocationService.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
@@ -93,9 +93,9 @@
       <BuildableProductRunnable>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "B3A082C51A3EFAF400DAFF3E"
-            BuildableName = "OSLocationTestApp.app"
-            BlueprintName = "OSLocationTestApp"
+            BlueprintIdentifier = "B3A0831C1A3EFF6100DAFF3E"
+            BuildableName = "OSLocationTestHost.app"
+            BlueprintName = "OSLocationTestHost"
             ReferencedContainer = "container:OSLocationService.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
