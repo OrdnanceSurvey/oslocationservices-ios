@@ -11,17 +11,16 @@
 #import "OSLocationServiceOptions.h"
 #import "OSLocationServicePreferences.h"
 
+@class OSLocationService;
+
+@protocol OSLocationServiceDelegate<NSObject>
+
+@optional
+- (void)locationService:(OSLocationService *)service didUpdateLocations:(NSArray *)locations;
+- (void)locationService:(OSLocationService *)service didUpdateHeading:(OSLocationDirection)heading;
+@end
+
 @interface OSLocationService : NSObject
-
-/** @name Instances */
-
-/**
-*  The default instance. You should only use the default instance to avoid conflicting management of
-*  underlying services.
-*
-*  @return The default OSLocationService
-*/
-+ (instancetype)defaultService;
 
 /** @name Check Available Options */
 
@@ -86,7 +85,8 @@
 /**
  *  Trigger the location service to start getting updates.
  *  After calling this method, you should check the Options you passed are the same as the options returned, which indicates what actually what start updating. Options that are not available are overridden to off.
- *  Additionally, you should set up KVO to watch the properties you are intested in.
+ *  Additionally, you should set up KVO to watch the properties you are intested in,
+ *  or implement the OSLocationServiceDelegate protocol in a delegate.
  *
  *  @param updateOptions The properties you would like to start updating.
  *  @param sender        The object sending this method (i.e. self).
@@ -121,5 +121,7 @@
  *  @return The Options for the object
  */
 - (OSLocationServiceUpdateOptions)optionsForSender:(id)sender;
+
+@property (weak, nonatomic) id<OSLocationServiceDelegate> delegate;
 
 @end
