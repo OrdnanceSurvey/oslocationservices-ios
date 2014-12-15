@@ -21,8 +21,8 @@
 //Property redefinitions to make readwrite
 @property (strong, nonatomic, readwrite) OSLocation *currentLocation;
 @property (strong, nonatomic, readwrite) NSArray *cachedLocations;
-@property (assign, nonatomic, readwrite) double headingMagneticDegrees;
-@property (assign, nonatomic, readwrite) double headingTrueDegrees;
+@property (assign, nonatomic, readwrite) OSLocationDirection headingMagneticDegrees;
+@property (assign, nonatomic, readwrite) OSLocationDirection headingTrueDegrees;
 @property (assign, nonatomic, readwrite) double headingAccuracy;
 
 @end

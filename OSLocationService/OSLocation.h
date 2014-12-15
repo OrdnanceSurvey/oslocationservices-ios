@@ -8,22 +8,29 @@
 
 #import <Foundation/Foundation.h>
 @import OSGridPointConversion;
-
 @import CoreLocation;
 
-@interface OSLocation : NSObject
+/*
+ *  OSLocationDirection
+ *
+ *  Discussion:
+ *    As per CLLocationDirection. Type used to represent heading in degrees from
+ *    0 to 359.9. Negative value indicates an invalid direction.
+ */
+typedef double OSLocationDirection;
 
+@interface OSLocation : NSObject
 /** @name Properties */
 
 /**
 *  Latitude in float format.
 */
-@property (assign, nonatomic, readonly) float latitude;
+@property (assign, nonatomic, readonly) double latitude;
 
 /**
  *  Longitude in float format.
  */
-@property (assign, nonatomic, readonly) float longitude;
+@property (assign, nonatomic, readonly) double longitude;
 
 /**
  *  The date this location was valid for.
@@ -57,10 +64,10 @@
  *
  *  @return Initialized OSLocation object
  */
-- (instancetype)initWithLatitude:(float)latitude
-                       longitude:(float)longitude
+- (instancetype)initWithLatitude:(double)latitude
+                       longitude:(double)longitude
                        dateTaken:(NSDate *)date
-              horizontalAccuracy:(float)horizontalAccuracy;
+              horizontalAccuracy:(double)horizontalAccuracy;
 
 /**
  *  Initialize with the current date/time
@@ -71,9 +78,9 @@
  *
  *  @return Initialized OSLocation object
  */
-- (instancetype)initWithLatitude:(float)latitude
-                       longitude:(float)longitude
-              horizontalAccuracy:(float)horizontalAccuracy;
+- (instancetype)initWithLatitude:(double)latitude
+                       longitude:(double)longitude
+              horizontalAccuracy:(double)horizontalAccuracy;
 
 /**
  *  Initialize with a Core Location co-ordinate
@@ -86,6 +93,6 @@
  */
 - (instancetype)initWithCoordinate:(CLLocationCoordinate2D)coordinate
                          dateTaken:(NSDate *)date
-                horizontalAccuracy:(float)horizontalAccuracy;
+                horizontalAccuracy:(double)horizontalAccuracy;
 
 @end

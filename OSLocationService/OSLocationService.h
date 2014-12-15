@@ -51,12 +51,12 @@
 /**
  *  The device's heading in degrees relative to magnetic north. Only updates when OSLocationServiceHeadingUpdates is on.
  */
-@property (assign, nonatomic, readonly) double headingMagneticDegrees;
+@property (assign, nonatomic, readonly) OSLocationDirection headingMagneticDegrees;
 
 /**
  *  The device's heading in degrees relative to true north. Only updates when OSLocationServiceHeadingUpdates is on.
  */
-@property (assign, nonatomic, readonly) double headingTrueDegrees;
+@property (assign, nonatomic, readonly) OSLocationDirection headingTrueDegrees;
 
 /**
  *  The accuracy of the heading values given. Only updates when OSLocationServiceHeadingUpdates is on.

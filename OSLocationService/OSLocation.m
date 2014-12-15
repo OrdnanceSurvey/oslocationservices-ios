@@ -11,8 +11,7 @@
 @implementation OSLocation
 
 #pragma mark - Initializers
-- (instancetype)initWithLatitude:(float)latitude longitude:(float)longitude dateTaken:(NSDate *)date horizontalAccuracy:(float)horizontalAccuracy
-{
+- (instancetype)initWithLatitude:(double)latitude longitude:(double)longitude dateTaken:(NSDate *)date horizontalAccuracy:(double)horizontalAccuracy {
     self = [super init];
     if (self) {
         _latitude = latitude;
@@ -23,28 +22,24 @@
     return self;
 }
 
-- (instancetype)initWithLatitude:(float)latitude longitude:(float)longitude horizontalAccuracy:(float)horizontalAccuracy
-{
+- (instancetype)initWithLatitude:(double)latitude longitude:(double)longitude horizontalAccuracy:(double)horizontalAccuracy {
     NSDate *dateNow = [NSDate date];
     self = [self initWithLatitude:latitude longitude:longitude dateTaken:dateNow horizontalAccuracy:horizontalAccuracy];
     return self;
 }
 
-- (instancetype)initWithCoordinate:(CLLocationCoordinate2D)coordinate dateTaken:(NSDate *)date horizontalAccuracy:(float)horizontalAccuracy
-{
+- (instancetype)initWithCoordinate:(CLLocationCoordinate2D)coordinate dateTaken:(NSDate *)date horizontalAccuracy:(double)horizontalAccuracy {
     self = [self initWithLatitude:coordinate.latitude longitude:coordinate.longitude dateTaken:date horizontalAccuracy:horizontalAccuracy];
     return self;
 }
 
 #pragma mark - Computed Property Getters
 
-- (CLLocationCoordinate2D)coordinate
-{
+- (CLLocationCoordinate2D)coordinate {
     return CLLocationCoordinate2DMake(self.latitude, self.longitude);
 }
 
-- (OSGridPoint)gridPoint
-{
+- (OSGridPoint)gridPoint {
     return OSGridPointForCoordinate([self coordinate]);
 }
 
