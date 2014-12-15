@@ -11,63 +11,59 @@
 
 @implementation OSCoreLocationManager
 
-+ (OSLocationServiceAuthorizationStatus)authorizationStatus
-{
++ (OSLocationServiceAuthorizationStatus)authorizationStatus {
     return [OSCoreLocationManager OSAuthorizationStatusFromCLAuthorizationStatus:[CLLocationManager authorizationStatus]];
 }
 
-+ (BOOL)locationUpdatesAvailable
-{
++ (BOOL)locationUpdatesAvailable {
     OSLocationServiceAuthorizationStatus authStatus = [OSCoreLocationManager authorizationStatus];
     switch (authStatus) {
         case OSLocationServiceAuthorizationNotDetermined:
             return YES;
             break;
-            
+
         case OSLocationServiceAuthorizationAllowedAlways:
             return YES;
             break;
-            
+
         case OSLocationServiceAuthorizationAllowedWhenInUse:
             return YES;
             break;
-            
+
         default:
             return NO;
             break;
     }
 }
 
-+ (BOOL)headingUpdatesAvailable
-{
++ (BOOL)headingUpdatesAvailable {
     return [CLLocationManager headingAvailable];
 }
 
-+ (OSLocationServiceAuthorizationStatus)OSAuthorizationStatusFromCLAuthorizationStatus:(CLAuthorizationStatus)clAuthorizationStatus
-{
++ (OSLocationServiceAuthorizationStatus)OSAuthorizationStatusFromCLAuthorizationStatus:(CLAuthorizationStatus)clAuthorizationStatus {
     switch (clAuthorizationStatus) {
         case kCLAuthorizationStatusNotDetermined:
             return OSLocationServiceAuthorizationNotDetermined;
             break;
-            
+
         case kCLAuthorizationStatusRestricted:
             return OSLocationServiceAuthorizationRestricted;
             break;
-            
+
         case kCLAuthorizationStatusDenied:
             return OSLocationServiceAuthorizationDenied;
             break;
-            
-        case kCLAuthorizationStatusAuthorized:
+
+        case kCLAuthorizationStatusAuthorizedAlways:
             return OSLocationServiceAuthorizationAllowedAlways;
             break;
-            
-            //To be added: kCLAuthorizationStatusAuthorizedWhenInUse for iOS8
-            
+
+        //To be added: kCLAuthorizationStatusAuthorizedWhenInUse for iOS8
+
         default:
             break;
     }
-    
+
     return OSLocationServiceAuthorizationUnknown;
 }
 

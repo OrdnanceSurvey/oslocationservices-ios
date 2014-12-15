@@ -23,7 +23,6 @@
 */
 + (instancetype)defaultService;
 
-
 /** @name Check Available Options */
 
 /**
@@ -32,7 +31,6 @@
  *  @return The available Options to activate.
  */
 + (OSLocationServiceUpdateOptions)availableOptions;
-
 
 /** @name KVO Properties */
 
@@ -65,7 +63,6 @@
  */
 @property (assign, nonatomic, readonly) double headingAccuracy;
 
-
 /** @name Service Preferences */
 /** Set preferences for the service, such as accuracies */
 
@@ -73,7 +70,6 @@
  *  Whether to show the system compass calibration screen. Defaults to YES.
  */
 @property (assign, nonatomic) BOOL shouldShowHeadingCalibration;
-
 
 /**
  *  The number of degrees the heading must change before values are updated. Set to 0 for no filter (all events).
@@ -84,8 +80,6 @@
  *  Find whether the app is authorized to use Location Services. Required for OSLocationServiceLocationUpdates. If not allowed, the option is not available. Observe this property for changes to the authorization status.
  */
 @property (assign, nonatomic, readonly) OSLocationServiceAuthorizationStatus locationAuthorizationStatus;
-
-
 
 /** @name Starting updates */
 
@@ -100,7 +94,6 @@
  *  @return The actual options that will start to change. This may not be the same if, for example, an option you requested isn't available for this device. You should check that what you pass as an argument as Options and what is returned are equal, or act accoridngly if they are not.
  */
 - (OSLocationServiceUpdateOptions)startUpdatingWithOptions:(OSLocationServiceUpdateOptions)updateOptions sender:(id)sender;
-
 
 /** @name Stopping updates */
 
