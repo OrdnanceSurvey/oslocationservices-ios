@@ -20,164 +20,138 @@
 
 @implementation OSLocationServiceTests
 
-- (void)setUp
-{
+- (void)setUp {
     [super setUp];
     // Put setup code here. This method is called before the invocation of each test method in the class.
 }
 
-- (void)tearDown
-{
+- (void)tearDown {
     // Put teardown code here. This method is called after the invocation of each test method in the class.
     [super tearDown];
 }
 
-- (id)mockCoreLocationManagerAllowLocation:(BOOL)allowLocation allowHeading:(BOOL)allowHeading
-{
+- (id)mockCoreLocationManagerAllowLocation:(BOOL)allowLocation allowHeading:(BOOL)allowHeading {
     id mockCoreLocationManager = [OCMockObject niceMockForClass:[OSCoreLocationManager class]];
     [[[[mockCoreLocationManager stub] classMethod] andReturnValue:OCMOCK_VALUE(allowLocation)] locationUpdatesAvailable];
     [[[[mockCoreLocationManager stub] classMethod] andReturnValue:OCMOCK_VALUE(allowHeading)] headingUpdatesAvailable];
-    
+
     return mockCoreLocationManager;
 }
 
-- (void)testAddingLocationOptionTurnsOnCoreLocation
-{
-    id mockLocationManager = [OCMockObject niceMockForClass:[CLLocationManager class]];
-    [[[mockLocationManager stub] andReturn:mockLocationManager] alloc];
-    
-    id mockCoreLocationManager = [self mockCoreLocationManagerAllowLocation:YES allowHeading:YES];
-        
+- (void)testAddingLocationOptionTurnsOnCoreLocation {
+    id mockLocationManager = OCMClassMock([CLLocationManager class]);
+    OCMStub([mockLocationManager alloc]).andReturn(mockLocationManager);
+
     OSLocationService *service = [[OSLocationService alloc] init];
     NSString *dummyIdentifier = @"Dummy";
     [service startUpdatingWithOptions:OSLocationServiceLocationUpdates sender:dummyIdentifier];
-    
+
     OCMVerify([mockLocationManager startUpdatingLocation]);
 }
 
-- (void)testAddingHeadingOptionTurnsOnCoreLocationHeading
-{
+- (void)testAddingHeadingOptionTurnsOnCoreLocationHeading {
     id mockLocationManager = [OCMockObject niceMockForClass:[CLLocationManager class]];
     [[[mockLocationManager stub] andReturn:mockLocationManager] alloc];
-    
-    id mockCoreLocationManager = [self mockCoreLocationManagerAllowLocation:YES allowHeading:YES];
-    
+
+    [self mockCoreLocationManagerAllowLocation:YES allowHeading:YES];
+
     OSLocationService *service = [OSLocationService defaultService];
     NSString *dummyIdentifier = @"Dummy";
     [service startUpdatingWithOptions:OSLocationServiceHeadingUpdates sender:dummyIdentifier];
-    
+
     OCMVerify([mockLocationManager startUpdatingHeading]);
 }
 
-- (void)testStopUpdateForObjectRemovesAllOptions
-{
+- (void)testStopUpdateForObjectRemovesAllOptions {
     OSLocationService *service = [OSLocationService defaultService];
     NSString *dummyIdentifier = @"Dummy";
     [service startUpdatingWithOptions:OSLocationServiceHeadingUpdates | OSLocationServiceLocationUpdates sender:dummyIdentifier];
-    
+
     [service stopUpdatesForSender:dummyIdentifier];
-    
+
     OSLocationServiceUpdateOptions expectedOptions = OSLocationServiceNoUpdates;
     OSLocationServiceUpdateOptions actualOptions = [service optionsForSender:dummyIdentifier];
     XCTAssertEqual(expectedOptions, actualOptions, @"All Options were not removed properly");
 }
 
-- (void)testStopUpdatesForCertainOptionsOnlyTurnsOffThoseOptions
-{
-    id mockCoreLocationManager = [self mockCoreLocationManagerAllowLocation:YES allowHeading:YES];
-    
+- (void)testStopUpdatesForCertainOptionsOnlyTurnsOffThoseOptions {
+    [self mockCoreLocationManagerAllowLocation:YES allowHeading:YES];
+
     OSLocationService *service = [OSLocationService defaultService];
     NSString *dummyIdentifier = @"Dummy";
     OSLocationServiceUpdateOptions startingOptions = OSLocationServiceHeadingUpdates | OSLocationServiceLocationUpdates;
     [service startUpdatingWithOptions:startingOptions sender:dummyIdentifier];
-    
+
     OSLocationServiceUpdateOptions optionsToRemove = OSLocationServiceLocationUpdates;
     [service stopUpdatesForOptions:optionsToRemove sender:dummyIdentifier];
-    
+
     OSLocationServiceUpdateOptions expectedReaminingOptions = OSLocationServiceHeadingUpdates;
     OSLocationServiceUpdateOptions actualRemainingOptions = [service optionsForSender:dummyIdentifier];
-    
+
     XCTAssertEqual(expectedReaminingOptions, actualRemainingOptions, @"Selected Options were not removed properly");
 }
 
-- (void)testPassingIncompatibleSenderToStartThrowsException
-{
-    id mockCoreLocationManager = [self mockCoreLocationManagerAllowLocation:YES allowHeading:YES];
+- (void)testPassingIncompatibleSenderToStartThrowsException {
     NSObject *nonCopyingObject = [[NSObject alloc] init];
-    
+
     OSLocationService *service = [OSLocationService defaultService];
     XCTAssertThrows([service startUpdatingWithOptions:OSLocationServiceHeadingUpdates sender:nonCopyingObject], @"Invalid object doesn't throw exception");
 }
 
-- (void)testPassingNilSenderToStartThrowsException
-{
-    id mockCoreLocationManager = [self mockCoreLocationManagerAllowLocation:YES allowHeading:YES];
+- (void)testPassingNilSenderToStartThrowsException {
     NSObject *nonCopyingObject = nil;
-    
+
     OSLocationService *service = [OSLocationService defaultService];
     XCTAssertThrows([service startUpdatingWithOptions:OSLocationServiceHeadingUpdates sender:nonCopyingObject], @"Nil object doesn't throw exception");
 }
 
-- (void)testPassingCompatibleSenderToStartThatImplementsNSCopyingDoesntThrowException
-{
-    id mockCoreLocationManager = [self mockCoreLocationManagerAllowLocation:YES allowHeading:YES];
+- (void)testPassingCompatibleSenderToStartThatImplementsNSCopyingDoesntThrowException {
     NSString *validObject = @"Valid"; //NSString conforms to NSCopying
-    
+
     OSLocationService *service = [OSLocationService defaultService];
     XCTAssertNoThrow([service startUpdatingWithOptions:OSLocationServiceHeadingUpdates sender:validObject], @"Invalid object doesn't throw exception");
 }
 
-- (void)testPassingCompatibleSenderToStartThatImplementsLocationServiceProtocolDoesntThrowException
-{
-    id mockCoreLocationManager = [self mockCoreLocationManagerAllowLocation:YES allowHeading:YES];
+- (void)testPassingCompatibleSenderToStartThatImplementsLocationServiceProtocolDoesntThrowException {
     id mockValidObject = [OCMockObject mockForProtocol:@protocol(OSLocationServiceObserverProtocol)];
     [[[mockValidObject stub] andReturn:@"DummyID"] locationServiceIdentifier];
-    
+
     OSLocationService *service = [OSLocationService defaultService];
     XCTAssertNoThrow([service startUpdatingWithOptions:OSLocationServiceHeadingUpdates sender:mockValidObject], @"Invalid object doesn't throw exception");
 }
 
-- (void)testPassingIncompatibleSenderToOptionsForSenderReturnsNoOptions
-{
-    NSObject *invalidObject = [[NSObject alloc] init];
+- (void)testPassingIncompatibleSenderToOptionsForSenderReturnsNoOptions {
     OSLocationService *service = [OSLocationService defaultService];
-    
+
     OSLocationServiceUpdateOptions expectedOptions = OSLocationServiceNoUpdates;
     OSLocationServiceUpdateOptions actualOptions = [service optionsForSender:service];
     XCTAssertEqual(expectedOptions, actualOptions, @"Passing invalid object returns some options");
 }
 
-- (void)testPassingZeroHeadingFilterUsesCLHeadingFilterNone
-{
+- (void)testPassingZeroHeadingFilterUsesCLHeadingFilterNone {
     id mockLocationManager = [OCMockObject niceMockForClass:[CLLocationManager class]];
     [[[mockLocationManager stub] andReturn:mockLocationManager] alloc];
-    
-    id mockCoreLocationManager = [self mockCoreLocationManagerAllowLocation:YES allowHeading:YES];
-    
+
     OSLocationService *service = [[OSLocationService alloc] init];
     NSString *dummyIdentifier = @"Dummy";
     [service startUpdatingWithOptions:OSLocationServiceHeadingUpdates sender:dummyIdentifier];
     service.headingFilter = 0;
-    
-    OCMVerify([((CLLocationManager *)mockLocationManager) setHeadingFilter:kCLHeadingFilterNone]);
+
+    OCMVerify([((CLLocationManager *)mockLocationManager)setHeadingFilter:kCLHeadingFilterNone]);
     XCTAssertEqual(service.headingFilter, 0, @"Did not set property");
 }
 
-- (void)testPassingHeadingFilterMoreThanZeroSetsHeadingFilter
-{
+- (void)testPassingHeadingFilterMoreThanZeroSetsHeadingFilter {
     id mockLocationManager = [OCMockObject niceMockForClass:[CLLocationManager class]];
     [[[mockLocationManager stub] andReturn:mockLocationManager] alloc];
-    
-    id mockCoreLocationManager = [self mockCoreLocationManagerAllowLocation:YES allowHeading:YES];
-    
+
     OSLocationService *service = [[OSLocationService alloc] init];
     NSString *dummyIdentifier = @"Dummy";
     [service startUpdatingWithOptions:OSLocationServiceHeadingUpdates sender:dummyIdentifier];
     service.headingFilter = 5;
-    
-    OCMVerify([((CLLocationManager *)mockLocationManager) setHeadingFilter:5.0f]);
+
+    OCMVerify([((CLLocationManager *)mockLocationManager)setHeadingFilter:5.0f]);
     XCTAssertEqual(service.headingFilter, 5.0f, @"Did not set property");
 }
-
 
 @end
