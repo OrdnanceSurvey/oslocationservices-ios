@@ -9,7 +9,6 @@
 @import MIQTestingFramework;
 #import "OSLocationService.h"
 #import "OSCoreLocationManager.h"
-#import "OSLocationServiceObserverProtocol.h"
 #import "OSServiceRelationshipManager.h"
 
 @import CoreLocation;

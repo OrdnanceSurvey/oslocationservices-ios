@@ -6,9 +6,8 @@
 //  Copyright (c) 2014 Ordnance Survey. All rights reserved.
 //
 
-typedef NS_OPTIONS(NSUInteger, OSLocationServiceUpdateOptions) {
+typedef NS_OPTIONS(NSUInteger, OSLocationServiceUpdateOptions){
     OSLocationServiceNoUpdates = 0,
     OSLocationServiceLocationUpdates = 1 << 0,
     OSLocationServiceHeadingUpdates = 1 << 1,
-    OSLocationServiceAllOptions = OSLocationServiceLocationUpdates | OSLocationServiceHeadingUpdates
-};
+    OSLocationServiceAllOptions = OSLocationServiceLocationUpdates | OSLocationServiceHeadingUpdates};
