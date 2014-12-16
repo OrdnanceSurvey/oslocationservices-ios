@@ -49,6 +49,13 @@
 			remoteGlobalIDString = B3A0831C1A3EFF6100DAFF3E;
 			remoteInfo = OSLocationTestHost;
 		};
+		B3A083501A3F155600DAFF3E /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 14CC876B19471C2000C0D5BC /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 14CC877219471C2000C0D5BC;
+			remoteInfo = OSLocationService;
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -296,6 +303,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				B3A083511A3F155600DAFF3E /* PBXTargetDependency */,
 			);
 			name = OSLocationTestHost;
 			productName = OSLocationTestHost;
@@ -434,6 +442,11 @@
 			isa = PBXTargetDependency;
 			target = B3A0831C1A3EFF6100DAFF3E /* OSLocationTestHost */;
 			targetProxy = B3A083361A3EFF6100DAFF3E /* PBXContainerItemProxy */;
+		};
+		B3A083511A3F155600DAFF3E /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 14CC877219471C2000C0D5BC /* OSLocationService */;
+			targetProxy = B3A083501A3F155600DAFF3E /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 

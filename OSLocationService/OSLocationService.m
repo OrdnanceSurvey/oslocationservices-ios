@@ -21,8 +21,8 @@
 //Property redefinitions to make readwrite
 @property (strong, nonatomic, readwrite) OSLocation *currentLocation;
 @property (strong, nonatomic, readwrite) NSArray *cachedLocations;
-@property (assign, nonatomic, readwrite) double headingMagneticDegrees;
-@property (assign, nonatomic, readwrite) double headingTrueDegrees;
+@property (assign, nonatomic, readwrite) OSLocationDirection headingMagneticDegrees;
+@property (assign, nonatomic, readwrite) OSLocationDirection headingTrueDegrees;
 @property (assign, nonatomic, readwrite) double headingAccuracy;
 
 @end
@@ -41,16 +41,6 @@
     }
 
     return availableOptions;
-}
-
-+ (instancetype)defaultService {
-    static dispatch_once_t pred;
-    static id sharedInstance = nil;
-
-    dispatch_once(&pred, ^{
-        sharedInstance = [[self alloc] init];
-    });
-    return sharedInstance;
 }
 
 - (instancetype)init {
@@ -221,6 +211,14 @@
     [self willChangeValueForKey:@"currentLocation"];
     _currentLocation = currentLocation;
     [self didChangeValueForKey:@"currentLocation"];
+
+    if ([self.delegate respondsToSelector:@selector(locationService:didUpdateLocations:)]) {
+        if ([locations count] > 1) {
+            [self.delegate locationService:self didUpdateLocations:self.cachedLocations];
+        } else {
+            [self.delegate locationService:self didUpdateLocations:@[ currentLocation ]];
+        }
+    }
 }
 
 - (void)locationManager:(CLLocationManager *)manager didUpdateHeading:(CLHeading *)newHeading {
@@ -235,6 +233,10 @@
     [self willChangeValueForKey:@"headingAccuracy"];
     _headingAccuracy = newHeading.headingAccuracy;
     [self didChangeValueForKey:@"headingAccuracy"];
+
+    if ([self.delegate respondsToSelector:@selector(locationService:didUpdateHeading:)]) {
+        [self.delegate locationService:self didUpdateHeading:self.headingTrueDegrees];
+    }
 }
 
 - (BOOL)locationManagerShouldDisplayHeadingCalibration:(CLLocationManager *)manager {

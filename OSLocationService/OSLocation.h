@@ -8,22 +8,46 @@
 
 #import <Foundation/Foundation.h>
 @import OSGridPointConversion;
-
 @import CoreLocation;
 
-@interface OSLocation : NSObject
+/*
+ *  OSLocationDirection
+ *
+ *    As per CLLocationDirection. Type used to represent heading in degrees from
+ *    0 to 359.9. Negative value indicates an invalid direction.
+ */
+typedef double OSLocationDirection;
 
+/*
+ *  OSLocationDegrees
+ *
+ *    Used to represent a latitude or longitude in WGS84 projection.
+ *    Values North of the equator or East of the Greenwich meridian will be postitive.
+ *    Values South of the equator or West of the Greenwich meridian will be negative.
+ */
+typedef double OSLocationDegrees;
+
+/*
+ *  OSLocationAccuracy
+ *
+ *  Discussion:
+ *    Represents a the accuracy of a location in meters. A lower value indicates
+ *    a more precise location. Invalid locations will have negative accuracy.
+ */
+typedef double OSLocationAccuracy;
+
+@interface OSLocation : NSObject
 /** @name Properties */
 
 /**
 *  Latitude in float format.
 */
-@property (assign, nonatomic, readonly) float latitude;
+@property (assign, nonatomic, readonly) OSLocationDegrees latitude;
 
 /**
  *  Longitude in float format.
  */
-@property (assign, nonatomic, readonly) float longitude;
+@property (assign, nonatomic, readonly) OSLocationDegrees longitude;
 
 /**
  *  The date this location was valid for.
@@ -33,7 +57,7 @@
 /**
  *  The accuracy of the latitude and longitude for this location
  */
-@property (assign, nonatomic, readonly) float horizontalAccuracyMeters;
+@property (assign, nonatomic, readonly) OSLocationAccuracy horizontalAccuracyMeters;
 
 /**
  *  The latitude and longitude of this location returned as a Core Location object.
@@ -57,10 +81,10 @@
  *
  *  @return Initialized OSLocation object
  */
-- (instancetype)initWithLatitude:(float)latitude
-                       longitude:(float)longitude
+- (instancetype)initWithLatitude:(OSLocationDegrees)latitude
+                       longitude:(OSLocationDegrees)longitude
                        dateTaken:(NSDate *)date
-              horizontalAccuracy:(float)horizontalAccuracy;
+              horizontalAccuracy:(OSLocationAccuracy)horizontalAccuracy;
 
 /**
  *  Initialize with the current date/time
@@ -71,9 +95,9 @@
  *
  *  @return Initialized OSLocation object
  */
-- (instancetype)initWithLatitude:(float)latitude
-                       longitude:(float)longitude
-              horizontalAccuracy:(float)horizontalAccuracy;
+- (instancetype)initWithLatitude:(OSLocationDegrees)latitude
+                       longitude:(OSLocationDegrees)longitude
+              horizontalAccuracy:(OSLocationAccuracy)horizontalAccuracy;
 
 /**
  *  Initialize with a Core Location co-ordinate
@@ -86,6 +110,16 @@
  */
 - (instancetype)initWithCoordinate:(CLLocationCoordinate2D)coordinate
                          dateTaken:(NSDate *)date
-                horizontalAccuracy:(float)horizontalAccuracy;
+                horizontalAccuracy:(OSLocationAccuracy)horizontalAccuracy;
+
+/**
+ *  Test that two locations are equal, within tolerance.
+ *
+ *  @param other The location to compare to.
+ *
+ *  @return true if the two locations are within 0.00001 degrees of each other 
+ *  in latitude and longitude (which is approximately 1m at 50 degrees of latitude).
+ */
+- (BOOL)isEqualToLocation:(OSLocation *)other;
 
 @end
