@@ -10,6 +10,13 @@
 #import "OSLocation.h"
 #import "OSLocationServiceOptions.h"
 #import "OSLocationServicePreferences.h"
+#import "OSLocationServiceObserverProtocol.h"
+
+//! Project version number for OSGridPointConversion framework.
+FOUNDATION_EXPORT double OSLocationServiceVersionNumber;
+
+//! Project version string for OSGridPointConversion framework.
+FOUNDATION_EXPORT const unsigned char OSLocationServiceVersionString[];
 
 @class OSLocationService;
 
