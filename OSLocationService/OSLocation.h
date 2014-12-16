@@ -112,4 +112,14 @@ typedef double OSLocationAccuracy;
                          dateTaken:(NSDate *)date
                 horizontalAccuracy:(OSLocationAccuracy)horizontalAccuracy;
 
+/**
+ *  Test that two locations are equal, within tolerance.
+ *
+ *  @param other The location to compare to.
+ *
+ *  @return true if the two locations are within 0.00001 degrees of each other 
+ *  in latitude and longitude (which is approximately 1m at 50 degrees of latitude).
+ */
+- (BOOL)isEqualToLocation:(OSLocation *)other;
+
 @end

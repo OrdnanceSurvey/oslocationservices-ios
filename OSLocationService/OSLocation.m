@@ -35,27 +35,21 @@
 
 #pragma mark - Equality
 
-/**
- *  Test that two locations are equal, within tolerance.
- *
- *  @param other The location to compare to.
- *
- *  @return true if the two locations are the same object, or if they are within
- *  0.00001 degrees of each other in latitude and longitude (which is approximately
- *  1m at 50 degrees of latitude).
- */
 - (BOOL)isEqual:(id)other {
     if (other == self) {
         return YES;
     } else if ([other isKindOfClass:[OSLocation class]]) {
-        OSLocation *otherLocation = other;
-        OSLocationDegrees distanceThreshold = 0.00001;
-        if ((self.latitude - otherLocation.latitude) < distanceThreshold &&
-            (self.longitude - otherLocation.longitude) < distanceThreshold) {
-            return YES;
-        } else {
-            return NO;
-        }
+        return [self isEqualToLocation:(OSLocation *)other];
+    } else {
+        return NO;
+    }
+}
+
+- (BOOL)isEqualToLocation:(OSLocation *)other {
+    OSLocationDegrees distanceThreshold = 0.00001;
+    if ((self.latitude - other.latitude) < distanceThreshold &&
+        (self.longitude - other.longitude) < distanceThreshold) {
+        return YES;
     } else {
         return NO;
     }
