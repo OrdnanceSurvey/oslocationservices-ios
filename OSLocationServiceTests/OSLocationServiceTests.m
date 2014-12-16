@@ -52,9 +52,13 @@
     locationService.delegate = mockDelegate;
 
     CLLocation *testLocation = [[CLLocation alloc] initWithLatitude:50 longitude:-1];
-    [locationService locationManager:nil didUpdateLocations:[NSArray arrayWithObject:testLocation]];
+    [locationService locationManager:nil didUpdateLocations:@[ testLocation ]];
 
-    OCMVerify([mockDelegate locationService:OCMOCK_ANY didUpdateLocations:OCMOCK_ANY]);
+    OSLocation *expectedLocation = [[OSLocation alloc] initWithCoordinate:testLocation.coordinate
+                                                                dateTaken:[NSDate date]
+                                                       horizontalAccuracy:testLocation.horizontalAccuracy];
+
+    OCMVerify([mockDelegate locationService:locationService didUpdateLocations:@[ expectedLocation ]]);
 }
 
 - (void)testThatHeadingUpdateNotifiesDelegate {

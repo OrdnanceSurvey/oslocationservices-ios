@@ -16,10 +16,38 @@
 @protocol OSLocationServiceDelegate<NSObject>
 
 @optional
+
+/**
+ *  locationService:didUpdateLocations:
+ *
+ *  Called when the service has one or more locations to notify the delegate about.
+ *  If the service has deferred location updates to deliver then the array will
+ *  contain more than one location object.
+ *
+ *  @param service   The instance of OSLocationService that has received the updated location(s).
+ *  @param locations An array of one or more OSLocation objects in chronological order.
+ */
 - (void)locationService:(OSLocationService *)service didUpdateLocations:(NSArray *)locations;
+
+/**
+ *  locationService:didUpdateHeading:
+ *
+ *  Invoked when a new heading update is received by the service.
+ *
+ *  @param service Instance of OSLocationService that has received the updated heading.
+ *  @param heading The heading in degrees from 0 to 359.9. Negative value indicates an invalid direction.
+ */
 - (void)locationService:(OSLocationService *)service didUpdateHeading:(OSLocationDirection)heading;
+
 @end
 
+/**
+ *  OSLocationService
+ *
+ *  Service that abstracts Core Location to provide location and orientation 
+ *  updates. Can be used with delegation using the OSLocationServiceDelegate
+ *  procotol, or by using KVO on the properties below.
+ */
 @interface OSLocationService : NSObject
 
 /** @name Check Available Options */
@@ -60,7 +88,7 @@
 /**
  *  The accuracy of the heading values given. Only updates when OSLocationServiceHeadingUpdates is on.
  */
-@property (assign, nonatomic, readonly) double headingAccuracy;
+@property (assign, nonatomic, readonly) OSLocationAccuracy headingAccuracy;
 
 /** @name Service Preferences */
 /** Set preferences for the service, such as accuracies */

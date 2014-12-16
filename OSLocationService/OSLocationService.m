@@ -216,7 +216,7 @@
         if ([locations count] > 1) {
             [self.delegate locationService:self didUpdateLocations:self.cachedLocations];
         } else {
-            [self.delegate locationService:self didUpdateLocations:[NSArray arrayWithObject:currentLocation]];
+            [self.delegate locationService:self didUpdateLocations:@[ currentLocation ]];
         }
     }
 }
