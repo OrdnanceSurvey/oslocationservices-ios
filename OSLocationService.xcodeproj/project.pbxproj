@@ -22,6 +22,7 @@
 /* End PBXAggregateTarget section */
 
 /* Begin PBXBuildFile section */
+		B35917571A41A28F000D041F /* OSLocationService+Private.h in Headers */ = {isa = PBXBuildFile; fileRef = B35917561A41A28F000D041F /* OSLocationService+Private.h */; };
 		B3A083221A3EFF6100DAFF3E /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = B3A083211A3EFF6100DAFF3E /* main.m */; };
 		B3A083251A3EFF6100DAFF3E /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = B3A083241A3EFF6100DAFF3E /* AppDelegate.m */; };
 		B3A083281A3EFF6100DAFF3E /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B3A083271A3EFF6100DAFF3E /* ViewController.m */; };
@@ -104,6 +105,7 @@
 		B33986C51A39ECF4000B6099 /* OSGridPointConversion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = OSGridPointConversion.framework; sourceTree = "<group>"; };
 		B33986C71A39EE3C000B6099 /* MIQTestingFramework.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = MIQTestingFramework.framework; sourceTree = "<group>"; };
 		B33986CB1A39EF36000B6099 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		B35917561A41A28F000D041F /* OSLocationService+Private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "OSLocationService+Private.h"; sourceTree = "<group>"; };
 		B3A0831D1A3EFF6100DAFF3E /* OSLocationTestHost.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OSLocationTestHost.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B3A083201A3EFF6100DAFF3E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B3A083211A3EFF6100DAFF3E /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -217,6 +219,7 @@
 				D6BA2F8B195DB0CE0099B7F7 /* OSLocation.h */,
 				D6BA2F8C195DB0CE0099B7F7 /* OSLocation.m */,
 				D6BA2F8D195DB0CE0099B7F7 /* OSLocationService.h */,
+				B35917561A41A28F000D041F /* OSLocationService+Private.h */,
 				D6BA2F8E195DB0CE0099B7F7 /* OSLocationService.m */,
 				D6A239941965863E00167DAB /* OSCoreLocationManager.h */,
 				D6A239951965863E00167DAB /* OSCoreLocationManager.m */,
@@ -290,6 +293,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B35917571A41A28F000D041F /* OSLocationService+Private.h in Headers */,
 				B3A469561A4074570007B82C /* OSLocation.h in Headers */,
 				B3A469581A4074610007B82C /* OSLocationServicePreferences.h in Headers */,
 				B3A469591A40747E0007B82C /* OSLocationServiceOptions.h in Headers */,
@@ -605,7 +609,7 @@
 					"$(inherited)",
 				);
 				INFOPLIST_FILE = OSLocationTestHost/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				MTL_ENABLE_DEBUG_INFO = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -626,7 +630,7 @@
 					"$(PROJECT_DIR)",
 				);
 				INFOPLIST_FILE = OSLocationTestHost/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -711,7 +715,7 @@
 				);
 				INFOPLIST_FILE = OSLocationService/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MTL_ENABLE_DEBUG_INFO = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -739,7 +743,7 @@
 				);
 				INFOPLIST_FILE = OSLocationService/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)";

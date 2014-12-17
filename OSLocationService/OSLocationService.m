@@ -6,26 +6,12 @@
 //  Copyright (c) 2014 Ordnance Survey. All rights reserved.
 //
 
-#import "OSLocationService.h"
+#import "OSLocationService+Private.h"
 #import "OSServiceRelationshipManager.h"
 #import "OSLocationServiceObserverProtocol.h"
 #import "OSCoreLocationManager.h"
 
 @import CoreLocation;
-
-@interface OSLocationService () <OSServiceRelationshipManagerDelegate, CLLocationManagerDelegate>
-
-@property (strong, nonatomic) OSServiceRelationshipManager *relationshipManager;
-@property (strong, nonatomic) CLLocationManager *coreLocationManager;
-
-//Property redefinitions to make readwrite
-@property (strong, nonatomic, readwrite) OSLocation *currentLocation;
-@property (strong, nonatomic, readwrite) NSArray *cachedLocations;
-@property (assign, nonatomic, readwrite) OSLocationDirection headingMagneticDegrees;
-@property (assign, nonatomic, readwrite) OSLocationDirection headingTrueDegrees;
-@property (assign, nonatomic, readwrite) double headingAccuracy;
-
-@end
 
 @implementation OSLocationService
 
@@ -50,6 +36,7 @@
         _coreLocationManager.delegate = self;
         _shouldShowHeadingCalibration = YES;
         _locationAuthorizationStatus = [OSCoreLocationManager authorizationStatus];
+        _permissionLevel = OSLocationServicePermissionWhenInUse;
     }
     return self;
 }
@@ -57,6 +44,11 @@
 #pragma mark - Starting updates
 
 - (OSLocationServiceUpdateOptions)startUpdatingWithOptions:(OSLocationServiceUpdateOptions)updateOptions sender:(id)sender {
+    OSLocationServiceUpdateOptions newOptions = [self startUpdatingWithOptions:updateOptions permissionLevel:OSLocationServicePermissionWhenInUse sender:sender];
+    return newOptions;
+}
+
+- (OSLocationServiceUpdateOptions)startUpdatingWithOptions:(OSLocationServiceUpdateOptions)updateOptions permissionLevel:(OSLocationServicePermission)permissionLevel sender:(id)sender {
     NSAssert([self objectIsAcceptableForRelationshipManager:sender], @"Passed Sender object is not suitable");
 
     id identifyingObject = [self identifyingObjectFromObject:sender];
@@ -65,6 +57,8 @@
     OSLocationServiceUpdateOptions wantedAvailableOptions = updateOptions & availableOptions;
 
     OSLocationServiceUpdateOptions updatedOptions = [self.relationshipManager addOptions:wantedAvailableOptions forObject:identifyingObject];
+
+    self.permissionLevel = permissionLevel;
 
     [self reactToNewCumulativeOptions];
 
@@ -161,7 +155,13 @@
 
     if (wantsLocationUpdates) {
         self.coreLocationManager.desiredAccuracy = kCLLocationAccuracyBestForNavigation;
-        [self.coreLocationManager requestWhenInUseAuthorization];
+
+        if (self.permissionLevel == OSLocationServicePermissionWhenInUse) {
+            [self.coreLocationManager requestWhenInUseAuthorization];
+        } else if (self.permissionLevel == OSLocationServicePermissionAlways) {
+            [self.coreLocationManager requestAlwaysAuthorization];
+        }
+
         [self.coreLocationManager startUpdatingLocation];
     } else {
         [self.coreLocationManager stopUpdatingLocation];
@@ -247,14 +247,17 @@
 - (void)locationManager:(CLLocationManager *)manager didChangeAuthorizationStatus:(CLAuthorizationStatus)status {
     OSLocationServiceAuthorizationStatus newStatus = [OSCoreLocationManager OSAuthorizationStatusFromCLAuthorizationStatus:status];
 
-    //todo: implement the activation of location gathering correctly based on the permission status
-    //if (newStatus == OSLocationServiceAuthorizationAllowedWhenInUse || newStatus == OSLocationServiceAuthorizationAllowedAlways) {
-    [self.coreLocationManager startUpdatingLocation];
-    //}
-
     [self willChangeValueForKey:@"locationAuthorizationStatus"];
     _locationAuthorizationStatus = newStatus;
     [self didChangeValueForKey:@"locationAuthorizationStatus"];
+
+    // Respond to change in location service permissions appropriately.
+    // Ignore OSLocationServiceAuthorizationNotDetermined and OSLocationServiceAuthorizationUnknown.
+    if (newStatus == OSLocationServiceAuthorizationAllowedWhenInUse || newStatus == OSLocationServiceAuthorizationAllowedAlways) {
+        [self.coreLocationManager startUpdatingLocation];
+    } else if (newStatus == OSLocationServiceAuthorizationDenied || newStatus == OSLocationServiceAuthorizationRestricted) {
+        [self.coreLocationManager stopUpdatingLocation];
+    }
 }
 
 @end
