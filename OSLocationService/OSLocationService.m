@@ -161,6 +161,7 @@
 
     if (wantsLocationUpdates) {
         self.coreLocationManager.desiredAccuracy = kCLLocationAccuracyBestForNavigation;
+        [self.coreLocationManager requestWhenInUseAuthorization];
         [self.coreLocationManager startUpdatingLocation];
     } else {
         [self.coreLocationManager stopUpdatingLocation];
@@ -245,6 +246,11 @@
 
 - (void)locationManager:(CLLocationManager *)manager didChangeAuthorizationStatus:(CLAuthorizationStatus)status {
     OSLocationServiceAuthorizationStatus newStatus = [OSCoreLocationManager OSAuthorizationStatusFromCLAuthorizationStatus:status];
+
+    //todo: implement the activation of location gathering correctly based on the permission status
+    //if (newStatus == OSLocationServiceAuthorizationAllowedWhenInUse || newStatus == OSLocationServiceAuthorizationAllowedAlways) {
+    [self.coreLocationManager startUpdatingLocation];
+    //}
 
     [self willChangeValueForKey:@"locationAuthorizationStatus"];
     _locationAuthorizationStatus = newStatus;
