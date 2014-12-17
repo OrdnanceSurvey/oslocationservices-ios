@@ -119,12 +119,24 @@ FOUNDATION_EXPORT const unsigned char OSLocationServiceVersionString[];
 
 /**
  *  Trigger the location service to start getting updates.
+ *
  *  After calling this method, you should check the Options you passed are the same as the options returned, which indicates what actually what start updating. Options that are not available are overridden to off.
  *  Additionally, you should set up KVO to watch the properties you are intested in,
  *  or implement the OSLocationServiceDelegate protocol in a delegate.
  *
- *  @param updateOptions The properties you would like to start updating.
- *  @param sender        The object sending this method (i.e. self).
+ *  @param updateOptions   The properties you would like to start updating.
+ *  @param sender          The object sending this method (i.e. self).
+ *  @param permissionLevel The desire location permission level ("always" or "when in use").
+ *
+ *  @return The actual options that will start to change. This may not be the same if, for example, an option you requested isn't available for this device. You should check that what you pass as an argument as Options and what is returned are equal, or act accoridngly if they are not.
+ */
+- (OSLocationServiceUpdateOptions)startUpdatingWithOptions:(OSLocationServiceUpdateOptions)updateOptions permissionLevel:(OSLocationServicePermission)permissionLevel sender:(id)sender;
+
+/**
+ *  Trigger the location service to start getting updates with default "when in use" permission level
+ *
+ *  @param updateOptions   The properties you would like to start updating.
+ *  @param sender          The object sending this method (i.e. self).
  *
  *  @return The actual options that will start to change. This may not be the same if, for example, an option you requested isn't available for this device. You should check that what you pass as an argument as Options and what is returned are equal, or act accoridngly if they are not.
  */

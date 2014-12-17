@@ -14,3 +14,8 @@ typedef NS_ENUM(NSUInteger, OSLocationServiceAuthorizationStatus) {
     OSLocationServiceAuthorizationAllowedWhenInUse, //User has allowed access to location only when app is explicitly in foreground (for iOS8+)
     OSLocationServiceAuthorizationUnknown = 99
 };
+
+typedef NS_ENUM(NSUInteger, OSLocationServicePermission) {
+    OSLocationServicePermissionWhenInUse,
+    OSLocationServicePermissionAlways
+};
