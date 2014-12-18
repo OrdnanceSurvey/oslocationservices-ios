@@ -22,7 +22,8 @@
 /* End PBXAggregateTarget section */
 
 /* Begin PBXBuildFile section */
-		B35917571A41A28F000D041F /* OSLocationService+Private.h in Headers */ = {isa = PBXBuildFile; fileRef = B35917561A41A28F000D041F /* OSLocationService+Private.h */; };
+		B35917581A41AB3B000D041F /* OSLocationService.h in Headers */ = {isa = PBXBuildFile; fileRef = D6BA2F8D195DB0CE0099B7F7 /* OSLocationService.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		B35917591A41AB41000D041F /* OSLocationService+Private.h in Headers */ = {isa = PBXBuildFile; fileRef = B35917561A41A28F000D041F /* OSLocationService+Private.h */; };
 		B3A083221A3EFF6100DAFF3E /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = B3A083211A3EFF6100DAFF3E /* main.m */; };
 		B3A083251A3EFF6100DAFF3E /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = B3A083241A3EFF6100DAFF3E /* AppDelegate.m */; };
 		B3A083281A3EFF6100DAFF3E /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B3A083271A3EFF6100DAFF3E /* ViewController.m */; };
@@ -102,6 +103,8 @@
 		14CC877619471C2000C0D5BC /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		14CC877A19471C2000C0D5BC /* OSLocationService-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "OSLocationService-Prefix.pch"; sourceTree = "<group>"; };
 		14CC879219471C2000C0D5BC /* OSLocationServiceTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = OSLocationServiceTests.m; path = ../OSLocationServiceTests/OSLocationServiceTests.m; sourceTree = "<group>"; };
+		B30EB2E11A42D92000A44277 /* lake-district-trail.gpx */ = {isa = PBXFileReference; lastKnownFileType = text; path = "lake-district-trail.gpx"; sourceTree = "<group>"; };
+		B30EB2E21A42D92000A44277 /* Southampton-OS-route.gpx */ = {isa = PBXFileReference; lastKnownFileType = text; path = "Southampton-OS-route.gpx"; sourceTree = "<group>"; };
 		B33986C51A39ECF4000B6099 /* OSGridPointConversion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = OSGridPointConversion.framework; sourceTree = "<group>"; };
 		B33986C71A39EE3C000B6099 /* MIQTestingFramework.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = MIQTestingFramework.framework; sourceTree = "<group>"; };
 		B33986CB1A39EF36000B6099 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
@@ -281,6 +284,8 @@
 		B3A083391A3EFF6100DAFF3E /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				B30EB2E11A42D92000A44277 /* lake-district-trail.gpx */,
+				B30EB2E21A42D92000A44277 /* Southampton-OS-route.gpx */,
 				B3A0833A1A3EFF6100DAFF3E /* Info.plist */,
 			);
 			name = "Supporting Files";
@@ -293,13 +298,14 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B35917571A41A28F000D041F /* OSLocationService+Private.h in Headers */,
 				B3A469561A4074570007B82C /* OSLocation.h in Headers */,
+				B35917581A41AB3B000D041F /* OSLocationService.h in Headers */,
 				B3A469581A4074610007B82C /* OSLocationServicePreferences.h in Headers */,
 				B3A469591A40747E0007B82C /* OSLocationServiceOptions.h in Headers */,
 				B3A469571A40745E0007B82C /* OSLocationServiceObserverProtocol.h in Headers */,
 				B3A469651A407FC70007B82C /* OSCoreLocationManager.h in Headers */,
 				B3A469661A407FD30007B82C /* OSServiceRelationshipManager.h in Headers */,
+				B35917591A41AB41000D041F /* OSLocationService+Private.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

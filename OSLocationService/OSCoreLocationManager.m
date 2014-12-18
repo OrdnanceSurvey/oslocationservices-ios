@@ -58,7 +58,8 @@
             return OSLocationServiceAuthorizationAllowedAlways;
             break;
 
-        //To be added: kCLAuthorizationStatusAuthorizedWhenInUse for iOS8
+        case kCLAuthorizationStatusAuthorizedWhenInUse:
+            return OSLocationServiceAuthorizationAllowedWhenInUse;
 
         default:
             break;

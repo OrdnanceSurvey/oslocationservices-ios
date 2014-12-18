@@ -156,13 +156,16 @@
     if (wantsLocationUpdates) {
         self.coreLocationManager.desiredAccuracy = kCLLocationAccuracyBestForNavigation;
 
-        if (self.permissionLevel == OSLocationServicePermissionWhenInUse) {
-            [self.coreLocationManager requestWhenInUseAuthorization];
-        } else if (self.permissionLevel == OSLocationServicePermissionAlways) {
-            [self.coreLocationManager requestAlwaysAuthorization];
+        if ([CLLocationManager authorizationStatus] == kCLAuthorizationStatusAuthorizedWhenInUse || [CLLocationManager authorizationStatus] == kCLAuthorizationStatusAuthorizedAlways) {
+            [self.coreLocationManager startUpdatingLocation];
+        } else {
+            if (self.permissionLevel == OSLocationServicePermissionWhenInUse) {
+                [self.coreLocationManager requestWhenInUseAuthorization];
+            } else if (self.permissionLevel == OSLocationServicePermissionAlways) {
+                [self.coreLocationManager requestAlwaysAuthorization];
+            }
         }
 
-        [self.coreLocationManager startUpdatingLocation];
     } else {
         [self.coreLocationManager stopUpdatingLocation];
     }
@@ -258,6 +261,10 @@
     } else if (newStatus == OSLocationServiceAuthorizationDenied || newStatus == OSLocationServiceAuthorizationRestricted) {
         [self.coreLocationManager stopUpdatingLocation];
     }
+}
+
+- (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error {
+    NSLog(@"OSLocationService: Core Location failed with error: %@", error.localizedDescription);
 }
 
 @end
