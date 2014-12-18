@@ -8,6 +8,11 @@
 
 #import "OSLocation.h"
 
+NSString *const kOSLocationLatitudeKey = @"OSLocationLatitudeKey";
+NSString *const kOSLocationLongitudeKey = @"OSLocationLongitudeKey";
+NSString *const kOSLocationDateTakenKey = @"OSLocationDateTakenKey";
+NSString *const kOSLocationHorizontalAccuracyKey = @"OSLocationHorizontalAccuracyKey";
+
 @implementation OSLocation
 
 #pragma mark - Initializers
@@ -63,6 +68,24 @@
 
 - (OSGridPoint)gridPoint {
     return OSGridPointForCoordinate([self coordinate]);
+}
+
+#pragma mark - NSCoding
+
+- (void)encodeWithCoder:(NSCoder *)encoder {
+    [encoder encodeObject:[NSNumber numberWithDouble:self.latitude] forKey:kOSLocationLatitudeKey];
+    [encoder encodeObject:[NSNumber numberWithDouble:self.longitude] forKey:kOSLocationLongitudeKey];
+    [encoder encodeObject:[NSNumber numberWithDouble:self.horizontalAccuracyMeters] forKey:kOSLocationHorizontalAccuracyKey];
+    [encoder encodeObject:self.dateTaken forKey:kOSLocationDateTakenKey];
+}
+
+- (id)initWithCoder:(NSCoder *)decoder {
+    OSLocationDegrees latitude = [[decoder decodeObjectForKey:kOSLocationLatitudeKey] doubleValue];
+    OSLocationDegrees longitude = [[decoder decodeObjectForKey:kOSLocationLongitudeKey] doubleValue];
+    NSDate *date = [decoder decodeObjectForKey:kOSLocationDateTakenKey];
+    OSLocationAccuracy accuracy = [[decoder decodeObjectForKey:kOSLocationHorizontalAccuracyKey] doubleValue];
+    OSLocation *location = [self initWithLatitude:latitude longitude:longitude dateTaken:date horizontalAccuracy:accuracy];
+    return location;
 }
 
 @end

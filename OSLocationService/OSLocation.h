@@ -36,7 +36,7 @@ typedef double OSLocationDegrees;
  */
 typedef double OSLocationAccuracy;
 
-@interface OSLocation : NSObject
+@interface OSLocation : NSObject<NSCoding>
 /** @name Properties */
 
 /**
