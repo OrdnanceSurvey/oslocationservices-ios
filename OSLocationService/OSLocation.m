@@ -13,9 +13,6 @@ NSString *const kOSLocationLongitudeKey = @"OSLocationLongitudeKey";
 NSString *const kOSLocationDateTakenKey = @"OSLocationDateTakenKey";
 NSString *const kOSLocationHorizontalAccuracyKey = @"OSLocationHorizontalAccuracyKey";
 
-@interface OSLocation () <NSCoding>
-@end
-
 @implementation OSLocation
 
 #pragma mark - Initializers
