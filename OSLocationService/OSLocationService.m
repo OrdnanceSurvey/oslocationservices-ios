@@ -167,7 +167,6 @@
         }
 
     } else {
-        NSLog(@"OSLocationService: no location options supplied; stopping location updates.");
         [self.coreLocationManager stopUpdatingLocation];
     }
 
