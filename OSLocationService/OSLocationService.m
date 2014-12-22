@@ -194,7 +194,7 @@
 }
 
 #pragma mark - derived property
-- (BOOL)locationServicesEnabled {
++ (BOOL)locationServicesEnabled {
     return [CLLocationManager locationServicesEnabled];
 }
 

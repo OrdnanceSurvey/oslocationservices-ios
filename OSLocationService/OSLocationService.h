@@ -157,7 +157,7 @@ typedef NS_ENUM(NSInteger, OSLocationServiceCalibrationImportance) {
  *
  *  @return true if location services are turned on, false if location services are turned off.
  */
-- (BOOL)locationServicesEnabled;
++ (BOOL)locationServicesEnabled;
 
 /** @name Starting updates */
 
