@@ -193,6 +193,11 @@
     _headingFilter = headingFilter;
 }
 
+#pragma mark - derived property
+- (BOOL)locationServicesEnabled {
+    return [CLLocationManager locationServicesEnabled];
+}
+
 #pragma mark - Core Location Manager Delegate
 - (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations {
     if ([locations count] > 1) {
