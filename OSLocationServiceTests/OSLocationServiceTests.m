@@ -127,9 +127,12 @@
 
 - (void)testAddingLocationOptionTurnsOnCoreLocation {
     id mockLocationManager = OCMClassMock([CLLocationManager class]);
-    OCMStub([mockLocationManager alloc]).andReturn(mockLocationManager);
+
+    id mockManager = OCMClassMock([CLLocationManager class]);
+    OCMStub([mockManager authorizationStatus]).andReturn(kCLAuthorizationStatusAuthorizedWhenInUse);
 
     OSLocationService *service = [[OSLocationService alloc] init];
+    service.coreLocationManager = mockLocationManager;
     NSString *dummyIdentifier = @"Dummy";
     [service startUpdatingWithOptions:OSLocationServiceLocationUpdates sender:dummyIdentifier];
 
@@ -138,11 +141,11 @@
 
 - (void)testAddingHeadingOptionTurnsOnCoreLocationHeading {
     id mockLocationManager = [OCMockObject niceMockForClass:[CLLocationManager class]];
-    [[[mockLocationManager stub] andReturn:mockLocationManager] alloc];
 
     [self mockCoreLocationManagerAllowLocation:YES allowHeading:YES];
 
     OSLocationService *service = [[OSLocationService alloc] init];
+    service.coreLocationManager = mockLocationManager;
     NSString *dummyIdentifier = @"Dummy";
     [service startUpdatingWithOptions:OSLocationServiceHeadingUpdates sender:dummyIdentifier];
 
