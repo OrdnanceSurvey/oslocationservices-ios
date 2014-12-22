@@ -34,7 +34,6 @@
     if (self) {
         _relationshipManager = [[OSServiceRelationshipManager alloc] init];
         _coreLocationManager.delegate = self;
-        _shouldShowHeadingCalibration = YES;
         _locationAuthorizationStatus = [OSCoreLocationManager authorizationStatus];
         _permissionLevel = OSLocationServicePermissionWhenInUse;
     }
@@ -243,10 +242,6 @@
     }
 }
 
-- (BOOL)locationManagerShouldDisplayHeadingCalibration:(CLLocationManager *)manager {
-    return self.shouldShowHeadingCalibration;
-}
-
 - (void)locationManager:(CLLocationManager *)manager didChangeAuthorizationStatus:(CLAuthorizationStatus)status {
     OSLocationServiceAuthorizationStatus newStatus = [OSCoreLocationManager OSAuthorizationStatusFromCLAuthorizationStatus:status];
 
@@ -265,6 +260,34 @@
 
 - (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error {
     NSLog(@"OSLocationService: Core Location failed with error: %@", error.localizedDescription);
+}
+
+- (BOOL)locationManagerShouldDisplayHeadingCalibration:(CLLocationManager *)manager {
+    // If there is no delegate set then we assume the calibration is of relatively low
+    // importance at present. The documentation states that even without the calibration
+    // screen, the device should eventually be able to calibrate itself anyway, so unless
+    // otherwise asked, we'll assume it's ok to use the standard device behaviour.
+    if (self.calibrationDelegate == nil) {
+        return NO;
+    } else {
+        CLLocationDirection accuracyTolerance = 0;
+        OSLocationServiceCalibrationImportance importance = [self.calibrationDelegate calibrationImportance];
+
+        switch (importance) {
+            case OSLocationServiceCalibrationImportanceNone:
+                return NO; // All is good. Compass is precise enough.
+            default:
+                accuracyTolerance = (CLLocationDirection)importance;
+                break;
+        }
+
+        if (self.headingAccuracy < 0) {
+            return YES; // Negative value means invalid heading, so recalibrate
+        } else if (self.headingAccuracy > accuracyTolerance) {
+            return YES;
+        }
+    }
+    return NO; // All is good. Compass is precise enough.
 }
 
 @end
