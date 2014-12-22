@@ -241,4 +241,51 @@
     XCTAssertEqual(service.headingFilter, 5.0f, @"Did not set property");
 }
 
+Test(IfTheCalibrationDelegateIsNotSetThenTheCalibrationScreenWillNotBeUsed) {
+    OSLocationService *service = [[OSLocationService alloc] init];
+    expect([service locationManagerShouldDisplayHeadingCalibration:nil]).to.beFalsy();
+}
+
+- (id<OSLocationServiceCalibrationDelegate>)calibrationDelegateForImportance:(OSLocationServiceCalibrationImportance)importance {
+    id<OSLocationServiceCalibrationDelegate> mockDelegate = OCMProtocolMock(@protocol(OSLocationServiceCalibrationDelegate));
+    OCMStub([mockDelegate calibrationImportance]).andReturn(importance);
+    return mockDelegate;
+}
+
+Test(TheServiceCalibrationDelegateCanAffectWhetherToDisplayTheCalibrationScreen) {
+    OSLocationService *service = [[OSLocationService alloc] init];
+    service.calibrationDelegate = [self calibrationDelegateForImportance:OSLocationServiceCalibrationImportanceNone];
+    expect([service locationManagerShouldDisplayHeadingCalibration:nil]).to.beFalsy();
+
+    service.calibrationDelegate = [self calibrationDelegateForImportance:OSLocationServiceCalibrationImportanceLow];
+    [service setValue:@(-1) forKey:@"headingAccuracy"];
+    expect([service locationManagerShouldDisplayHeadingCalibration:nil]).to.beTruthy();
+
+    [service setValue:@(OSLocationServiceCalibrationImportanceLow - 1) forKey:@"headingAccuracy"];
+    expect([service locationManagerShouldDisplayHeadingCalibration:nil]).to.beFalsy();
+
+    [service setValue:@(OSLocationServiceCalibrationImportanceLow + 1) forKey:@"headingAccuracy"];
+    expect([service locationManagerShouldDisplayHeadingCalibration:nil]).to.beTruthy();
+
+    service.calibrationDelegate = [self calibrationDelegateForImportance:OSLocationServiceCalibrationImportanceMedium];
+    [service setValue:@(-1) forKey:@"headingAccuracy"];
+    expect([service locationManagerShouldDisplayHeadingCalibration:nil]).to.beTruthy();
+
+    [service setValue:@(OSLocationServiceCalibrationImportanceMedium - 1) forKey:@"headingAccuracy"];
+    expect([service locationManagerShouldDisplayHeadingCalibration:nil]).to.beFalsy();
+
+    [service setValue:@(OSLocationServiceCalibrationImportanceMedium + 1) forKey:@"headingAccuracy"];
+    expect([service locationManagerShouldDisplayHeadingCalibration:nil]).to.beTruthy();
+
+    service.calibrationDelegate = [self calibrationDelegateForImportance:OSLocationServiceCalibrationImportanceHigh];
+    [service setValue:@(-1) forKey:@"headingAccuracy"];
+    expect([service locationManagerShouldDisplayHeadingCalibration:nil]).to.beTruthy();
+
+    [service setValue:@(OSLocationServiceCalibrationImportanceHigh - 1) forKey:@"headingAccuracy"];
+    expect([service locationManagerShouldDisplayHeadingCalibration:nil]).to.beFalsy();
+
+    [service setValue:@(OSLocationServiceCalibrationImportanceHigh + 1) forKey:@"headingAccuracy"];
+    expect([service locationManagerShouldDisplayHeadingCalibration:nil]).to.beTruthy();
+}
+
 @end

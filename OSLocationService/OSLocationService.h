@@ -49,6 +49,42 @@ FOUNDATION_EXPORT const unsigned char OSLocationServiceVersionString[];
 @end
 
 /**
+ *  How important is it to calibrate the location services
+ */
+typedef NS_ENUM(NSInteger, OSLocationServiceCalibrationImportance) {
+    /**
+     *  Not important, the device won't show the calibration UI
+     */
+    OSLocationServiceCalibrationImportanceNone,
+    /**
+     *  High importance, the device will accept a low variance in accuracy
+     */
+    OSLocationServiceCalibrationImportanceHigh = 1,
+    /**
+     *  Medium importance, the device will accept a medium variance in accuracy
+     */
+    OSLocationServiceCalibrationImportanceMedium = 5,
+    /**
+     *  Low importance, the device will accept a high variance in accuracy
+     */
+    OSLocationServiceCalibrationImportanceLow = 15
+};
+
+/**
+ *  Delegate protocol to implement to query the calibration requirements for the service
+ */
+@protocol OSLocationServiceCalibrationDelegate<NSObject>
+
+/**
+ *  How important is it to calibrate the device
+ *
+ *  @return OSLocationServiceCalibrationImportance
+ */
+- (OSLocationServiceCalibrationImportance)calibrationImportance;
+
+@end
+
+/**
  *  OSLocationService
  *
  *  Service that abstracts Core Location to provide location and orientation 
@@ -101,9 +137,10 @@ FOUNDATION_EXPORT const unsigned char OSLocationServiceVersionString[];
 /** Set preferences for the service, such as accuracies */
 
 /**
- *  Whether to show the system compass calibration screen. Defaults to YES.
+ *  Delegate to query whether we should display the calibration screen. If not set, the default
+ *  behaviour is not to show the calibration screen.
  */
-@property (assign, nonatomic) BOOL shouldShowHeadingCalibration;
+@property (weak, nonatomic) id<OSLocationServiceCalibrationDelegate> calibrationDelegate;
 
 /**
  *  The number of degrees the heading must change before values are updated. Set to 0 for no filter (all events).
