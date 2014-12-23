@@ -152,6 +152,13 @@ typedef NS_ENUM(NSInteger, OSLocationServiceCalibrationImportance) {
  */
 @property (assign, nonatomic, readonly) OSLocationServiceAuthorizationStatus locationAuthorizationStatus;
 
+/**
+ *  Indicates whether location services are enabled on the device.
+ *
+ *  @return true if location services are turned on, false if location services are turned off.
+ */
++ (BOOL)locationServicesEnabled;
+
 /** @name Starting updates */
 
 /**
