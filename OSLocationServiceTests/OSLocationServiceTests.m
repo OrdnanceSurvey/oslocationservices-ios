@@ -47,9 +47,11 @@
 
 - (void)testThatLocationServiceAsksForCorrectDefaultPermissionWhenActivated {
     id mockLocationManager = OCMClassMock([CLLocationManager class]);
-    OCMStub([mockLocationManager alloc]).andReturn(mockLocationManager);
+    [OCMStub([mockLocationManager authorizationStatus]) andReturnValue:@(kCLAuthorizationStatusNotDetermined)];
 
     OSLocationService *locationService = [[OSLocationService alloc] init];
+    locationService.coreLocationManager = mockLocationManager;
+
     NSString *dummyIdentifier = @"Dummy";
     [locationService startUpdatingWithOptions:OSLocationServiceAllOptions sender:dummyIdentifier];
     OCMVerify([mockLocationManager requestWhenInUseAuthorization]);
@@ -57,9 +59,11 @@
 
 - (void)testThatLocationServiceAsksForCorrectPermissionWhenActivatedWithAlwaysPermission {
     id mockLocationManager = OCMClassMock([CLLocationManager class]);
-    OCMStub([mockLocationManager alloc]).andReturn(mockLocationManager);
+    [OCMStub([mockLocationManager authorizationStatus]) andReturnValue:@(kCLAuthorizationStatusNotDetermined)];
 
     OSLocationService *locationService = [[OSLocationService alloc] init];
+    locationService.coreLocationManager = mockLocationManager;
+
     NSString *dummyIdentifier = @"Dummy";
     [locationService startUpdatingWithOptions:OSLocationServiceAllOptions permissionLevel:OSLocationServicePermissionAlways sender:dummyIdentifier];
     OCMVerify([mockLocationManager requestAlwaysAuthorization]);
@@ -67,9 +71,11 @@
 
 - (void)testThatLocationServiceAsksForCorrectPermissionWhenActivatedWithWhenInUsePermission {
     id mockLocationManager = OCMClassMock([CLLocationManager class]);
-    OCMStub([mockLocationManager alloc]).andReturn(mockLocationManager);
+    [OCMStub([mockLocationManager authorizationStatus]) andReturnValue:@(kCLAuthorizationStatusNotDetermined)];
 
     OSLocationService *locationService = [[OSLocationService alloc] init];
+    locationService.coreLocationManager = mockLocationManager;
+
     NSString *dummyIdentifier = @"Dummy";
     [locationService startUpdatingWithOptions:OSLocationServiceAllOptions permissionLevel:OSLocationServicePermissionWhenInUse sender:dummyIdentifier];
     OCMVerify([mockLocationManager requestWhenInUseAuthorization]);
@@ -77,9 +83,11 @@
 
 - (void)testThatLocationServiceStartsUpdatingLocationWhenPermissionIsGranted {
     id mockLocationManager = OCMClassMock([CLLocationManager class]);
-    OCMStub([mockLocationManager alloc]).andReturn(mockLocationManager);
+    [OCMStub([mockLocationManager authorizationStatus]) andReturnValue:@(kCLAuthorizationStatusNotDetermined)];
 
     OSLocationService *locationService = [[OSLocationService alloc] init];
+    locationService.coreLocationManager = mockLocationManager;
+
     NSString *dummyIdentifier = @"Dummy";
     [locationService startUpdatingWithOptions:OSLocationServiceAllOptions sender:dummyIdentifier];
     [locationService locationManager:mockLocationManager didChangeAuthorizationStatus:kCLAuthorizationStatusAuthorizedWhenInUse];
@@ -129,7 +137,7 @@
     id mockLocationManager = OCMClassMock([CLLocationManager class]);
 
     id mockManager = OCMClassMock([CLLocationManager class]);
-    OCMStub([mockManager authorizationStatus]).andReturn(kCLAuthorizationStatusAuthorizedWhenInUse);
+    [OCMStub([mockManager authorizationStatus]) andReturnValue:@(kCLAuthorizationStatusAuthorizedWhenInUse)];
 
     OSLocationService *service = [[OSLocationService alloc] init];
     service.coreLocationManager = mockLocationManager;
