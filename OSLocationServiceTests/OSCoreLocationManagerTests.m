@@ -30,35 +30,35 @@
 
 - (void)testLocationUpdatesAvailableWhenAuthoirzationStatusIsNotDetermined {
     id partialMock = [OCMockObject niceMockForClass:[OSCoreLocationManager class]];
-    [[[[partialMock stub] classMethod] andReturnValue:OCMOCK_VALUE(OSLocationServiceAuthorizationNotDetermined)] authorizationStatus];
+    [[[[partialMock stub] classMethod] andReturnValue:OCMOCK_VALUE(OSLocationServiceAuthorizationNotDetermined)] osAuthorizationStatus];
 
     XCTAssert([OSCoreLocationManager locationUpdatesAvailable], @"Location updates should be available");
 }
 
 - (void)testLocationUpdatesNotAvailableWhenAuthoirzationStatusIsRestricted {
     id partialMock = [OCMockObject niceMockForClass:[OSCoreLocationManager class]];
-    [[[[partialMock stub] classMethod] andReturnValue:OCMOCK_VALUE(OSLocationServiceAuthorizationRestricted)] authorizationStatus];
+    [[[[partialMock stub] classMethod] andReturnValue:OCMOCK_VALUE(OSLocationServiceAuthorizationRestricted)] osAuthorizationStatus];
 
     XCTAssertFalse([OSCoreLocationManager locationUpdatesAvailable], @"Location updates should not be available");
 }
 
 - (void)testLocationUpdatesNotAvailableWhenAuthoirzationStatusIsDenied {
     id partialMock = [OCMockObject niceMockForClass:[OSCoreLocationManager class]];
-    [[[[partialMock stub] classMethod] andReturnValue:OCMOCK_VALUE(OSLocationServiceAuthorizationDenied)] authorizationStatus];
+    [[[[partialMock stub] classMethod] andReturnValue:OCMOCK_VALUE(OSLocationServiceAuthorizationDenied)] osAuthorizationStatus];
 
     XCTAssertFalse([OSCoreLocationManager locationUpdatesAvailable], @"Location updates should not be available");
 }
 
 - (void)testLocationUpdatesAvailableWhenAuthoirzationStatusIsAllowedAlways {
     id partialMock = [OCMockObject niceMockForClass:[OSCoreLocationManager class]];
-    [[[[partialMock stub] classMethod] andReturnValue:OCMOCK_VALUE(OSLocationServiceAuthorizationAllowedAlways)] authorizationStatus];
+    [[[[partialMock stub] classMethod] andReturnValue:OCMOCK_VALUE(OSLocationServiceAuthorizationAllowedAlways)] osAuthorizationStatus];
 
     XCTAssert([OSCoreLocationManager locationUpdatesAvailable], @"Location updates should be available");
 }
 
 - (void)testLocationUpdatesAvailableWhenAuthoirzationStatusIsAllowedWhenInUse {
     id partialMock = [OCMockObject niceMockForClass:[OSCoreLocationManager class]];
-    [[[[partialMock stub] classMethod] andReturnValue:OCMOCK_VALUE(OSLocationServiceAuthorizationAllowedWhenInUse)] authorizationStatus];
+    [[[[partialMock stub] classMethod] andReturnValue:OCMOCK_VALUE(OSLocationServiceAuthorizationAllowedWhenInUse)] osAuthorizationStatus];
 
     XCTAssert([OSCoreLocationManager locationUpdatesAvailable], @"Location updates should be available");
 }

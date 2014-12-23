@@ -34,7 +34,7 @@
     if (self) {
         _relationshipManager = [[OSServiceRelationshipManager alloc] init];
         _coreLocationManager.delegate = self;
-        _locationAuthorizationStatus = [OSCoreLocationManager authorizationStatus];
+        _locationAuthorizationStatus = [OSCoreLocationManager osAuthorizationStatus];
         _permissionLevel = OSLocationServicePermissionWhenInUse;
     }
     return self;
@@ -209,7 +209,7 @@
 
     CLLocation *mostRecentUpdate = [locations lastObject];
     CLLocationCoordinate2D coordinate = mostRecentUpdate.coordinate;
-    OSLocation *currentLocation = [[OSLocation alloc] initWithCoordinate:coordinate dateTaken:[NSDate date] horizontalAccuracy:mostRecentUpdate.horizontalAccuracy];
+    OSLocation *currentLocation = [[OSLocation alloc] initWithCoordinate:coordinate dateTaken:mostRecentUpdate.timestamp horizontalAccuracy:mostRecentUpdate.horizontalAccuracy];
 
     [self willChangeValueForKey:@"currentLocation"];
     _currentLocation = currentLocation;

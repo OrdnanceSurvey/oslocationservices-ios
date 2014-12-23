@@ -13,7 +13,7 @@
 
 @interface OSCoreLocationManager : NSObject
 
-+ (OSLocationServiceAuthorizationStatus)authorizationStatus;
++ (OSLocationServiceAuthorizationStatus)osAuthorizationStatus;
 + (OSLocationServiceAuthorizationStatus)OSAuthorizationStatusFromCLAuthorizationStatus:(CLAuthorizationStatus)clAuthorizationStatus;
 + (BOOL)locationUpdatesAvailable;
 + (BOOL)headingUpdatesAvailable;
