@@ -11,12 +11,12 @@
 
 @implementation OSCoreLocationManager
 
-+ (OSLocationServiceAuthorizationStatus)OSAuthorizationStatus {
++ (OSLocationServiceAuthorizationStatus)osAuthorizationStatus {
     return [OSCoreLocationManager OSAuthorizationStatusFromCLAuthorizationStatus:[CLLocationManager authorizationStatus]];
 }
 
 + (BOOL)locationUpdatesAvailable {
-    OSLocationServiceAuthorizationStatus authStatus = [OSCoreLocationManager OSAuthorizationStatus];
+    OSLocationServiceAuthorizationStatus authStatus = [OSCoreLocationManager osAuthorizationStatus];
     switch (authStatus) {
         case OSLocationServiceAuthorizationNotDetermined:
             return YES;

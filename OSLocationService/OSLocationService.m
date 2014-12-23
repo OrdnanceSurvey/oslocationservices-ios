@@ -34,7 +34,7 @@
     if (self) {
         _relationshipManager = [[OSServiceRelationshipManager alloc] init];
         _coreLocationManager.delegate = self;
-        _locationAuthorizationStatus = [OSCoreLocationManager OSAuthorizationStatus];
+        _locationAuthorizationStatus = [OSCoreLocationManager osAuthorizationStatus];
         _permissionLevel = OSLocationServicePermissionWhenInUse;
     }
     return self;
