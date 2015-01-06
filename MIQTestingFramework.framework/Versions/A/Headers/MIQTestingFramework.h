@@ -16,7 +16,6 @@
 #import "OCMock.h"
 #import "OCMockObject+AsyncVerify.h"
 #import "OHHTTPStubs.h"
-#import "OHHTTPStubsResponse+JSON.h"
 #import "MIQCoreDataTestCase.h"
 
 #define TEST_CASE_WITH_SUBCLASS(name, subclass) \

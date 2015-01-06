@@ -3,4 +3,14 @@ framework module MIQTestingFramework {
 
     export *
     module * { export * }
+
+    explicit module ExpectaHelpers {
+        header "EXPDoubleTuple.h"
+        header "EXPFloatTuple.h"
+        header "EXPBackwardCompatibility.h"
+        header "EXPMatcherHelpers.h"
+        header "EXPUnsupportedObject.h"
+        header "NSValue+Expecta.h"
+        export *
+    }
 }
