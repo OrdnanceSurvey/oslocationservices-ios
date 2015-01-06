@@ -112,13 +112,18 @@
     locationService.delegate = mockDelegate;
 
     CLLocation *testLocation = [[CLLocation alloc] initWithLatitude:50 longitude:-1];
-    [locationService locationManager:nil didUpdateLocations:@[ testLocation ]];
-
+    
     OSLocation *expectedLocation = [[OSLocation alloc] initWithCoordinate:testLocation.coordinate
                                                                 dateTaken:[NSDate date]
                                                        horizontalAccuracy:testLocation.horizontalAccuracy];
+    
+    // Doing this the old fashioned way of expectation set up in advance followed by verification as there
+    // appears to be a bug on 64bit checking an array value passed in as an expected parameter.
+    [[mockDelegate expect] locationService:locationService didUpdateLocations:@[ expectedLocation ]];
+    
+    [locationService locationManager:nil didUpdateLocations:@[ testLocation ]];
 
-    OCMVerify([mockDelegate locationService:locationService didUpdateLocations:@[ expectedLocation ]]);
+    [mockDelegate verify];
 }
 
 - (void)testThatHeadingUpdateNotifiesDelegate {
