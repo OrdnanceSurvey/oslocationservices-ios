@@ -14,6 +14,8 @@
 
 @import CoreLocation;
 
+extern NSString *const OSLocationServicesDisabledAlertHasBeenShown;
+
 @interface OSLocationService ()
 
 - (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations;
@@ -112,15 +114,15 @@
     locationService.delegate = mockDelegate;
 
     CLLocation *testLocation = [[CLLocation alloc] initWithLatitude:50 longitude:-1];
-    
+
     OSLocation *expectedLocation = [[OSLocation alloc] initWithCoordinate:testLocation.coordinate
                                                                 dateTaken:[NSDate date]
                                                        horizontalAccuracy:testLocation.horizontalAccuracy];
-    
+
     // Doing this the old fashioned way of expectation set up in advance followed by verification as there
     // appears to be a bug on 64bit checking an array value passed in as an expected parameter.
     [[mockDelegate expect] locationService:locationService didUpdateLocations:@[ expectedLocation ]];
-    
+
     [locationService locationManager:nil didUpdateLocations:@[ testLocation ]];
 
     [mockDelegate verify];
@@ -302,6 +304,43 @@ Test(TheServiceCalibrationDelegateCanAffectWhetherToDisplayTheCalibrationScreen)
 
     [service setValue:@(OSLocationServiceCalibrationImportanceHigh + 1) forKey:@"headingAccuracy"];
     expect([service locationManagerShouldDisplayHeadingCalibration:nil]).to.beTruthy();
+}
+
+- (void)testThatStartingLocationServicesForTheFirstTimeWithLocationDisabledShowsAlert {
+    [[NSUserDefaults standardUserDefaults] removeObjectForKey:OSLocationServicesDisabledAlertHasBeenShown];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+
+    OSLocationService *service = [[OSLocationService alloc] init];
+    id mockLocationService = OCMPartialMock(service);
+
+    id mockLocationManager = OCMClassMock([OSLocationService class]);
+    OCMStub([mockLocationManager locationServicesEnabled]).andReturn(NO);
+    expect([OSLocationService locationServicesEnabled]).to.beFalsy();
+
+    NSString *dummyIdentifier = @"Dummy";
+    OSLocationServiceUpdateOptions options = OSLocationServiceAllOptions;
+    [mockLocationService startUpdatingWithFirstDisabledWarningAndOptions:options sender:dummyIdentifier];
+
+    OCMVerify([mockLocationService displayLocationServicesDisabledAlert]);
+}
+
+- (void)testNoAlertIsDisplayedWhenLocationServicesAreDisabledOnSubsequentStarts {
+    [[NSUserDefaults standardUserDefaults] setBool:YES forKey:OSLocationServicesDisabledAlertHasBeenShown];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+
+    id mockLocationManager = OCMClassMock([OSLocationService class]);
+    OCMStub([mockLocationManager locationServicesEnabled]).andReturn(NO);
+
+    expect([OSLocationService locationServicesEnabled]).to.beFalsy();
+
+    OSLocationService *service = [[OSLocationService alloc] init];
+
+    id mockLocationService = OCMPartialMock(service);
+    NSString *dummyIdentifier = @"Dummy";
+    OSLocationServiceUpdateOptions options = OSLocationServiceAllOptions;
+    [mockLocationService startUpdatingWithFirstDisabledWarningAndOptions:options sender:dummyIdentifier];
+    [[mockLocationService reject] displayLocationServicesDisabledAlert];
+    [mockLocationService verify];
 }
 
 @end

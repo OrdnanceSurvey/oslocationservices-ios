@@ -13,6 +13,8 @@
 
 @import CoreLocation;
 
+NSString *const OSLocationServicesDisabledAlertHasBeenShown = @"LocationServicesDisabledAlertHasBeenShown";
+
 @implementation OSLocationService
 
 + (OSLocationServiceUpdateOptions)availableOptions {
@@ -42,6 +44,18 @@
 
 #pragma mark - Starting updates
 
+- (OSLocationServiceUpdateOptions)startUpdatingWithFirstDisabledWarningAndOptions:(OSLocationServiceUpdateOptions)updateOptions sender:(id)sender {
+
+    BOOL alertHasBeenShown = [[NSUserDefaults standardUserDefaults] boolForKey:OSLocationServicesDisabledAlertHasBeenShown];
+    if (!alertHasBeenShown && ![OSLocationService locationServicesEnabled]) {
+        [self displayLocationServicesDisabledAlert];
+        return OSLocationServiceNoUpdates;
+    } else {
+        OSLocationServiceUpdateOptions newOptions = [self startUpdatingWithOptions:updateOptions permissionLevel:OSLocationServicePermissionWhenInUse sender:sender];
+        return newOptions;
+    }
+}
+
 - (OSLocationServiceUpdateOptions)startUpdatingWithOptions:(OSLocationServiceUpdateOptions)updateOptions sender:(id)sender {
     OSLocationServiceUpdateOptions newOptions = [self startUpdatingWithOptions:updateOptions permissionLevel:OSLocationServicePermissionWhenInUse sender:sender];
     return newOptions;
@@ -62,6 +76,30 @@
     [self reactToNewCumulativeOptions];
 
     return updatedOptions;
+}
+
+- (void)displayLocationServicesDisabledAlert {
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Location Services Disabled", @"Location Services Disabled message title")
+                                                                   message:NSLocalizedString(@"Location Services are required to view your location on the map. Go to settings to enable them.", @"Location Services Disabled message displayed on map screen")
+                                                            preferredStyle:UIAlertControllerStyleAlert];
+
+    UIAlertAction *settingsAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"Settings", nil) style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:UIApplicationOpenSettingsURLString]];
+    }];
+    [alert addAction:settingsAction];
+
+    UIAlertAction *dismissAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"Close", nil) style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [UIApplication.sharedApplication.keyWindow.rootViewController dismissViewControllerAnimated:YES completion:nil];
+        });
+    }];
+    [alert addAction:dismissAction];
+
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [UIApplication.sharedApplication.keyWindow.rootViewController presentViewController:alert animated:YES completion:nil];
+        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:OSLocationServicesDisabledAlertHasBeenShown];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+    });
 }
 
 #pragma mark - Stopping updates
