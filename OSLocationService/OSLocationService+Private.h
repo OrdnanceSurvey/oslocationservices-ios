@@ -24,4 +24,6 @@
 //iOS 8 location permission level - defaults to "When in use"
 @property (assign, nonatomic) OSLocationServicePermission permissionLevel;
 
+- (void)displayLocationServicesDisabledAlert;
+
 @end

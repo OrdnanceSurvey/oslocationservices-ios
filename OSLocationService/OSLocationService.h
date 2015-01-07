@@ -186,6 +186,16 @@ typedef NS_ENUM(NSInteger, OSLocationServiceCalibrationImportance) {
  */
 - (OSLocationServiceUpdateOptions)startUpdatingWithOptions:(OSLocationServiceUpdateOptions)updateOptions sender:(id)sender;
 
+/**
+ *  Trigger location service to start, with a warning alert the first time if location services are disabled.
+ *
+ *  @param updateOptions The properties you would like to start updating.
+ *  @param sender        The object sending this method (i.e. self).
+ *
+ *  @return The actual options that will start to change. This may not be the same if, for example, an option you requested isn't available for this device. You should check that what you pass as an argument as Options and what is returned are equal, or act accoridngly if they are not.
+ */
+- (OSLocationServiceUpdateOptions)startUpdatingWithFirstDisabledWarningAndOptions:(OSLocationServiceUpdateOptions)updateOptions sender:(id)sender;
+
 /** @name Stopping updates */
 
 /**
