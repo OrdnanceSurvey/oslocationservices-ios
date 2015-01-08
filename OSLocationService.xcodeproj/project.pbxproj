@@ -24,6 +24,8 @@
 /* Begin PBXBuildFile section */
 		B35917581A41AB3B000D041F /* OSLocationService.h in Headers */ = {isa = PBXBuildFile; fileRef = D6BA2F8D195DB0CE0099B7F7 /* OSLocationService.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		B35917591A41AB41000D041F /* OSLocationService+Private.h in Headers */ = {isa = PBXBuildFile; fileRef = B35917561A41A28F000D041F /* OSLocationService+Private.h */; };
+		B3923B011A5D8E80007B9041 /* UIViewController+VisibleViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = B3923AFF1A5D8E80007B9041 /* UIViewController+VisibleViewController.h */; };
+		B3923B021A5D8E80007B9041 /* UIViewController+VisibleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B3923B001A5D8E80007B9041 /* UIViewController+VisibleViewController.m */; };
 		B3A083221A3EFF6100DAFF3E /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = B3A083211A3EFF6100DAFF3E /* main.m */; };
 		B3A083251A3EFF6100DAFF3E /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = B3A083241A3EFF6100DAFF3E /* AppDelegate.m */; };
 		B3A083281A3EFF6100DAFF3E /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B3A083271A3EFF6100DAFF3E /* ViewController.m */; };
@@ -109,6 +111,8 @@
 		B33986C71A39EE3C000B6099 /* MIQTestingFramework.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = MIQTestingFramework.framework; sourceTree = "<group>"; };
 		B33986CB1A39EF36000B6099 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		B35917561A41A28F000D041F /* OSLocationService+Private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "OSLocationService+Private.h"; sourceTree = "<group>"; };
+		B3923AFF1A5D8E80007B9041 /* UIViewController+VisibleViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+VisibleViewController.h"; sourceTree = "<group>"; };
+		B3923B001A5D8E80007B9041 /* UIViewController+VisibleViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+VisibleViewController.m"; sourceTree = "<group>"; };
 		B3A0831D1A3EFF6100DAFF3E /* OSLocationTestHost.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OSLocationTestHost.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B3A083201A3EFF6100DAFF3E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B3A083211A3EFF6100DAFF3E /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -231,6 +235,8 @@
 				D6D628861962F16400E3B8DA /* OSLocationServiceObserverProtocol.h */,
 				D6BA2F90195DB0CE0099B7F7 /* OSServiceRelationshipManager.h */,
 				D6BA2F91195DB0CE0099B7F7 /* OSServiceRelationshipManager.m */,
+				B3923AFF1A5D8E80007B9041 /* UIViewController+VisibleViewController.h */,
+				B3923B001A5D8E80007B9041 /* UIViewController+VisibleViewController.m */,
 				14CC877919471C2000C0D5BC /* Supporting Files */,
 			);
 			path = OSLocationService;
@@ -306,6 +312,7 @@
 				B3A469651A407FC70007B82C /* OSCoreLocationManager.h in Headers */,
 				B3A469661A407FD30007B82C /* OSServiceRelationshipManager.h in Headers */,
 				B35917591A41AB41000D041F /* OSLocationService+Private.h in Headers */,
+				B3923B011A5D8E80007B9041 /* UIViewController+VisibleViewController.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -481,6 +488,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B3923B021A5D8E80007B9041 /* UIViewController+VisibleViewController.m in Sources */,
 				B3A4694E1A4073CB0007B82C /* OSCoreLocationManager.m in Sources */,
 				B3A4694F1A4073D00007B82C /* OSServiceRelationshipManager.m in Sources */,
 				B3A4694D1A4073C70007B82C /* OSLocationService.m in Sources */,

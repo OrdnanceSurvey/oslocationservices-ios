@@ -10,6 +10,7 @@
 #import "OSServiceRelationshipManager.h"
 #import "OSLocationServiceObserverProtocol.h"
 #import "OSCoreLocationManager.h"
+#import "UIViewController+VisibleViewController.h"
 
 @import CoreLocation;
 
@@ -90,13 +91,15 @@ NSString *const OSLocationServicesDisabledAlertHasBeenShown = @"LocationServices
 
     UIAlertAction *dismissAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"Close", nil) style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
         dispatch_async(dispatch_get_main_queue(), ^{
-            [UIApplication.sharedApplication.keyWindow.rootViewController dismissViewControllerAnimated:YES completion:nil];
+            UIViewController *visibleViewController = [UIViewController visibleViewController:UIApplication.sharedApplication.keyWindow.rootViewController];
+            [visibleViewController dismissViewControllerAnimated:YES completion:nil];
         });
     }];
     [alert addAction:dismissAction];
 
     dispatch_async(dispatch_get_main_queue(), ^{
-        [UIApplication.sharedApplication.keyWindow.rootViewController presentViewController:alert animated:YES completion:nil];
+        UIViewController *visibleViewController = [UIViewController visibleViewController:UIApplication.sharedApplication.keyWindow.rootViewController];
+        [visibleViewController presentViewController:alert animated:YES completion:nil];
         [[NSUserDefaults standardUserDefaults] setBool:YES forKey:OSLocationServicesDisabledAlertHasBeenShown];
         [[NSUserDefaults standardUserDefaults] synchronize];
     });
