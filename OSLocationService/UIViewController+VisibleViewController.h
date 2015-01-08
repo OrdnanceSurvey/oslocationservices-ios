@@ -10,6 +10,14 @@
 
 @interface UIViewController (VisibleViewController)
 
+/**
+ *  Finds the currently visible view controller in the view hierarchy.
+ *
+ *  @param rootViewController The root view controller to start traversing from
+ *  (i.e. the application key window's rootViewController).
+ *
+ *  @return The view controller that is currently visibile (i.e. presented)
+ */
 + (UIViewController *)visibleViewController:(UIViewController *)rootViewController;
 
 @end
