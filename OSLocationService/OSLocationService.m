@@ -89,15 +89,10 @@ NSString *const OSLocationServicesDisabledAlertHasBeenShown = @"LocationServices
     }];
     [alert addAction:settingsAction];
 
-    UIAlertAction *dismissAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"Close", nil) style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
-        dispatch_async(dispatch_get_main_queue(), ^{
-            UIViewController *visibleViewController = [UIViewController visibleViewController:UIApplication.sharedApplication.keyWindow.rootViewController];
-            [visibleViewController dismissViewControllerAnimated:YES completion:nil];
-        });
-    }];
+    UIAlertAction *dismissAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"Close", nil) style:UIAlertActionStyleDefault handler:nil];
     [alert addAction:dismissAction];
 
-    dispatch_async(dispatch_get_main_queue(), ^{
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         UIViewController *visibleViewController = [UIViewController visibleViewController:UIApplication.sharedApplication.keyWindow.rootViewController];
         [visibleViewController presentViewController:alert animated:YES completion:nil];
         [[NSUserDefaults standardUserDefaults] setBool:YES forKey:OSLocationServicesDisabledAlertHasBeenShown];
