@@ -48,6 +48,7 @@ NSString *const OSLocationServicesDisabledAlertHasBeenShown = @"LocationServices
 - (OSLocationServiceUpdateOptions)startUpdatingWithFirstDisabledWarningAndOptions:(OSLocationServiceUpdateOptions)updateOptions sender:(id)sender {
 
     BOOL alertHasBeenShown = [[NSUserDefaults standardUserDefaults] boolForKey:OSLocationServicesDisabledAlertHasBeenShown];
+
     if (!alertHasBeenShown && ![OSLocationService locationServicesEnabled]) {
         [self displayLocationServicesDisabledAlert];
         return OSLocationServiceNoUpdates;
@@ -92,7 +93,8 @@ NSString *const OSLocationServicesDisabledAlertHasBeenShown = @"LocationServices
     UIAlertAction *dismissAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"Close", nil) style:UIAlertActionStyleDefault handler:nil];
     [alert addAction:dismissAction];
 
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+    //Delay presenting the alert for 400ms to allow for things to calm down on e.g. app start
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)400 * NSEC_PER_MSEC), dispatch_get_main_queue(), ^{
         UIViewController *visibleViewController = [UIViewController visibleViewController:UIApplication.sharedApplication.keyWindow.rootViewController];
         [visibleViewController presentViewController:alert animated:YES completion:nil];
         [[NSUserDefaults standardUserDefaults] setBool:YES forKey:OSLocationServicesDisabledAlertHasBeenShown];
@@ -300,7 +302,7 @@ NSString *const OSLocationServicesDisabledAlertHasBeenShown = @"LocationServices
 }
 
 - (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error {
-    NSLog(@"OSLocationService: Core Location failed with error: %@", error.localizedDescription);
+    // Do nothing
 }
 
 - (BOOL)locationManagerShouldDisplayHeadingCalibration:(CLLocationManager *)manager {
