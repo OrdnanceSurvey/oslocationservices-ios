@@ -43,24 +43,6 @@ def run_tests(coverage=nil)
   return BuildHelper.xcodebuild "OSLocationService.xcodeproj", IS_WORKSPACE, scheme_name, "iphonesimulator", "clean build test", "-destination 'platform=iOS Simulator,name=iPhone 5'"
 end
 
-# Used by jenkins to get around the ssh/simulator bug in Xcode 6.
-# See comment in testrunner.rb
-desc 'Run tests via a service'
-task :testremote do |t|
-  s = TCPSocket.new 'localhost', 2901
-  s.puts "test, #{Dir.pwd}"
-  result = s.gets
-  s.close
-  parse_test_output_for_result result
-end
-
-# Used by testrunner.rb to execute the tests. We leave parsing
-# to the process running on the jenkins slave
-desc 'Called by the remote test service just to run the tests'
-task :test_without_parse do |t|
-  result = run_tests
-end
-
 # Run and parse tests. Preferred method to run tests
 # and can be used if the ssh/sumulator bug gets fixed
 desc 'Run unit tests'
@@ -79,14 +61,6 @@ end
 
 =begin
 ==The following do not apply to framework projects==
-desc 'Archives the build using the runner service'
-task :archiveremote do |t|
-  s = TCPSocket.new 'localhost', 2901
-  s.puts "archive, #{Dir.pwd}"
-  result = s.gets
-  s.close
-end
-
 desc 'Builds and archives the app'
 task :archive do |t|
   puts '=== BUILD ==='.cyan
