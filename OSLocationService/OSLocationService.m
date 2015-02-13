@@ -302,7 +302,9 @@ NSString *const OSLocationServicesDisabledAlertHasBeenShown = @"LocationServices
 }
 
 - (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error {
-    // Do nothing
+    if ([self.delegate respondsToSelector:@selector(locationService:didFailWithError:)]) {
+        [self.delegate locationService:self didFailWithError:error];
+    }
 }
 
 - (BOOL)locationManagerShouldDisplayHeadingCalibration:(CLLocationManager *)manager {

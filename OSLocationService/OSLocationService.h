@@ -46,6 +46,16 @@ FOUNDATION_EXPORT const unsigned char OSLocationServiceVersionString[];
  */
 - (void)locationService:(OSLocationService *)service didUpdateHeading:(OSLocationDirection)heading;
 
+/**
+ *  locationService:didFailWithError:
+ *
+ *  Invoked when an error is received by the service.
+ *
+ *  @param service Instance of OSLocationService that has received the error.
+ *  @param error   The error received from the Corelocation Framework
+ */
+- (void)locationService:(OSLocationService *)service didFailWithError:(NSError *)error;
+
 @end
 
 /**
