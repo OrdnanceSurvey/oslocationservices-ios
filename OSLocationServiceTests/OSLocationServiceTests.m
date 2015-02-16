@@ -347,4 +347,32 @@ Test(TheServiceCalibrationDelegateCanAffectWhetherToDisplayTheCalibrationScreen)
     [mockLocationService verify];
 }
 
+- (void)testLocationServicesStopsUpdatesInBackground {
+    id mockLocationManager = OCMClassMock([CLLocationManager class]);
+    OSLocationService *locationService = [[OSLocationService alloc] init];
+    locationService.coreLocationManager = mockLocationManager;
+    [[NSNotificationCenter defaultCenter] postNotificationName:UIApplicationDidEnterBackgroundNotification object:nil];
+    OCMVerify([mockLocationManager stopUpdatingLocation]);
+    OCMVerify([mockLocationManager stopUpdatingHeading]);
+}
+
+- (void)testLocationServicesDoesNotStopUpdatesInBackgroundWhenTrackingUserLocation {
+    id mockLocationManager = OCMClassMock([CLLocationManager class]);
+    OSLocationService *locationService = [[OSLocationService alloc] init];
+    locationService.continueUpdatesInBackground = YES;
+    locationService.coreLocationManager = mockLocationManager;
+    [[mockLocationManager reject] stopUpdatingLocation];
+    [[mockLocationManager reject] stopUpdatingHeading];
+    [[NSNotificationCenter defaultCenter] postNotificationName:UIApplicationDidEnterBackgroundNotification object:nil];
+}
+
+- (void)testLocationServicesStartsUpdatesWhenInForeGround {
+    id mockLocationManager = OCMClassMock([CLLocationManager class]);
+    OSLocationService *locationService = [[OSLocationService alloc] init];
+    locationService.coreLocationManager = mockLocationManager;
+    [[NSNotificationCenter defaultCenter] postNotificationName:UIApplicationWillEnterForegroundNotification object:nil];
+    OCMVerify([mockLocationManager startUpdatingLocation]);
+    OCMVerify([mockLocationManager startUpdatingHeading]);
+}
+
 @end
