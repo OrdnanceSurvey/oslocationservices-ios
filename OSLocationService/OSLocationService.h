@@ -235,4 +235,9 @@ typedef NS_ENUM(NSInteger, OSLocationServiceCalibrationImportance) {
 
 @property (weak, nonatomic) id<OSLocationServiceDelegate> delegate;
 
+/**
+ *  If updates are needed in background, then this flag should be set to YES. The default implementation stops updates if the app is in background and resumes once it is in foreground.
+ */
+@property (assign, nonatomic) BOOL continueUpdatesInBackground;
+
 @end

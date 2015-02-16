@@ -39,6 +39,15 @@ NSString *const OSLocationServicesDisabledAlertHasBeenShown = @"LocationServices
         _coreLocationManager.delegate = self;
         _locationAuthorizationStatus = [OSCoreLocationManager osAuthorizationStatus];
         _permissionLevel = OSLocationServicePermissionWhenInUse;
+
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(didEnterBackground:)
+                                                     name:UIApplicationDidEnterBackgroundNotification
+                                                   object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(willEnterForeground:)
+                                                     name:UIApplicationWillEnterForegroundNotification
+                                                   object:nil];
     }
     return self;
 }
@@ -333,6 +342,26 @@ NSString *const OSLocationServicesDisabledAlertHasBeenShown = @"LocationServices
         }
     }
     return NO; // All is good. Compass is precise enough.
+}
+
+#pragma mark - Notifications
+- (void)didEnterBackground:(id)sender {
+    if (!self.continueUpdatesInBackground) {
+        [self.coreLocationManager stopUpdatingLocation];
+        [self.coreLocationManager stopUpdatingHeading];
+    }
+}
+
+- (void)willEnterForeground:(id)sender {
+    if (!self.continueUpdatesInBackground) {
+        [self.coreLocationManager startUpdatingLocation];
+        [self.coreLocationManager startUpdatingHeading];
+    }
+}
+
+- (void)dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationDidEnterBackgroundNotification object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationWillEnterForegroundNotification object:nil];
 }
 
 @end
