@@ -138,8 +138,8 @@ NSString *const OSLocationServicesDisabledAlertHasBeenShown = @"LocationServices
     if (![self objectIsAcceptableForRelationshipManager:sender]) {
         return OSLocationServiceNoUpdates;
     }
-
-    return [self.relationshipManager optionsForObject:sender];
+    id identifyingObject = [self identifyingObjectFromObject:sender];
+    return [self.relationshipManager optionsForObject:identifyingObject];
 }
 
 - (BOOL)objectIsAcceptableForRelationshipManager:(id)object {

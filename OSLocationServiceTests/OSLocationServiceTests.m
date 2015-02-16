@@ -11,6 +11,7 @@
 #import "OSLocationService+Private.h"
 #import "OSCoreLocationManager.h"
 #import "OSServiceRelationshipManager.h"
+#import "OSLocationServiceObserverProtocol.h"
 
 @import CoreLocation;
 
@@ -169,13 +170,14 @@ extern NSString *const OSLocationServicesDisabledAlertHasBeenShown;
 
 - (void)testStopUpdateForObjectRemovesAllOptions {
     OSLocationService *service = [[OSLocationService alloc] init];
-    NSString *dummyIdentifier = @"Dummy";
-    [service startUpdatingWithOptions:OSLocationServiceHeadingUpdates | OSLocationServiceLocationUpdates sender:dummyIdentifier];
+    id mockValidObject = [OCMockObject mockForProtocol:@protocol(OSLocationServiceObserverProtocol)];
+    [[[mockValidObject stub] andReturn:@"DummyID"] locationServiceIdentifier];
+    [service startUpdatingWithOptions:OSLocationServiceHeadingUpdates | OSLocationServiceLocationUpdates sender:mockValidObject];
 
-    [service stopUpdatesForSender:dummyIdentifier];
+    [service stopUpdatesForSender:mockValidObject];
 
     OSLocationServiceUpdateOptions expectedOptions = OSLocationServiceNoUpdates;
-    OSLocationServiceUpdateOptions actualOptions = [service optionsForSender:dummyIdentifier];
+    OSLocationServiceUpdateOptions actualOptions = [service optionsForSender:mockValidObject];
     XCTAssertEqual(expectedOptions, actualOptions, @"All Options were not removed properly");
 }
 
@@ -183,15 +185,17 @@ extern NSString *const OSLocationServicesDisabledAlertHasBeenShown;
     [self mockCoreLocationManagerAllowLocation:YES allowHeading:YES];
 
     OSLocationService *service = [[OSLocationService alloc] init];
-    NSString *dummyIdentifier = @"Dummy";
+    id mockValidObject = [OCMockObject mockForProtocol:@protocol(OSLocationServiceObserverProtocol)];
+    [[[mockValidObject stub] andReturn:@"DummyID"] locationServiceIdentifier];
+
     OSLocationServiceUpdateOptions startingOptions = OSLocationServiceHeadingUpdates | OSLocationServiceLocationUpdates;
-    [service startUpdatingWithOptions:startingOptions sender:dummyIdentifier];
+    [service startUpdatingWithOptions:startingOptions sender:mockValidObject];
 
     OSLocationServiceUpdateOptions optionsToRemove = OSLocationServiceLocationUpdates;
-    [service stopUpdatesForOptions:optionsToRemove sender:dummyIdentifier];
+    [service stopUpdatesForOptions:optionsToRemove sender:mockValidObject];
 
     OSLocationServiceUpdateOptions expectedReaminingOptions = OSLocationServiceHeadingUpdates;
-    OSLocationServiceUpdateOptions actualRemainingOptions = [service optionsForSender:dummyIdentifier];
+    OSLocationServiceUpdateOptions actualRemainingOptions = [service optionsForSender:mockValidObject];
 
     XCTAssertEqual(expectedReaminingOptions, actualRemainingOptions, @"Selected Options were not removed properly");
 }
