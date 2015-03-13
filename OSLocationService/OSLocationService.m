@@ -40,6 +40,11 @@ NSString *const OSLocationServicesDisabledAlertHasBeenShown = @"LocationServices
         _locationAuthorizationStatus = [OSCoreLocationManager osAuthorizationStatus];
         _permissionLevel = OSLocationServicePermissionWhenInUse;
 
+        _activityType = CLActivityTypeOther;
+        _distanceFilter = kCLDistanceFilterNone;
+        _desiredAccuracy = kCLLocationAccuracyBest;
+        _pausesLocationUpdatesAutomatically = YES;
+
         [[NSNotificationCenter defaultCenter] addObserver:self
                                                  selector:@selector(didEnterBackground:)
                                                      name:UIApplicationDidEnterBackgroundNotification
@@ -87,6 +92,18 @@ NSString *const OSLocationServicesDisabledAlertHasBeenShown = @"LocationServices
     [self reactToNewCumulativeOptions];
 
     return updatedOptions;
+}
+
+- (void)allowDeferredLocationUpdatesUntilTraveled:(CLLocationDistance)distance timeout:(NSTimeInterval)timeout {
+    self.coreLocationManager.desiredAccuracy = kCLLocationAccuracyBest;
+    self.coreLocationManager.distanceFilter = kCLDistanceFilterNone;
+    [self.coreLocationManager allowDeferredLocationUpdatesUntilTraveled:distance timeout:timeout];
+}
+
+- (void)disallowDeferredLocationUpdates {
+    [self.coreLocationManager disallowDeferredLocationUpdates];
+    self.coreLocationManager.desiredAccuracy = self.desiredAccuracy;
+    self.coreLocationManager.distanceFilter = self.distanceFilter;
 }
 
 - (void)displayLocationServicesDisabledAlert {
@@ -197,6 +214,10 @@ NSString *const OSLocationServicesDisabledAlertHasBeenShown = @"LocationServices
     if (self.coreLocationManager == nil) {
         self.coreLocationManager = [[CLLocationManager alloc] init];
         self.coreLocationManager.delegate = self;
+        self.coreLocationManager.pausesLocationUpdatesAutomatically = self.pausesLocationUpdatesAutomatically;
+        self.coreLocationManager.distanceFilter = self.distanceFilter;
+        self.coreLocationManager.desiredAccuracy = self.desiredAccuracy;
+        self.coreLocationManager.activityType = self.activityType;
     }
 
     if (wantsLocationUpdates) {
@@ -342,6 +363,12 @@ NSString *const OSLocationServicesDisabledAlertHasBeenShown = @"LocationServices
         }
     }
     return NO; // All is good. Compass is precise enough.
+}
+
+- (void)locationManager:(CLLocationManager *)manager didFinishDeferredUpdatesWithError:(NSError *)error {
+    if ([self.delegate respondsToSelector:@selector(locationService:didFinishDeferredUpdatesWithError:)]) {
+        [self.delegate locationService:self didFinishDeferredUpdatesWithError:error];
+    }
 }
 
 #pragma mark - Notifications
