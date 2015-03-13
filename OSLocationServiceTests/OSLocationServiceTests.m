@@ -150,6 +150,37 @@ extern NSString *const OSLocationServicesDisabledAlertHasBeenShown;
     OCMVerify([mockDelegate locationService:locationService didUpdateHeading:90]);
 }
 
+- (void)testThatItNotifiesDelegateWhenDeferringUpdatesHasStopped {
+    id mockDelegate = OCMProtocolMock(@protocol(OSLocationServiceDelegate));
+    OSLocationService *locationService = [[OSLocationService alloc] init];
+    locationService.delegate = mockDelegate;
+    [locationService locationManager:nil didFinishDeferredUpdatesWithError:nil];
+    OCMVerify([mockDelegate locationService:locationService didFinishDeferredUpdatesWithError:nil]);
+}
+
+- (void)testThatDeferringLocationUpdatesTheParametersCorrectly {
+    OSLocationService *locationService = [[OSLocationService alloc] init];
+    locationService.distanceFilter = 10;
+    locationService.desiredAccuracy = kCLLocationAccuracyKilometer;
+    NSString *dummyIdentifier = @"Dummy";
+    [locationService startUpdatingWithOptions:OSLocationServiceLocationUpdates sender:dummyIdentifier];
+    [locationService allowDeferredLocationUpdatesUntilTraveled:10 timeout:10];
+    expect(locationService.coreLocationManager.distanceFilter).to.equal(kCLDistanceFilterNone);
+    expect(locationService.coreLocationManager.desiredAccuracy).to.equal(kCLLocationAccuracyBest);
+}
+
+- (void)testThatDisallowingDeferringLocationUpdatesResetsTheParametersCorrectly {
+    OSLocationService *locationService = [[OSLocationService alloc] init];
+    locationService.distanceFilter = 10;
+    locationService.desiredAccuracy = kCLLocationAccuracyKilometer;
+    NSString *dummyIdentifier = @"Dummy";
+    [locationService startUpdatingWithOptions:OSLocationServiceLocationUpdates sender:dummyIdentifier];
+    [locationService allowDeferredLocationUpdatesUntilTraveled:10 timeout:10];
+    [locationService disallowDeferredLocationUpdates];
+    expect(locationService.coreLocationManager.distanceFilter).to.equal(10);
+    expect(locationService.coreLocationManager.desiredAccuracy).to.equal(kCLLocationAccuracyKilometer);
+}
+
 - (void)testAddingLocationOptionTurnsOnCoreLocation {
     id mockLocationManager = OCMClassMock([CLLocationManager class]);
 

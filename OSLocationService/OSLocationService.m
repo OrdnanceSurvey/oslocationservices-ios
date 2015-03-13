@@ -94,6 +94,18 @@ NSString *const OSLocationServicesDisabledAlertHasBeenShown = @"LocationServices
     return updatedOptions;
 }
 
+- (void)allowDeferredLocationUpdatesUntilTraveled:(CLLocationDistance)distance timeout:(NSTimeInterval)timeout {
+    self.coreLocationManager.desiredAccuracy = kCLLocationAccuracyBest;
+    self.coreLocationManager.distanceFilter = kCLDistanceFilterNone;
+    [self.coreLocationManager allowDeferredLocationUpdatesUntilTraveled:distance timeout:timeout];
+}
+
+- (void)disallowDeferredLocationUpdates {
+    [self.coreLocationManager disallowDeferredLocationUpdates];
+    self.coreLocationManager.desiredAccuracy = self.desiredAccuracy;
+    self.coreLocationManager.distanceFilter = self.distanceFilter;
+}
+
 - (void)displayLocationServicesDisabledAlert {
     UIAlertController *alert = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Location Services Disabled", @"Location Services Disabled message title")
                                                                    message:NSLocalizedString(@"Location Services are required to view your location on the map. Go to settings to enable them.", @"Location Services Disabled message displayed on map screen")
@@ -351,6 +363,12 @@ NSString *const OSLocationServicesDisabledAlertHasBeenShown = @"LocationServices
         }
     }
     return NO; // All is good. Compass is precise enough.
+}
+
+- (void)locationManager:(CLLocationManager *)manager didFinishDeferredUpdatesWithError:(NSError *)error {
+    if ([self.delegate respondsToSelector:@selector(locationService:didFinishDeferredUpdatesWithError:)]) {
+        [self.delegate locationService:self didFinishDeferredUpdatesWithError:error];
+    }
 }
 
 #pragma mark - Notifications
