@@ -158,6 +158,27 @@ typedef NS_ENUM(NSInteger, OSLocationServiceCalibrationImportance) {
 @property (assign, nonatomic) float headingFilter;
 
 /**
+ *  The type of user activity associated with the location updates. The default value of this property is `CLActivityTypeOther`.
+ */
+@property (assign, nonatomic) CLActivityType activityType;
+
+/**
+ *  The minimum distance (measured in meters) a device must move horizontally before an update event is generated. The default value of this property is `kCLDistanceFilterNone`.
+ */
+@property (assign, nonatomic) CLLocationDistance distanceFilter;
+
+/**
+ *  The accuracy of the location data. The default value of this property is `kCLLocationAccuracyBest`.
+ */
+@property (assign, nonatomic) CLLocationAccuracy desiredAccuracy;
+
+/**
+ *  A Boolean value indicating whether the location manager object may pause location updates. Should be used along with `CLActivityType`.
+ *  The default value of this property is YES.
+ */
+@property (assign, nonatomic) BOOL pausesLocationUpdatesAutomatically;
+
+/**
  *  Find whether the app is authorized to use Location Services. Required for OSLocationServiceLocationUpdates. If not allowed, the option is not available. Observe this property for changes to the authorization status.
  */
 @property (assign, nonatomic, readonly) OSLocationServiceAuthorizationStatus locationAuthorizationStatus;

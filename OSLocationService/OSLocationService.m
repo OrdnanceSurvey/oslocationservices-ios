@@ -40,6 +40,11 @@ NSString *const OSLocationServicesDisabledAlertHasBeenShown = @"LocationServices
         _locationAuthorizationStatus = [OSCoreLocationManager osAuthorizationStatus];
         _permissionLevel = OSLocationServicePermissionWhenInUse;
 
+        _activityType = CLActivityTypeOther;
+        _distanceFilter = kCLDistanceFilterNone;
+        _desiredAccuracy = kCLLocationAccuracyBest;
+        _pausesLocationUpdatesAutomatically = YES;
+
         [[NSNotificationCenter defaultCenter] addObserver:self
                                                  selector:@selector(didEnterBackground:)
                                                      name:UIApplicationDidEnterBackgroundNotification
@@ -197,6 +202,10 @@ NSString *const OSLocationServicesDisabledAlertHasBeenShown = @"LocationServices
     if (self.coreLocationManager == nil) {
         self.coreLocationManager = [[CLLocationManager alloc] init];
         self.coreLocationManager.delegate = self;
+        self.coreLocationManager.pausesLocationUpdatesAutomatically = self.pausesLocationUpdatesAutomatically;
+        self.coreLocationManager.distanceFilter = self.distanceFilter;
+        self.coreLocationManager.desiredAccuracy = self.desiredAccuracy;
+        self.coreLocationManager.activityType = self.activityType;
     }
 
     if (wantsLocationUpdates) {

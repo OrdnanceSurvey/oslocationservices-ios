@@ -48,6 +48,15 @@ extern NSString *const OSLocationServicesDisabledAlertHasBeenShown;
     return mockCoreLocationManager;
 }
 
+- (void)testThatLocationServiceIsInitilisedWithDefaultValues {
+    OSLocationService *locationService = [[OSLocationService alloc] init];
+    expect(locationService.permissionLevel).to.equal(OSLocationServicePermissionWhenInUse);
+    expect(locationService.activityType).to.equal(CLActivityTypeOther);
+    expect(locationService.distanceFilter).to.equal(kCLDistanceFilterNone);
+    expect(locationService.desiredAccuracy).to.equal(kCLLocationAccuracyBest);
+    expect(locationService.pausesLocationUpdatesAutomatically).to.equal(YES);
+}
+
 - (void)testThatLocationServiceAsksForCorrectDefaultPermissionWhenActivated {
     id mockLocationManager = OCMClassMock([CLLocationManager class]);
     [OCMStub([mockLocationManager authorizationStatus]) andReturnValue:@(kCLAuthorizationStatusNotDetermined)];
