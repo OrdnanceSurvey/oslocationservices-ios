@@ -39,7 +39,6 @@
 		B3A083491A3EFFAC00DAFF3E /* OSGridPointConversion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B33986C51A39ECF4000B6099 /* OSGridPointConversion.framework */; };
 		B3A0834A1A3EFFCE00DAFF3E /* MIQTestingFramework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B33986C71A39EE3C000B6099 /* MIQTestingFramework.framework */; };
 		B3A0834C1A3EFFF300DAFF3E /* OSGridPointConversion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B33986C51A39ECF4000B6099 /* OSGridPointConversion.framework */; };
-		B3A0834D1A3F000E00DAFF3E /* OSGridPointConversion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B33986C51A39ECF4000B6099 /* OSGridPointConversion.framework */; };
 		B3A0834E1A3F000E00DAFF3E /* OSGridPointConversion.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = B33986C51A39ECF4000B6099 /* OSGridPointConversion.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		B3A469441A4073790007B82C /* OSLocationService.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B3A4692D1A4073790007B82C /* OSLocationService.framework */; };
 		B3A469451A4073790007B82C /* OSLocationService.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = B3A4692D1A4073790007B82C /* OSLocationService.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -153,7 +152,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				B3A083491A3EFFAC00DAFF3E /* OSGridPointConversion.framework in Frameworks */,
-				B3A0834D1A3F000E00DAFF3E /* OSGridPointConversion.framework in Frameworks */,
 				B3A469441A4073790007B82C /* OSLocationService.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -380,7 +378,7 @@
 		14CC876B19471C2000C0D5BC /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0510;
+				LastUpgradeCheck = 0620;
 				ORGANIZATIONNAME = "Ordnance Survey";
 				TargetAttributes = {
 					B3A0831C1A3EFF6100DAFF3E = {

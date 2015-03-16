@@ -170,20 +170,20 @@ typedef NS_ENUM(NSInteger, OSLocationServiceCalibrationImportance) {
 /**
  *  The type of user activity associated with the location updates. The default value of this property is `CLActivityTypeOther`.
  */
-@property (assign, nonatomic) CLActivityType activityType;
+@property (assign, nonatomic) OSActivityType activityType;
 
 /**
  *  The minimum distance (measured in meters) a device must move horizontally before an update event is generated. The default value of this property is `kCLDistanceFilterNone`.
  */
-@property (assign, nonatomic) CLLocationDistance distanceFilter;
+@property (assign, nonatomic) OSLocationDistance distanceFilter;
 
 /**
  *  The accuracy of the location data. The default value of this property is `kCLLocationAccuracyBest`.
  */
-@property (assign, nonatomic) CLLocationAccuracy desiredAccuracy;
+@property (assign, nonatomic) OSLocationAccuracy desiredAccuracy;
 
 /**
- *  A Boolean value indicating whether the location manager object may pause location updates. Should be used along with `CLActivityType`.
+ *  A Boolean value indicating whether the location service object may pause location updates. Should be used along with `OSActivityType`.
  *  The default value of this property is YES.
  */
 @property (assign, nonatomic) BOOL pausesLocationUpdatesAutomatically;

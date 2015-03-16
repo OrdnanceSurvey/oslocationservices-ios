@@ -12,6 +12,13 @@ NSString *const kOSLocationLatitudeKey = @"OSLocationLatitudeKey";
 NSString *const kOSLocationLongitudeKey = @"OSLocationLongitudeKey";
 NSString *const kOSLocationDateTakenKey = @"OSLocationDateTakenKey";
 NSString *const kOSLocationHorizontalAccuracyKey = @"OSLocationHorizontalAccuracyKey";
+const OSLocationDistance kOSDistanceFilterNone;
+const OSLocationAccuracy kOSLocationAccuracyBestForNavigation;
+const OSLocationAccuracy kOSLocationAccuracyBest;
+const OSLocationAccuracy kOSLocationAccuracyNearestTenMeters;
+const OSLocationAccuracy kOSLocationAccuracyHundredMeters;
+const OSLocationAccuracy kOSLocationAccuracyKilometer;
+const OSLocationAccuracy kOSLocationAccuracyThreeKilometers;
 
 @implementation OSLocation
 
