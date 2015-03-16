@@ -150,7 +150,7 @@ extern NSString *const OSLocationServicesDisabledAlertHasBeenShown;
     OCMVerify([mockDelegate locationService:locationService didUpdateHeading:90]);
 }
 
-- (void)testUpdatesAccuracyAndDistanceFilterCorrectlyWhenDeferringUpdates {
+- (void)testItUpdatesAccuracyAndDistanceFilterCorrectlyWhenDeferringUpdates {
     double testValue = 20;
     OSLocationService *locationService = [[OSLocationService alloc] init];
     locationService.desiredAccuracy = testValue;
