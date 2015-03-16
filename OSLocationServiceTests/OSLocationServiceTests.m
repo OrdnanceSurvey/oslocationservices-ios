@@ -150,6 +150,21 @@ extern NSString *const OSLocationServicesDisabledAlertHasBeenShown;
     OCMVerify([mockDelegate locationService:locationService didUpdateHeading:90]);
 }
 
+- (void)testUpdatesAccuracyAndDistanceFilterCorrectlyWhenDeferringUpdates {
+    double testValue = 20;
+    OSLocationService *locationService = [[OSLocationService alloc] init];
+    locationService.desiredAccuracy = testValue;
+    locationService.distanceFilter = testValue;
+    NSString *dummyIdentifier = @"Dummy";
+    [locationService startUpdatingWithOptions:OSLocationServiceLocationUpdates sender:dummyIdentifier];
+    [locationService allowDeferredLocationUpdatesUntilTraveled:10 timeout:10];
+    expect(locationService.coreLocationManager.desiredAccuracy).to.equal(kCLLocationAccuracyBest);
+    expect(locationService.coreLocationManager.distanceFilter).to.equal(kCLDistanceFilterNone);
+    [locationService locationManager:nil didFinishDeferredUpdatesWithError:nil];
+    expect(locationService.coreLocationManager.desiredAccuracy).to.equal(testValue);
+    expect(locationService.coreLocationManager.distanceFilter).to.equal(testValue);
+}
+
 - (void)testThatItNotifiesDelegateWhenDeferringUpdatesHasStopped {
     id mockDelegate = OCMProtocolMock(@protocol(OSLocationServiceDelegate));
     OSLocationService *locationService = [[OSLocationService alloc] init];
