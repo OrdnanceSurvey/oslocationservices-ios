@@ -168,17 +168,17 @@ typedef NS_ENUM(NSInteger, OSLocationServiceCalibrationImportance) {
 @property (assign, nonatomic) float headingFilter;
 
 /**
- *  The type of user activity associated with the location updates. The default value of this property is `CLActivityTypeOther`.
+ *  The type of user activity associated with the location updates. The default value of this property is `OSActivityTypeOther`.
  */
 @property (assign, nonatomic) OSActivityType activityType;
 
 /**
- *  The minimum distance (measured in meters) a device must move horizontally before an update event is generated. The default value of this property is `kCLDistanceFilterNone`.
+ *  The minimum distance (measured in meters) a device must move horizontally before an update event is generated. The default value of this property is `kOSDistanceFilterNone`.
  */
 @property (assign, nonatomic) OSLocationDistance distanceFilter;
 
 /**
- *  The accuracy of the location data. The default value of this property is `kCLLocationAccuracyBest`.
+ *  The accuracy of the location data. The default value of this property is `kOSLocationAccuracyBest`.
  */
 @property (assign, nonatomic) OSLocationAccuracy desiredAccuracy;
 
