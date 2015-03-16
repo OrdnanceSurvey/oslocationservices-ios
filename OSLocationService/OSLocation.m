@@ -13,6 +13,15 @@ NSString *const kOSLocationLongitudeKey = @"OSLocationLongitudeKey";
 NSString *const kOSLocationDateTakenKey = @"OSLocationDateTakenKey";
 NSString *const kOSLocationHorizontalAccuracyKey = @"OSLocationHorizontalAccuracyKey";
 
+// To be consistent, following values have been fetched by debugging Apple's core location accuracy filters and may change in the future.
+const OSLocationDistance kOSDistanceFilterNone = -1;
+const OSLocationAccuracy kOSLocationAccuracyBestForNavigation = -2;
+const OSLocationAccuracy kOSLocationAccuracyBest = -1;
+const OSLocationAccuracy kOSLocationAccuracyNearestTenMeters = 10;
+const OSLocationAccuracy kOSLocationAccuracyHundredMeters = 100;
+const OSLocationAccuracy kOSLocationAccuracyKilometer = 1000;
+const OSLocationAccuracy kOSLocationAccuracyThreeKilometers = 3000;
+
 @implementation OSLocation
 
 #pragma mark - Initializers

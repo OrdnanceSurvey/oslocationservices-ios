@@ -40,9 +40,9 @@ NSString *const OSLocationServicesDisabledAlertHasBeenShown = @"LocationServices
         _locationAuthorizationStatus = [OSCoreLocationManager osAuthorizationStatus];
         _permissionLevel = OSLocationServicePermissionWhenInUse;
 
-        _activityType = CLActivityTypeOther;
-        _distanceFilter = kCLDistanceFilterNone;
-        _desiredAccuracy = kCLLocationAccuracyBest;
+        _activityType = OSActivityTypeOther;
+        _distanceFilter = kOSDistanceFilterNone;
+        _desiredAccuracy = kOSLocationAccuracyBest;
         _pausesLocationUpdatesAutomatically = YES;
 
         [[NSNotificationCenter defaultCenter] addObserver:self
@@ -102,8 +102,6 @@ NSString *const OSLocationServicesDisabledAlertHasBeenShown = @"LocationServices
 
 - (void)disallowDeferredLocationUpdates {
     [self.coreLocationManager disallowDeferredLocationUpdates];
-    self.coreLocationManager.desiredAccuracy = self.desiredAccuracy;
-    self.coreLocationManager.distanceFilter = self.distanceFilter;
 }
 
 - (void)displayLocationServicesDisabledAlert {
@@ -217,7 +215,7 @@ NSString *const OSLocationServicesDisabledAlertHasBeenShown = @"LocationServices
         self.coreLocationManager.pausesLocationUpdatesAutomatically = self.pausesLocationUpdatesAutomatically;
         self.coreLocationManager.distanceFilter = self.distanceFilter;
         self.coreLocationManager.desiredAccuracy = self.desiredAccuracy;
-        self.coreLocationManager.activityType = self.activityType;
+        self.coreLocationManager.activityType = [self coreLocationActivityTypeFromOSActivity:self.activityType];
     }
 
     if (wantsLocationUpdates) {
@@ -250,6 +248,41 @@ NSString *const OSLocationServicesDisabledAlertHasBeenShown = @"LocationServices
     }
 }
 
+- (CLActivityType)coreLocationActivityTypeFromOSActivity:(OSActivityType)activity {
+    switch (activity) {
+        case OSActivityTypeOther:
+            return CLActivityTypeOther;
+            break;
+        case OSActivityTypeAutomotiveNavigation:
+            return CLActivityTypeAutomotiveNavigation;
+            break;
+        case OSActivityTypeFitness:
+            return CLActivityTypeFitness;
+            break;
+        case OSActivityTypeOtherNavigation:
+            return CLActivityTypeOtherNavigation;
+            break;
+    }
+}
+
+- (CLLocationAccuracy)coreLocationAccuracyFromOSAccuracy:(OSLocationAccuracy)accuracy {
+    if (accuracy == kOSLocationAccuracyBestForNavigation) {
+        return kCLLocationAccuracyBestForNavigation;
+    } else if (accuracy == kOSLocationAccuracyBest) {
+        return kCLLocationAccuracyBest;
+    } else if (accuracy == kOSLocationAccuracyNearestTenMeters) {
+        return kCLLocationAccuracyNearestTenMeters;
+    } else if (accuracy == kOSLocationAccuracyHundredMeters) {
+        return kCLLocationAccuracyHundredMeters;
+    } else if (accuracy == kOSLocationAccuracyKilometer) {
+        return kCLLocationAccuracyKilometer;
+    } else if (accuracy == kOSLocationAccuracyThreeKilometers) {
+        return kCLLocationAccuracyThreeKilometers;
+    } else {
+        return self.desiredAccuracy;
+    }
+}
+
 #pragma mark - Updating Preferences
 - (void)setHeadingFilter:(float)headingFilter {
     if (headingFilter == 0) {
@@ -259,6 +292,32 @@ NSString *const OSLocationServicesDisabledAlertHasBeenShown = @"LocationServices
     }
 
     _headingFilter = headingFilter;
+}
+
+- (void)setActivityType:(OSActivityType)activityType {
+    if (_activityType != activityType) {
+        _activityType = activityType;
+    }
+    self.coreLocationManager.activityType = [self coreLocationActivityTypeFromOSActivity:activityType];
+}
+
+- (void)setDistanceFilter:(OSLocationDistance)distanceFilter {
+    if (_distanceFilter != distanceFilter) {
+        _distanceFilter = distanceFilter;
+    }
+
+    if (distanceFilter == kOSDistanceFilterNone) {
+        self.coreLocationManager.distanceFilter = kCLDistanceFilterNone;
+    } else {
+        self.coreLocationManager.distanceFilter = distanceFilter;
+    }
+}
+
+- (void)setDesiredAccuracy:(OSLocationAccuracy)desiredAccuracy {
+    if (_desiredAccuracy != desiredAccuracy) {
+        _desiredAccuracy = desiredAccuracy;
+    }
+    self.coreLocationManager.desiredAccuracy = [self coreLocationAccuracyFromOSAccuracy:desiredAccuracy];
 }
 
 #pragma mark - derived property
@@ -366,6 +425,8 @@ NSString *const OSLocationServicesDisabledAlertHasBeenShown = @"LocationServices
 }
 
 - (void)locationManager:(CLLocationManager *)manager didFinishDeferredUpdatesWithError:(NSError *)error {
+    self.coreLocationManager.desiredAccuracy = self.desiredAccuracy;
+    self.coreLocationManager.distanceFilter = self.distanceFilter;
     if ([self.delegate respondsToSelector:@selector(locationService:didFinishDeferredUpdatesWithError:)]) {
         [self.delegate locationService:self didFinishDeferredUpdatesWithError:error];
     }

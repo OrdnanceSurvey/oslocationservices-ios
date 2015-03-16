@@ -36,6 +36,38 @@ typedef double OSLocationDegrees;
  */
 typedef double OSLocationAccuracy;
 
+/**
+ *  OSLocationDistance
+ *
+ *  Discussion:
+ *  Type used to represent a distance in meters.
+ */
+typedef double OSLocationDistance;
+
+/**
+ *  kOSDistanceFilterNone
+ *
+ *  Discussion:
+ *    Use as the distanceFilter to indicate location service that no minimum movement filter is desired
+ */
+extern const OSLocationDistance kOSDistanceFilterNone;
+
+/*
+ *  kOSLocationAccuracy<x>
+ *
+ *  Discussion:
+ *    Used to specify the accuracy level desired. The location service will try its best to achieve
+ *    your desired accuracy. However, it is not guaranteed. To optimize
+ *    power performance, be sure to specify an appropriate accuracy for your usage scenario (eg,
+ *    use a large accuracy value when only a coarse location is needed).
+ */
+extern const OSLocationAccuracy kOSLocationAccuracyBestForNavigation;
+extern const OSLocationAccuracy kOSLocationAccuracyBest;
+extern const OSLocationAccuracy kOSLocationAccuracyNearestTenMeters;
+extern const OSLocationAccuracy kOSLocationAccuracyHundredMeters;
+extern const OSLocationAccuracy kOSLocationAccuracyKilometer;
+extern const OSLocationAccuracy kOSLocationAccuracyThreeKilometers;
+
 @interface OSLocation : NSObject<NSCoding>
 /** @name Properties */
 
