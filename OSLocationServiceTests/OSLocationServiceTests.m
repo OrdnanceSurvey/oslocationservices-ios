@@ -299,6 +299,36 @@ extern NSString *const OSLocationServicesDisabledAlertHasBeenShown;
     XCTAssertEqual(service.headingFilter, 5.0f, @"Did not set property");
 }
 
+- (void)testPassingActivityTypeSetsCorrectActivity {
+    OSLocationService *service = [[OSLocationService alloc] init];
+    NSString *dummyIdentifier = @"Dummy";
+    [service startUpdatingWithOptions:OSLocationServiceHeadingUpdates sender:dummyIdentifier];
+    service.activityType = OSActivityTypeFitness;
+    expect(service.coreLocationManager.activityType).to.equal(CLActivityTypeFitness);
+}
+
+- (void)testPassingDistanceFilterSetsCorrectFilter {
+    OSLocationService *service = [[OSLocationService alloc] init];
+    NSString *dummyIdentifier = @"Dummy";
+    [service startUpdatingWithOptions:OSLocationServiceHeadingUpdates sender:dummyIdentifier];
+    service.distanceFilter = kOSDistanceFilterNone;
+    expect(service.coreLocationManager.distanceFilter).to.equal(kCLDistanceFilterNone);
+    service.distanceFilter = 10;
+    expect(service.coreLocationManager.distanceFilter).to.equal(10);
+}
+
+- (void)testPassingDesiredAccuracySetsCorrectAccuracy {
+    OSLocationService *service = [[OSLocationService alloc] init];
+    NSString *dummyIdentifier = @"Dummy";
+    [service startUpdatingWithOptions:OSLocationServiceHeadingUpdates sender:dummyIdentifier];
+    service.desiredAccuracy = kOSLocationAccuracyNearestTenMeters;
+    expect(service.coreLocationManager.desiredAccuracy).to.equal(kCLLocationAccuracyNearestTenMeters);
+    service.desiredAccuracy = kOSLocationAccuracyBest;
+    expect(service.coreLocationManager.desiredAccuracy).to.equal(kCLLocationAccuracyBest);
+    service.desiredAccuracy = 20;
+    expect(service.coreLocationManager.desiredAccuracy).to.equal(20);
+}
+
 Test(IfTheCalibrationDelegateIsNotSetThenTheCalibrationScreenWillNotBeUsed) {
     OSLocationService *service = [[OSLocationService alloc] init];
     expect([service locationManagerShouldDisplayHeadingCalibration:nil]).to.beFalsy();
