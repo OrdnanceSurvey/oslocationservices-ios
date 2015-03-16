@@ -52,8 +52,8 @@ extern NSString *const OSLocationServicesDisabledAlertHasBeenShown;
     OSLocationService *locationService = [[OSLocationService alloc] init];
     expect(locationService.permissionLevel).to.equal(OSLocationServicePermissionWhenInUse);
     expect(locationService.activityType).to.equal(CLActivityTypeOther);
-    expect(locationService.distanceFilter).to.equal(kCLDistanceFilterNone);
-    expect(locationService.desiredAccuracy).to.equal(kCLLocationAccuracyBest);
+    expect(locationService.distanceFilter).to.equal(kOSDistanceFilterNone);
+    expect(locationService.desiredAccuracy).to.equal(kOSLocationAccuracyBest);
     expect(locationService.pausesLocationUpdatesAutomatically).to.equal(YES);
 }
 
@@ -169,16 +169,12 @@ extern NSString *const OSLocationServicesDisabledAlertHasBeenShown;
     expect(locationService.coreLocationManager.desiredAccuracy).to.equal(kCLLocationAccuracyBest);
 }
 
-- (void)testThatDisallowingDeferringLocationUpdatesResetsTheParametersCorrectly {
+- (void)testThatDisallowingDeferringLocationUpdatesLocationServiceCorrectly {
+    id mockLocationManager = [OCMockObject niceMockForClass:[CLLocationManager class]];
     OSLocationService *locationService = [[OSLocationService alloc] init];
-    locationService.distanceFilter = 10;
-    locationService.desiredAccuracy = kCLLocationAccuracyKilometer;
-    NSString *dummyIdentifier = @"Dummy";
-    [locationService startUpdatingWithOptions:OSLocationServiceLocationUpdates sender:dummyIdentifier];
-    [locationService allowDeferredLocationUpdatesUntilTraveled:10 timeout:10];
+    locationService.coreLocationManager = mockLocationManager;
     [locationService disallowDeferredLocationUpdates];
-    expect(locationService.coreLocationManager.distanceFilter).to.equal(10);
-    expect(locationService.coreLocationManager.desiredAccuracy).to.equal(kCLLocationAccuracyKilometer);
+    OCMVerify([mockLocationManager disallowDeferredLocationUpdates]);
 }
 
 - (void)testAddingLocationOptionTurnsOnCoreLocation {
