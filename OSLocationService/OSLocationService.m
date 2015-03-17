@@ -94,10 +94,12 @@ NSString *const OSLocationServicesDisabledAlertHasBeenShown = @"LocationServices
     return updatedOptions;
 }
 
-- (void)allowDeferredLocationUpdatesUntilTraveled:(CLLocationDistance)distance timeout:(NSTimeInterval)timeout {
-    self.coreLocationManager.desiredAccuracy = kCLLocationAccuracyBest;
-    self.coreLocationManager.distanceFilter = kCLDistanceFilterNone;
-    [self.coreLocationManager allowDeferredLocationUpdatesUntilTraveled:distance timeout:timeout];
+- (void)allowDeferredLocationUpdatesUntilTraveled:(OSLocationDistance)distance timeout:(NSTimeInterval)timeout {
+    if ([CLLocationManager deferredLocationUpdatesAvailable]) {
+        self.coreLocationManager.desiredAccuracy = kCLLocationAccuracyBest;
+        self.coreLocationManager.distanceFilter = kCLDistanceFilterNone;
+        [self.coreLocationManager allowDeferredLocationUpdatesUntilTraveled:distance timeout:timeout];
+    }
 }
 
 - (void)disallowDeferredLocationUpdates {
