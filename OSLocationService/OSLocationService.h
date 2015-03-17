@@ -266,7 +266,7 @@ typedef NS_ENUM(NSInteger, OSLocationServiceCalibrationImportance) {
 
 /**
  *  Asks the location manager to defer the delivery of location updates until the specified criteria are met.
- *  When deferring location updates, the desired accuracy is set to `kCLLocationAccuracyBest` and distanceFilter to `kCLDistanceFilterNone`.
+ *  When deferring location updates, the desired accuracy is set to `kCLLocationAccuracyBest` and distanceFilter to `kCLDistanceFilterNone`. They are set back to previous values once the updates are deferred.
  *  This method fails silently if the device does not support deferring of locations. 
  *  Deferred updates are delivered only when the system enters a low power state. Deferred updates do not occur during debugging because Xcode prevents your app from sleeping and thus prevents the system from entering that low power state.
  *  @param distance The distance (in meters) from the current location that must be travelled before event delivery resumes.

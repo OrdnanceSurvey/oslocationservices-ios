@@ -152,6 +152,8 @@ extern NSString *const OSLocationServicesDisabledAlertHasBeenShown;
 
 - (void)testItUpdatesAccuracyAndDistanceFilterCorrectlyWhenDeferringUpdates {
     double testValue = 20;
+    id locationManagerClassMock = OCMClassMock([CLLocationManager class]);
+    OCMStub([locationManagerClassMock deferredLocationUpdatesAvailable]).andReturn(YES);
     OSLocationService *locationService = [[OSLocationService alloc] init];
     locationService.desiredAccuracy = testValue;
     locationService.distanceFilter = testValue;
@@ -174,6 +176,8 @@ extern NSString *const OSLocationServicesDisabledAlertHasBeenShown;
 }
 
 - (void)testThatDeferringLocationUpdatesTheParametersCorrectly {
+    id locationManagerClassMock = OCMClassMock([CLLocationManager class]);
+    OCMStub([locationManagerClassMock deferredLocationUpdatesAvailable]).andReturn(YES);
     OSLocationService *locationService = [[OSLocationService alloc] init];
     locationService.distanceFilter = 10;
     locationService.desiredAccuracy = kCLLocationAccuracyKilometer;
@@ -190,6 +194,17 @@ extern NSString *const OSLocationServicesDisabledAlertHasBeenShown;
     locationService.coreLocationManager = mockLocationManager;
     [locationService disallowDeferredLocationUpdates];
     OCMVerify([mockLocationManager disallowDeferredLocationUpdates]);
+}
+
+- (void)testItFailsSilentlyWhenDeferringOfLocationIsNotAvailable {
+    id locationManagerClassMock = OCMClassMock([CLLocationManager class]);
+    OCMStub([locationManagerClassMock deferredLocationUpdatesAvailable]).andReturn(NO);
+    NSString *dummyIdentifier = @"Dummy";
+    OSLocationService *locationService = [[OSLocationService alloc] init];
+    [locationService startUpdatingWithOptions:OSLocationServiceLocationUpdates sender:dummyIdentifier];
+    expect(^{
+        [locationService allowDeferredLocationUpdatesUntilTraveled:10 timeout:10];
+    }).notTo.raiseAny();
 }
 
 - (void)testAddingLocationOptionTurnsOnCoreLocation {
