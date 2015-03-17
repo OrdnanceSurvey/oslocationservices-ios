@@ -267,6 +267,7 @@ typedef NS_ENUM(NSInteger, OSLocationServiceCalibrationImportance) {
 /**
  *  Asks the location manager to defer the delivery of location updates until the specified criteria are met.
  *  When deferring location updates, the desired accuracy is set to `kCLLocationAccuracyBest` and distanceFilter to `kCLDistanceFilterNone`.
+ *  This method fails silently if the device does not support deferring of locations. 
  *
  *  @param distance The distance (in meters) from the current location that must be travelled before event delivery resumes.
  *  @param timeout  The amount of time (in seconds) from the current time that must pass before event delivery resumes

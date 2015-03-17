@@ -95,9 +95,11 @@ NSString *const OSLocationServicesDisabledAlertHasBeenShown = @"LocationServices
 }
 
 - (void)allowDeferredLocationUpdatesUntilTraveled:(CLLocationDistance)distance timeout:(NSTimeInterval)timeout {
-    self.coreLocationManager.desiredAccuracy = kCLLocationAccuracyBest;
-    self.coreLocationManager.distanceFilter = kCLDistanceFilterNone;
-    [self.coreLocationManager allowDeferredLocationUpdatesUntilTraveled:distance timeout:timeout];
+    if ([CLLocationManager deferredLocationUpdatesAvailable]) {
+        self.coreLocationManager.desiredAccuracy = kCLLocationAccuracyBest;
+        self.coreLocationManager.distanceFilter = kCLDistanceFilterNone;
+        [self.coreLocationManager allowDeferredLocationUpdatesUntilTraveled:distance timeout:timeout];
+    }
 }
 
 - (void)disallowDeferredLocationUpdates {
@@ -427,6 +429,8 @@ NSString *const OSLocationServicesDisabledAlertHasBeenShown = @"LocationServices
 - (void)locationManager:(CLLocationManager *)manager didFinishDeferredUpdatesWithError:(NSError *)error {
     self.coreLocationManager.desiredAccuracy = self.desiredAccuracy;
     self.coreLocationManager.distanceFilter = self.distanceFilter;
+    NSLog(@"didFinishDeferredUpdatesWithError Accuracy = %f", self.coreLocationManager.desiredAccuracy);
+    NSLog(@"didFinishDeferredUpdatesWithError Filter = %f", self.coreLocationManager.distanceFilter);
     if ([self.delegate respondsToSelector:@selector(locationService:didFinishDeferredUpdatesWithError:)]) {
         [self.delegate locationService:self didFinishDeferredUpdatesWithError:error];
     }
