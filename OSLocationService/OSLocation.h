@@ -44,6 +44,14 @@ typedef double OSLocationAccuracy;
  */
 typedef double OSLocationDistance;
 
+/*
+ *  OSLocationDistanceMax
+ *
+ *  Discussion:
+ *  	Used to specify the maximum OSLocationDistance
+ */
+extern const OSLocationDistance OSLocationDistanceMax;
+
 /**
  *  kOSDistanceFilterNone
  *
