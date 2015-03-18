@@ -14,6 +14,7 @@ NSString *const kOSLocationDateTakenKey = @"OSLocationDateTakenKey";
 NSString *const kOSLocationHorizontalAccuracyKey = @"OSLocationHorizontalAccuracyKey";
 
 // To be consistent, following values have been fetched by debugging Apple's core location accuracy filters and may change in the future.
+const OSLocationDistance OSLocationDistanceMax = DBL_MAX;
 const OSLocationDistance kOSDistanceFilterNone = -1;
 const OSLocationAccuracy kOSLocationAccuracyBestForNavigation = -2;
 const OSLocationAccuracy kOSLocationAccuracyBest = -1;
