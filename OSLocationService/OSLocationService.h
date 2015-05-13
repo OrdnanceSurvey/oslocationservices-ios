@@ -66,6 +66,25 @@ FOUNDATION_EXPORT const unsigned char OSLocationServiceVersionString[];
  */
 - (void)locationService:(OSLocationService *)service didFinishDeferredUpdatesWithError:(NSError *)error;
 
+/*
+ *  Discussion:
+ *    Invoked when location updates are automatically paused.
+ *
+ *  @param service Instance of OSLocationService that has paused the location update.
+ */
+- (void)locationServiceDidPauseLocationUpdates:(OSLocationService *)service;
+
+/*
+ *  Discussion:
+ *    Invoked when location updates are automatically resumed.
+ *
+ *    In the event that your application is terminated while suspended, you will
+ *	  not receive this notification.
+ *
+ *  @param service Instance of OSLocationService that has resumed the location update.
+ */
+- (void)locationServiceDidResumeLocationUpdates:(OSLocationService *)service;
+
 @end
 
 /**
