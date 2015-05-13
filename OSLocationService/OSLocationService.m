@@ -221,8 +221,6 @@ NSString *const OSLocationServicesDisabledAlertHasBeenShown = @"LocationServices
     }
 
     if (wantsLocationUpdates) {
-        self.coreLocationManager.desiredAccuracy = kCLLocationAccuracyBestForNavigation;
-
         if ([CLLocationManager authorizationStatus] == kCLAuthorizationStatusAuthorizedWhenInUse || [CLLocationManager authorizationStatus] == kCLAuthorizationStatusAuthorizedAlways) {
             [self.coreLocationManager startUpdatingLocation];
         } else {
@@ -431,6 +429,18 @@ NSString *const OSLocationServicesDisabledAlertHasBeenShown = @"LocationServices
     self.coreLocationManager.distanceFilter = self.distanceFilter;
     if ([self.delegate respondsToSelector:@selector(locationService:didFinishDeferredUpdatesWithError:)]) {
         [self.delegate locationService:self didFinishDeferredUpdatesWithError:error];
+    }
+}
+
+- (void)locationManagerDidPauseLocationUpdates:(CLLocationManager *)manager {
+    if ([self.delegate respondsToSelector:@selector(locationServiceDidPauseLocationUpdates:)]) {
+        [self.delegate locationServiceDidPauseLocationUpdates:self];
+    }
+}
+
+- (void)locationManagerDidResumeLocationUpdates:(CLLocationManager *)manager {
+    if ([self.delegate respondsToSelector:@selector(locationServiceDidResumeLocationUpdates:)]) {
+        [self.delegate locationServiceDidResumeLocationUpdates:self];
     }
 }
 

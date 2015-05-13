@@ -207,6 +207,22 @@ extern NSString *const OSLocationServicesDisabledAlertHasBeenShown;
     }).notTo.raiseAny();
 }
 
+- (void)testThatItNotifiesDelegateWhenLocationUpdatesArePausedAutomatically {
+    id mockDelegate = OCMProtocolMock(@protocol(OSLocationServiceDelegate));
+    OSLocationService *locationService = [[OSLocationService alloc] init];
+    locationService.delegate = mockDelegate;
+    [locationService locationManagerDidPauseLocationUpdates:nil];
+    OCMVerify([mockDelegate locationServiceDidPauseLocationUpdates:locationService]);
+}
+
+- (void)testThatItNotifiesDelegateWhenLocationUpdatesAreResumedAutomatically {
+    id mockDelegate = OCMProtocolMock(@protocol(OSLocationServiceDelegate));
+    OSLocationService *locationService = [[OSLocationService alloc] init];
+    locationService.delegate = mockDelegate;
+    [locationService locationManagerDidResumeLocationUpdates:nil];
+    OCMVerify([mockDelegate locationServiceDidResumeLocationUpdates:locationService]);
+}
+
 - (void)testAddingLocationOptionTurnsOnCoreLocation {
     id mockLocationManager = OCMClassMock([CLLocationManager class]);
 
