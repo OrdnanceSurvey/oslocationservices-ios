@@ -294,6 +294,18 @@ NSString *const OSLocationServicesDisabledAlertHasBeenShown = @"LocationServices
     _headingFilter = headingFilter;
 }
 
+- (void)setAdjustHeadingForDeviceOrientation:(BOOL)adjustHeadingForDeviceOrientation {
+    _adjustHeadingForDeviceOrientation = adjustHeadingForDeviceOrientation;
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIDeviceOrientationDidChangeNotification object:nil];
+    if (_adjustHeadingForDeviceOrientation) {
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(orientationChanged) name:UIDeviceOrientationDidChangeNotification object:nil];
+    }
+}
+
+- (void)orientationChanged {
+    self.coreLocationManager.headingOrientation = (CLDeviceOrientation)UIDevice.currentDevice.orientation;
+}
+
 - (void)setActivityType:(OSActivityType)activityType {
     if (_activityType != activityType) {
         _activityType = activityType;
@@ -460,8 +472,7 @@ NSString *const OSLocationServicesDisabledAlertHasBeenShown = @"LocationServices
 }
 
 - (void)dealloc {
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationDidEnterBackgroundNotification object:nil];
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationWillEnterForegroundNotification object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 @end
