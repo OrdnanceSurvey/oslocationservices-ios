@@ -187,6 +187,11 @@ typedef NS_ENUM(NSInteger, OSLocationServiceCalibrationImportance) {
 @property (assign, nonatomic) float headingFilter;
 
 /**
+ *  When true, the manager will listen for device orientation changes and adjust the heading accordingly
+ */
+@property (assign, nonatomic) BOOL adjustHeadingForDeviceOrientation;
+
+/**
  *  The type of user activity associated with the location updates. The default value of this property is `OSActivityTypeOther`.
  */
 @property (assign, nonatomic) OSActivityType activityType;
