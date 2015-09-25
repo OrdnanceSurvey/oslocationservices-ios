@@ -25,26 +25,26 @@
 }
 
 - (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray<CLLocation *> *)locations {
-    if ([self.delegate respondsToSelector:@selector(locationManager:didUpdateLocations:)]) {
-        [self.delegate locationManager:self didUpdateLocations:locations];
+    if ([self.delegate respondsToSelector:@selector(osLocationManager:didUpdateLocations:)]) {
+        [self.delegate osLocationManager:self didUpdateLocations:locations];
     }
 }
 
 - (void)locationManager:(CLLocationManager *)manager didUpdateHeading:(CLHeading *)newHeading {
-    if ([self.delegate respondsToSelector:@selector(locationManager:didUpdateHeading:)]) {
-        [self.delegate locationManager:self didUpdateHeading:newHeading];
+    if ([self.delegate respondsToSelector:@selector(osLocationManager:didUpdateHeading:)]) {
+        [self.delegate osLocationManager:self didUpdateHeading:newHeading];
     }
 }
 
 - (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error {
-    if ([self.delegate respondsToSelector:@selector(locationManager:didFailWithError:)]) {
-        [self.delegate locationManager:self didFailWithError:error];
+    if ([self.delegate respondsToSelector:@selector(osLocationManager:didFailWithError:)]) {
+        [self.delegate osLocationManager:self didFailWithError:error];
     }
 }
 
 - (void)locationManager:(CLLocationManager *)manager didChangeAuthorizationStatus:(CLAuthorizationStatus)status {
-    if ([self.delegate respondsToSelector:@selector(locationManager:didChangeAuthorizationStatus:)]) {
-        [self.delegate locationManager:self didChangeAuthorizationStatus:status];
+    if ([self.delegate respondsToSelector:@selector(osLocationManager:didChangeAuthorizationStatus:)]) {
+        [self.delegate osLocationManager:self didChangeAuthorizationStatus:status];
     }
 }
 

@@ -26,6 +26,7 @@
 		72457F431BB57223004F953F /* OSLocationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 72457F411BB57223004F953F /* OSLocationManager.m */; settings = {ASSET_TAGS = (); }; };
 		72457F461BB57281004F953F /* OSLocationManagerDelegate.h in Headers */ = {isa = PBXBuildFile; fileRef = 72457F451BB57281004F953F /* OSLocationManagerDelegate.h */; settings = {ASSET_TAGS = (); }; };
 		72457F491BB57C93004F953F /* OSLocationManager+Private.h in Headers */ = {isa = PBXBuildFile; fileRef = 72457F481BB57C93004F953F /* OSLocationManager+Private.h */; settings = {ASSET_TAGS = (); }; };
+		724C52B91BB5874E0031A3F8 /* OSLocationManagerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 724C52B81BB5874E0031A3F8 /* OSLocationManagerTests.m */; settings = {ASSET_TAGS = (); }; };
 		B35917581A41AB3B000D041F /* OSLocationService.h in Headers */ = {isa = PBXBuildFile; fileRef = D6BA2F8D195DB0CE0099B7F7 /* OSLocationService.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		B35917591A41AB41000D041F /* OSLocationService+Private.h in Headers */ = {isa = PBXBuildFile; fileRef = B35917561A41A28F000D041F /* OSLocationService+Private.h */; };
 		B3923B011A5D8E80007B9041 /* UIViewController+VisibleViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = B3923AFF1A5D8E80007B9041 /* UIViewController+VisibleViewController.h */; };
@@ -112,6 +113,7 @@
 		72457F411BB57223004F953F /* OSLocationManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OSLocationManager.m; sourceTree = "<group>"; };
 		72457F451BB57281004F953F /* OSLocationManagerDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OSLocationManagerDelegate.h; sourceTree = "<group>"; };
 		72457F481BB57C93004F953F /* OSLocationManager+Private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "OSLocationManager+Private.h"; sourceTree = "<group>"; };
+		724C52B81BB5874E0031A3F8 /* OSLocationManagerTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OSLocationManagerTests.m; sourceTree = "<group>"; };
 		B30EB2E11A42D92000A44277 /* lake-district-trail.gpx */ = {isa = PBXFileReference; lastKnownFileType = text; path = "lake-district-trail.gpx"; sourceTree = "<group>"; };
 		B30EB2E21A42D92000A44277 /* Southampton-OS-route.gpx */ = {isa = PBXFileReference; lastKnownFileType = text; path = "Southampton-OS-route.gpx"; sourceTree = "<group>"; };
 		B33986C51A39ECF4000B6099 /* OSGridPointConversion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = OSGridPointConversion.framework; sourceTree = "<group>"; };
@@ -292,6 +294,7 @@
 				D6BA2F95195DB0DE0099B7F7 /* OSServiceRelationshipManagerTests.m */,
 				14CC879219471C2000C0D5BC /* OSLocationServiceTests.m */,
 				D6C0C936195C2CE300C168ED /* OSLocationTests.m */,
+				724C52B81BB5874E0031A3F8 /* OSLocationManagerTests.m */,
 				B3A083391A3EFF6100DAFF3E /* Supporting Files */,
 			);
 			path = OSLocationTestHostTests;
@@ -497,6 +500,7 @@
 			files = (
 				B3A083441A3EFF7400DAFF3E /* OSServiceRelationshipManagerTests.m in Sources */,
 				B3A083461A3EFF7F00DAFF3E /* OSLocationTests.m in Sources */,
+				724C52B91BB5874E0031A3F8 /* OSLocationManagerTests.m in Sources */,
 				B3A083451A3EFF7C00DAFF3E /* OSLocationServiceTests.m in Sources */,
 				B3A083431A3EFF7100DAFF3E /* OSCoreLocationManagerTests.m in Sources */,
 			);
