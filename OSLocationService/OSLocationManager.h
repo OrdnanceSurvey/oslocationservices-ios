@@ -16,10 +16,24 @@ typedef NS_ENUM(NSInteger, OSLocationUpdatesFrequency) {
     OSLocationUpdatesFrequencyCustom
 };
 
+typedef NS_OPTIONS(NSUInteger, OSLocationServiceUpdateOptions) {
+    OSLocationServiceNoUpdates = 0,
+    OSLocationServiceLocationUpdates = 1 << 0,
+    OSLocationServiceHeadingUpdates = 1 << 1,
+    OSLocationServiceAllOptions = OSLocationServiceLocationUpdates | OSLocationServiceHeadingUpdates
+};
+
 @interface OSLocationManager : NSObject
 
 - (instancetype)init NS_UNAVAILABLE;
 - (instancetype)initWithDelegate:(id<OSLocationManagerDelegate>)delegate;
 - (instancetype)initWithDelegate:(id<OSLocationManagerDelegate>)delegate frequency:(OSLocationUpdatesFrequency)frequency;
+
+- (void)startLocationServiceUpdatesWithOptions:(OSLocationServiceUpdateOptions)options;
+- (void)stopLocationserviceUpdates;
+
+@property (assign, nonatomic) CLActivityType activityType;
+@property (assign, nonatomic) CLLocationDistance distanceFilter;
+@property (assign, nonatomic) CLLocationAccuracy desiredAccuracy;
 
 @end

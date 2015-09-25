@@ -12,5 +12,7 @@
 
 @property (weak, nonatomic) id<OSLocationManagerDelegate> delegate;
 @property (assign, nonatomic) OSLocationUpdatesFrequency updateFrequency;
+@property (assign, nonatomic) OSLocationServiceUpdateOptions updateOptions;
+@property (strong, nonatomic) CLLocationManager *coreLocationManager;
 
 @end
