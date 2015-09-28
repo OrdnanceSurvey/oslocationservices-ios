@@ -12,13 +12,14 @@
 @implementation OSLocationProvider
 
 - (instancetype)initWithDelegate:(id<OSLocationProviderDelegate>)delegate {
-    return [self initWithDelegate:delegate frequency:OSLocationUpdatesFrequencyMedium];
+    return [self initWithDelegate:delegate options:OSLocationServiceLocationUpdates frequency:OSLocationUpdatesFrequencyMedium];
 }
 
-- (instancetype)initWithDelegate:(id<OSLocationProviderDelegate>)delegate frequency:(OSLocationUpdatesFrequency)frequency {
+- (instancetype)initWithDelegate:(id<OSLocationProviderDelegate>)delegate options:(OSLocationServiceUpdateOptions)options frequency:(OSLocationUpdatesFrequency)frequency {
     self = [super init];
     if (self) {
         _delegate = delegate;
+        _updateOptions = options;
         _updateFrequency = frequency;
         [self updateFiltersForFrequency:frequency];
     }
@@ -43,12 +44,11 @@
     }
 }
 
-- (void)startLocationServiceUpdatesWithOptions:(OSLocationServiceUpdateOptions)options {
+- (void)startLocationServiceUpdates {
     [self stopLocationServiceUpdates];
     if (self.coreLocationManager) {
         self.coreLocationManager = nil;
     }
-    self.updateOptions = options;
     self.coreLocationManager = [[CLLocationManager alloc] init];
     self.coreLocationManager.delegate = self;
     self.coreLocationManager.pausesLocationUpdatesAutomatically = NO;

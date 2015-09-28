@@ -63,7 +63,7 @@ typedef NS_OPTIONS(NSUInteger, OSLocationServiceUpdateOptions) {
 - (instancetype)init NS_UNAVAILABLE;
 
 /**
- *  Convenience initialiser with `OSLocationUpdatesFrequencyMedium` update frequency
+ *  Convenience initialiser with `OSLocationServiceLocationUpdates` options and `OSLocationUpdatesFrequencyMedium` update frequency
  *
  *  @param delegate the delegate to receive callback
  *
@@ -75,18 +75,17 @@ typedef NS_OPTIONS(NSUInteger, OSLocationServiceUpdateOptions) {
  *  Designated initialiser
  *
  *  @param delegate  the delegate to receive callback
+ *  @param options   the different updates needed
  *  @param frequency the frequency for the updates
  *
  *  @return instance of `OSLocationProvider`
  */
-- (instancetype)initWithDelegate:(id<OSLocationProviderDelegate>)delegate frequency:(OSLocationUpdatesFrequency)frequency NS_DESIGNATED_INITIALIZER;
+- (instancetype)initWithDelegate:(id<OSLocationProviderDelegate>)delegate options:(OSLocationServiceUpdateOptions)options frequency:(OSLocationUpdatesFrequency)frequency NS_DESIGNATED_INITIALIZER;
 
 /**
  *  Starts location service updates
- *
- *  @param options the different updates needed
  */
-- (void)startLocationServiceUpdatesWithOptions:(OSLocationServiceUpdateOptions)options;
+- (void)startLocationServiceUpdates;
 
 /**
  *  Stops current location service updates
