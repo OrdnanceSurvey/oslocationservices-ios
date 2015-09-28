@@ -1,21 +1,21 @@
 //
-//  OSLocationManager.m
+//  OSLocationProvider.m
 //  OSLocationService
 //
 //  Created by Shrikantreddy Tekale on 25/09/2015.
 //  Copyright © 2015 Ordnance Survey. All rights reserved.
 //
 
-#import "OSLocationManager.h"
-#import "OSLocationManager+Private.h"
+#import "OSLocationProvider.h"
+#import "OSLocationProvider+Private.h"
 
-@implementation OSLocationManager
+@implementation OSLocationProvider
 
-- (instancetype)initWithDelegate:(id<OSLocationManagerDelegate>)delegate {
+- (instancetype)initWithDelegate:(id<OSLocationProviderDelegate>)delegate {
     return [self initWithDelegate:delegate frequency:OSLocationUpdatesFrequencyMedium];
 }
 
-- (instancetype)initWithDelegate:(id<OSLocationManagerDelegate>)delegate frequency:(OSLocationUpdatesFrequency)frequency {
+- (instancetype)initWithDelegate:(id<OSLocationProviderDelegate>)delegate frequency:(OSLocationUpdatesFrequency)frequency {
     self = [super init];
     if (self) {
         _delegate = delegate;
@@ -108,26 +108,26 @@
 
 #pragma mark - Delegate methods
 - (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray<CLLocation *> *)locations {
-    if ([self.delegate respondsToSelector:@selector(osLocationManager:didUpdateLocations:)]) {
-        [self.delegate osLocationManager:self didUpdateLocations:locations];
+    if ([self.delegate respondsToSelector:@selector(locationProvider:didUpdateLocations:)]) {
+        [self.delegate locationProvider:self didUpdateLocations:locations];
     }
 }
 
 - (void)locationManager:(CLLocationManager *)manager didUpdateHeading:(CLHeading *)newHeading {
-    if ([self.delegate respondsToSelector:@selector(osLocationManager:didUpdateHeading:)]) {
-        [self.delegate osLocationManager:self didUpdateHeading:newHeading];
+    if ([self.delegate respondsToSelector:@selector(locationProvider:didUpdateHeading:)]) {
+        [self.delegate locationProvider:self didUpdateHeading:newHeading];
     }
 }
 
 - (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error {
-    if ([self.delegate respondsToSelector:@selector(osLocationManager:didFailWithError:)]) {
-        [self.delegate osLocationManager:self didFailWithError:error];
+    if ([self.delegate respondsToSelector:@selector(locationProvider:didFailWithError:)]) {
+        [self.delegate locationProvider:self didFailWithError:error];
     }
 }
 
 - (void)locationManager:(CLLocationManager *)manager didChangeAuthorizationStatus:(CLAuthorizationStatus)status {
-    if ([self.delegate respondsToSelector:@selector(osLocationManager:didChangeAuthorizationStatus:)]) {
-        [self.delegate osLocationManager:self didChangeAuthorizationStatus:status];
+    if ([self.delegate respondsToSelector:@selector(locationProvider:didChangeAuthorizationStatus:)]) {
+        [self.delegate locationProvider:self didChangeAuthorizationStatus:status];
     }
 }
 

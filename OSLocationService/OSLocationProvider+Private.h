@@ -1,5 +1,5 @@
 //
-//  OSLocationManager+Private.h
+//  OSLocationProvider+Private.h
 //  OSLocationService
 //
 //  Created by Shrikantreddy Tekale on 25/09/2015.
@@ -8,9 +8,9 @@
 
 @import CoreLocation;
 
-@interface OSLocationManager ()<CLLocationManagerDelegate>
+@interface OSLocationProvider ()<CLLocationManagerDelegate>
 
-@property (weak, nonatomic) id<OSLocationManagerDelegate> delegate;
+@property (weak, nonatomic) id<OSLocationProviderDelegate> delegate;
 @property (assign, nonatomic) OSLocationUpdatesFrequency updateFrequency;
 @property (assign, nonatomic) OSLocationServiceUpdateOptions updateOptions;
 @property (strong, nonatomic) CLLocationManager *coreLocationManager;

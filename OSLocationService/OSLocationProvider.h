@@ -1,5 +1,5 @@
 //
-//  OSLocationManager.h
+//  OSLocationProvider.h
 //  OSLocationService
 //
 //  Created by Shrikantreddy Tekale on 25/09/2015.
@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "OSLocationManagerDelegate.h"
+#import "OSLocationProviderDelegate.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -58,7 +58,7 @@ typedef NS_OPTIONS(NSUInteger, OSLocationServiceUpdateOptions) {
 /**
  * Wrapper around core location
  */
-@interface OSLocationManager : NSObject
+@interface OSLocationProvider : NSObject
 
 - (instancetype)init NS_UNAVAILABLE;
 
@@ -67,9 +67,9 @@ typedef NS_OPTIONS(NSUInteger, OSLocationServiceUpdateOptions) {
  *
  *  @param delegate the delegate to receive callback
  *
- *  @return instance of `OSLocationManager`
+ *  @return instance of `OSLocationProvider`
  */
-- (instancetype)initWithDelegate:(id<OSLocationManagerDelegate>)delegate;
+- (instancetype)initWithDelegate:(id<OSLocationProviderDelegate>)delegate;
 
 /**
  *  Designated initialiser
@@ -77,9 +77,9 @@ typedef NS_OPTIONS(NSUInteger, OSLocationServiceUpdateOptions) {
  *  @param delegate  the delegate to receive callback
  *  @param frequency the frequency for the updates
  *
- *  @return instance of `OSLocationManager`
+ *  @return instance of `OSLocationProvider`
  */
-- (instancetype)initWithDelegate:(id<OSLocationManagerDelegate>)delegate frequency:(OSLocationUpdatesFrequency)frequency NS_DESIGNATED_INITIALIZER;
+- (instancetype)initWithDelegate:(id<OSLocationProviderDelegate>)delegate frequency:(OSLocationUpdatesFrequency)frequency NS_DESIGNATED_INITIALIZER;
 
 /**
  *  Starts location service updates
