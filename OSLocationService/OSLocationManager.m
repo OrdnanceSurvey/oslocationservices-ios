@@ -29,16 +29,16 @@
     switch (frequency) {
         case OSLocationUpdatesFrequencyLow:
             _distanceFilter = 100;
-            _desiredAccuracy = 10;
+            _desiredAccuracy = kCLLocationAccuracyBest;
             break;
         case OSLocationUpdatesFrequencyMedium:
             _distanceFilter = 40;
-            _desiredAccuracy = 25;
+            _desiredAccuracy = kCLLocationAccuracyNearestTenMeters;
             break;
         case OSLocationUpdatesFrequencyHigh:
         case OSLocationUpdatesFrequencyCustom:
             _distanceFilter = 10;
-            _desiredAccuracy = 40;
+            _desiredAccuracy = kCLLocationAccuracyHundredMeters;
             break;
     }
 }
@@ -85,16 +85,24 @@
 }
 
 - (void)setDistanceFilter:(CLLocationDistance)distanceFilter {
-    if (_distanceFilter != distanceFilter && _updateFrequency == OSLocationUpdatesFrequencyCustom) {
-        _distanceFilter = distanceFilter;
-        self.coreLocationManager.distanceFilter = distanceFilter;
+    if (_distanceFilter != distanceFilter) {
+        if (_updateFrequency == OSLocationUpdatesFrequencyCustom) {
+            _distanceFilter = distanceFilter;
+            self.coreLocationManager.distanceFilter = distanceFilter;
+        } else {
+            NSLog(@"Distance filter not updated. Change the update frequency to OSLocationUpdatesFrequencyCustom to use custom distance filter");
+        }
     }
 }
 
 - (void)setDesiredAccuracy:(CLLocationAccuracy)desiredAccuracy {
-    if (_desiredAccuracy != desiredAccuracy && _updateFrequency == OSLocationUpdatesFrequencyCustom) {
-        _desiredAccuracy = desiredAccuracy;
-        self.coreLocationManager.desiredAccuracy = desiredAccuracy;
+    if (_desiredAccuracy != desiredAccuracy) {
+        if (_updateFrequency == OSLocationUpdatesFrequencyCustom) {
+            _desiredAccuracy = desiredAccuracy;
+            self.coreLocationManager.desiredAccuracy = desiredAccuracy;
+        } else {
+            NSLog(@"Desired accuracy not updated. Change the update frequency to OSLocationUpdatesFrequencyCustom to use custom desired accuracy");
+        }
     }
 }
 

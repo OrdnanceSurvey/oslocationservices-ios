@@ -16,19 +16,19 @@ NS_ASSUME_NONNULL_BEGIN
  */
 typedef NS_ENUM(NSInteger, OSLocationUpdatesFrequency) {
     /**
-     *  Low frequency updates at 100 meters with minimum accuracy of 10 meters
+     *  Low frequency updates at 100 meters with accuracy kCLLocationAccuracyBest
      */
     OSLocationUpdatesFrequencyLow,
     /**
-     *  Medium frequency updates at 40 meters with minimum accuracy of 25 meters
+     *  Medium frequency updates at 40 meters with accuracy kCLLocationAccuracyNearestTenMeters
      */
     OSLocationUpdatesFrequencyMedium,
     /**
-     *  High frequency updates at 10 meters with minimum accuracy of 40 meters
+     *  High frequency updates at 10 meters with accuracy kCLLocationAccuracyHundredMeters
      */
     OSLocationUpdatesFrequencyHigh,
     /**
-     *  Custom frequency updates. Use `distanceFilter` amd `desiredAccuracy` propererites to set desired values.
+     *  Custom frequency updates. Use `distanceFilter` and `desiredAccuracy` properties to set desired values.
      */
     OSLocationUpdatesFrequencyCustom
 };
@@ -63,7 +63,7 @@ typedef NS_OPTIONS(NSUInteger, OSLocationServiceUpdateOptions) {
 - (instancetype)init NS_UNAVAILABLE;
 
 /**
- *  Convenience initialiser with `OSLocationUpdatesFrequency` update frequency
+ *  Convenience initialiser with `OSLocationUpdatesFrequencyMedium` update frequency
  *
  *  @param delegate the delegate to receive callback
  *

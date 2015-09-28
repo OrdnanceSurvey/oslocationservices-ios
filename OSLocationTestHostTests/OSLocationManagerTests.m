@@ -40,19 +40,19 @@
 - (void)testItUpdatesFiltersForLowFrequency {
     OSLocationManager *locationManager = [[OSLocationManager alloc] initWithDelegate:self.mockDelegate frequency:OSLocationUpdatesFrequencyLow];
     expect(locationManager.distanceFilter).to.equal(100);
-    expect(locationManager.desiredAccuracy).to.equal(10);
+    expect(locationManager.desiredAccuracy).to.equal(kCLLocationAccuracyBest);
 }
 
 - (void)testItUpdatesFiltersForMediumFrequency {
     OSLocationManager *locationManager = [[OSLocationManager alloc] initWithDelegate:self.mockDelegate frequency:OSLocationUpdatesFrequencyMedium];
     expect(locationManager.distanceFilter).to.equal(40);
-    expect(locationManager.desiredAccuracy).to.equal(25);
+    expect(locationManager.desiredAccuracy).to.equal(kCLLocationAccuracyNearestTenMeters);
 }
 
 - (void)testItUpdatesFiltersForHighFrequency {
     OSLocationManager *locationManager = [[OSLocationManager alloc] initWithDelegate:self.mockDelegate frequency:OSLocationUpdatesFrequencyHigh];
     expect(locationManager.distanceFilter).to.equal(10);
-    expect(locationManager.desiredAccuracy).to.equal(40);
+    expect(locationManager.desiredAccuracy).to.equal(kCLLocationAccuracyHundredMeters);
 }
 
 - (void)testItSetsFiltersOnlyForCustomFrequency {
@@ -69,7 +69,7 @@
     locationManager.distanceFilter = 40;
     locationManager.desiredAccuracy = 50;
     expect(locationManager.coreLocationManager.distanceFilter).to.equal(100);
-    expect(locationManager.coreLocationManager.desiredAccuracy).to.equal(10);
+    expect(locationManager.coreLocationManager.desiredAccuracy).to.equal(kCLLocationAccuracyBest);
     [locationManager stopLocationServiceUpdates];
 }
 
@@ -102,7 +102,7 @@
     expect(self.locationManager.coreLocationManager.delegate).to.equal(self.locationManager);
     expect(self.locationManager.coreLocationManager.pausesLocationUpdatesAutomatically).to.beFalsy();
     expect(self.locationManager.coreLocationManager.distanceFilter).to.equal(40);
-    expect(self.locationManager.coreLocationManager.desiredAccuracy).to.equal(25);
+    expect(self.locationManager.coreLocationManager.desiredAccuracy).to.equal(kCLLocationAccuracyNearestTenMeters);
     expect(self.locationManager.coreLocationManager.activityType).to.equal(CLActivityTypeFitness);
 }
 
