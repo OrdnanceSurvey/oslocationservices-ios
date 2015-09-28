@@ -19,8 +19,9 @@
     self = [super init];
     if (self) {
         _delegate = delegate;
-        _updateFrequency = frequency;
         _activityType = CLActivityTypeFitness;
+        _updateFrequency = frequency;
+        [self updateFiltersForFrequency:frequency];
     }
     return self;
 }
@@ -44,8 +45,8 @@
 }
 
 - (void)startLocationServiceUpdatesWithOptions:(OSLocationServiceUpdateOptions)options {
+    [self stopLocationserviceUpdates];
     if (self.coreLocationManager) {
-        [self stopLocationserviceUpdates];
         self.coreLocationManager = nil;
     }
     self.updateOptions = options;
@@ -55,15 +56,33 @@
     self.coreLocationManager.distanceFilter = self.distanceFilter;
     self.coreLocationManager.desiredAccuracy = self.desiredAccuracy;
     self.coreLocationManager.activityType = self.activityType;
-    [self.coreLocationManager startUpdatingLocation];
-    [self.coreLocationManager startUpdatingHeading];
+
+    if (self.hasRequestedToUpdateLocation) {
+        //TODO: Handle permissions
+        [self.coreLocationManager startUpdatingLocation];
+    }
+    if (self.hasRequestedToUpdateHeading) {
+        [self.coreLocationManager startUpdatingHeading];
+    }
 }
 
 - (void)stopLocationserviceUpdates {
     if (self.coreLocationManager) {
-        [self.coreLocationManager stopUpdatingLocation];
-        [self.coreLocationManager stopUpdatingHeading];
+        if (self.hasRequestedToUpdateLocation) {
+            [self.coreLocationManager stopUpdatingLocation];
+        }
+        if (self.hasRequestedToUpdateHeading) {
+            [self.coreLocationManager stopUpdatingHeading];
+        }
     }
+}
+
+- (BOOL)hasRequestedToUpdateLocation {
+    return self.updateOptions & OSLocationServiceLocationUpdates;
+}
+
+- (BOOL)hasRequestedToUpdateHeading {
+    return self.updateOptions & OSLocationServiceHeadingUpdates;
 }
 
 - (void)setDistanceFilter:(CLLocationDistance)distanceFilter {
