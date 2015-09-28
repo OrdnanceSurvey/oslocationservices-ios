@@ -113,7 +113,7 @@ typedef NS_OPTIONS(NSUInteger, OSLocationServiceUpdateOptions) {
 @property (assign, nonatomic) CLLocationAccuracy desiredAccuracy;
 
 /**
- *  When true, the manager will listen for device orientation changes and adjust the heading accordingly
+ *  When true, the provider will listen for device orientation changes and adjust the heading accordingly
  */
 @property (assign, nonatomic) BOOL adjustHeadingForDeviceOrientation;
 
