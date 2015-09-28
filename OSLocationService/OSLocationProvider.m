@@ -61,8 +61,11 @@ const CLLocationDistance kDistanceFilterHigh = 10;
     self.coreLocationManager.activityType = CLActivityTypeFitness;
 
     if (self.hasRequestedToUpdateLocation) {
-        //TODO: Handle permissions
-        [self.coreLocationManager startUpdatingLocation];
+        if ([CLLocationManager authorizationStatus] == kCLAuthorizationStatusAuthorizedWhenInUse || [CLLocationManager authorizationStatus] == kCLAuthorizationStatusAuthorizedAlways) {
+            [self.coreLocationManager startUpdatingLocation];
+        } else {
+            [self.coreLocationManager requestWhenInUseAuthorization];
+        }
     }
     if (self.hasRequestedToUpdateHeading) {
         [self.coreLocationManager startUpdatingHeading];
@@ -78,6 +81,10 @@ const CLLocationDistance kDistanceFilterHigh = 10;
             [self.coreLocationManager stopUpdatingHeading];
         }
     }
+}
+
++ (BOOL)locationServicesEnabled {
+    return [CLLocationManager locationServicesEnabled];
 }
 
 - (BOOL)hasRequestedToUpdateLocation {

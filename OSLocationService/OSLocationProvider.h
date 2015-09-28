@@ -93,6 +93,13 @@ typedef NS_OPTIONS(NSUInteger, OSLocationServiceUpdateOptions) {
 - (void)stopLocationServiceUpdates;
 
 /**
+ *  Indicates whether location services are enabled on the device.
+ *
+ *  @return true if location services are turned on, false if location services are turned off.
+ */
++ (BOOL)locationServicesEnabled;
+
+/**
  *  Specifies the minimum update distance in meters
  */
 @property (assign, nonatomic) CLLocationDistance distanceFilter;
