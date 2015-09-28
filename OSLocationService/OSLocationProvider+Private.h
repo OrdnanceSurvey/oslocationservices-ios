@@ -17,5 +17,6 @@
 
 - (BOOL)hasRequestedToUpdateLocation;
 - (BOOL)hasRequestedToUpdateHeading;
+- (void)orientationChanged;
 
 @end

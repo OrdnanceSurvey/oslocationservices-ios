@@ -9,12 +9,12 @@
 #import "OSLocationProvider.h"
 #import "OSLocationProvider+Private.h"
 
+@import UIKit.UIDevice;
+@import UIKit.UIApplication;
+
 const CLLocationDistance kDistanceFilterLow = 100;
 const CLLocationDistance kDistanceFilterMedium = 40;
 const CLLocationDistance kDistanceFilterHigh = 10;
-
-@import UIKit.UIDevice;
-@import UIKit.UIApplication;
 
 @implementation OSLocationProvider
 

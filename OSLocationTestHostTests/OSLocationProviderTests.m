@@ -133,7 +133,21 @@
     OCMVerify([self.mockDelegate locationProvider:self.locationProvider didChangeAuthorizationStatus:status]);
 }
 
-- (void)testLocationServicesStopsUpdatesInBackground {
+- (void)testItAdjustsHeadingForOrientationWhenAskedTo {
+    self.locationProvider.adjustHeadingForDeviceOrientation = YES;
+    id mockLocationProvider = OCMPartialMock(self.locationProvider);
+    [[NSNotificationCenter defaultCenter] postNotificationName:UIDeviceOrientationDidChangeNotification object:nil];
+    OCMVerify([mockLocationProvider orientationChanged]);
+}
+
+- (void)testItDoesNotAdjustsHeadingForOrientationWhenAskedNotTo {
+    self.locationProvider.adjustHeadingForDeviceOrientation = NO;
+    id mockLocationProvider = OCMPartialMock(self.locationProvider);
+    [[mockLocationProvider reject] orientationChanged];
+    [[NSNotificationCenter defaultCenter] postNotificationName:UIDeviceOrientationDidChangeNotification object:nil];
+}
+
+- (void)testLocationProviderStopsUpdatesInBackgroundWhenAskedTo {
     id mockLocationManager = OCMClassMock([CLLocationManager class]);
     OSLocationProvider *locationProvider = [[OSLocationProvider alloc] initWithDelegate:self.mockDelegate];
     locationProvider.coreLocationManager = mockLocationManager;
@@ -142,7 +156,7 @@
     OCMVerify([mockLocationManager stopUpdatingHeading]);
 }
 
-- (void)testLocationServicesDoesNotStopUpdatesInBackgroundWhenTrackingUserLocation {
+- (void)testLocationProviderDoesNotStopUpdatesInBackgroundWhenAskedNotTo {
     id mockLocationManager = OCMClassMock([CLLocationManager class]);
     OSLocationProvider *locationProvider = [[OSLocationProvider alloc] initWithDelegate:self.mockDelegate];
     locationProvider.continueUpdatesInBackground = YES;
