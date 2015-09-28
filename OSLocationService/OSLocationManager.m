@@ -19,7 +19,6 @@
     self = [super init];
     if (self) {
         _delegate = delegate;
-        _activityType = CLActivityTypeFitness;
         _updateFrequency = frequency;
         [self updateFiltersForFrequency:frequency];
     }
@@ -55,7 +54,7 @@
     self.coreLocationManager.pausesLocationUpdatesAutomatically = NO;
     self.coreLocationManager.distanceFilter = self.distanceFilter;
     self.coreLocationManager.desiredAccuracy = self.desiredAccuracy;
-    self.coreLocationManager.activityType = self.activityType;
+    self.coreLocationManager.activityType = CLActivityTypeFitness;
 
     if (self.hasRequestedToUpdateLocation) {
         //TODO: Handle permissions
