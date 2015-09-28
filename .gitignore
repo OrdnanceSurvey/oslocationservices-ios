@@ -25,3 +25,5 @@ DerivedData
 # Jenkins
 test-reports
 build_output
+*.gcda
+*.gcno
