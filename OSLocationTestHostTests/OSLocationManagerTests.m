@@ -62,7 +62,7 @@
     locationManager.desiredAccuracy = 50;
     expect(locationManager.coreLocationManager.distanceFilter).to.equal(40);
     expect(locationManager.coreLocationManager.desiredAccuracy).to.equal(50);
-    [locationManager stopLocationserviceUpdates];
+    [locationManager stopLocationServiceUpdates];
 
     locationManager = [[OSLocationManager alloc] initWithDelegate:self.mockDelegate frequency:OSLocationUpdatesFrequencyLow];
     [locationManager startLocationServiceUpdatesWithOptions:OSLocationServiceLocationUpdates];
@@ -70,7 +70,7 @@
     locationManager.desiredAccuracy = 50;
     expect(locationManager.coreLocationManager.distanceFilter).to.equal(100);
     expect(locationManager.coreLocationManager.desiredAccuracy).to.equal(10);
-    [locationManager stopLocationserviceUpdates];
+    [locationManager stopLocationServiceUpdates];
 }
 
 - (void)testItReportsCorrectlyIfItHasRequestedToUpdateLocation {

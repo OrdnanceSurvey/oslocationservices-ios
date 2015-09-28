@@ -91,7 +91,7 @@ typedef NS_OPTIONS(NSUInteger, OSLocationServiceUpdateOptions) {
 /**
  *  Stops current location service updates
  */
-- (void)stopLocationserviceUpdates;
+- (void)stopLocationServiceUpdates;
 
 /**
  *  Specifies the minimum update distance in meters

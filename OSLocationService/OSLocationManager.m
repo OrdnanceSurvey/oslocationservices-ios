@@ -44,7 +44,7 @@
 }
 
 - (void)startLocationServiceUpdatesWithOptions:(OSLocationServiceUpdateOptions)options {
-    [self stopLocationserviceUpdates];
+    [self stopLocationServiceUpdates];
     if (self.coreLocationManager) {
         self.coreLocationManager = nil;
     }
@@ -65,7 +65,7 @@
     }
 }
 
-- (void)stopLocationserviceUpdates {
+- (void)stopLocationServiceUpdates {
     if (self.coreLocationManager) {
         if (self.hasRequestedToUpdateLocation) {
             [self.coreLocationManager stopUpdatingLocation];
