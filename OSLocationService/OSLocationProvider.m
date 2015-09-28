@@ -9,6 +9,10 @@
 #import "OSLocationProvider.h"
 #import "OSLocationProvider+Private.h"
 
+const CLLocationDistance kDistanceFilterLow = 100;
+const CLLocationDistance kDistanceFilterMedium = 40;
+const CLLocationDistance kDistanceFilterHigh = 10;
+
 @implementation OSLocationProvider
 
 - (instancetype)initWithDelegate:(id<OSLocationProviderDelegate>)delegate {
@@ -29,16 +33,16 @@
 - (void)updateFiltersForFrequency:(OSLocationUpdatesFrequency)frequency {
     switch (frequency) {
         case OSLocationUpdatesFrequencyLow:
-            _distanceFilter = 100;
+            _distanceFilter = kDistanceFilterLow;
             _desiredAccuracy = kCLLocationAccuracyBest;
             break;
         case OSLocationUpdatesFrequencyMedium:
-            _distanceFilter = 40;
+            _distanceFilter = kDistanceFilterMedium;
             _desiredAccuracy = kCLLocationAccuracyNearestTenMeters;
             break;
         case OSLocationUpdatesFrequencyHigh:
         case OSLocationUpdatesFrequencyCustom:
-            _distanceFilter = 10;
+            _distanceFilter = kDistanceFilterHigh;
             _desiredAccuracy = kCLLocationAccuracyHundredMeters;
             break;
     }
