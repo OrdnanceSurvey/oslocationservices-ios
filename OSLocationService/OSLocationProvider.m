@@ -14,6 +14,7 @@ const CLLocationDistance kDistanceFilterMedium = 40;
 const CLLocationDistance kDistanceFilterHigh = 10;
 
 @import UIKit.UIDevice;
+@import UIKit.UIApplication;
 
 @implementation OSLocationProvider
 
@@ -28,6 +29,9 @@ const CLLocationDistance kDistanceFilterHigh = 10;
         _updateOptions = options;
         _updateFrequency = frequency;
         [self updateFiltersForFrequency:frequency];
+
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didEnterBackground:) name:UIApplicationDidEnterBackgroundNotification object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(willEnterForeground:) name:UIApplicationWillEnterForegroundNotification object:nil];
     }
     return self;
 }
@@ -82,6 +86,7 @@ const CLLocationDistance kDistanceFilterHigh = 10;
         if (self.hasRequestedToUpdateHeading) {
             [self.coreLocationManager stopUpdatingHeading];
         }
+        self.coreLocationManager = nil;
     }
 }
 
@@ -133,10 +138,6 @@ const CLLocationDistance kDistanceFilterHigh = 10;
     }
 }
 
-- (void)orientationChanged {
-    self.coreLocationManager.headingOrientation = (CLDeviceOrientation)UIDevice.currentDevice.orientation;
-}
-
 #pragma mark - Delegate methods
 - (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray<CLLocation *> *)locations {
     if ([self.delegate respondsToSelector:@selector(locationProvider:didUpdateLocations:)]) {
@@ -160,6 +161,29 @@ const CLLocationDistance kDistanceFilterHigh = 10;
     if ([self.delegate respondsToSelector:@selector(locationProvider:didChangeAuthorizationStatus:)]) {
         [self.delegate locationProvider:self didChangeAuthorizationStatus:status];
     }
+}
+
+#pragma mark - Notifications
+- (void)didEnterBackground:(id)sender {
+    if (self.coreLocationManager && !self.continueUpdatesInBackground) {
+        [self.coreLocationManager stopUpdatingLocation];
+        [self.coreLocationManager stopUpdatingHeading];
+    }
+}
+
+- (void)willEnterForeground:(id)sender {
+    if (self.coreLocationManager && !self.continueUpdatesInBackground) {
+        [self.coreLocationManager startUpdatingLocation];
+        [self.coreLocationManager startUpdatingHeading];
+    }
+}
+
+- (void)orientationChanged {
+    self.coreLocationManager.headingOrientation = (CLDeviceOrientation)UIDevice.currentDevice.orientation;
+}
+
+- (void)dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 @end

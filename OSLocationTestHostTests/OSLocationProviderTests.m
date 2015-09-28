@@ -133,4 +133,23 @@
     OCMVerify([self.mockDelegate locationProvider:self.locationProvider didChangeAuthorizationStatus:status]);
 }
 
+- (void)testLocationServicesStopsUpdatesInBackground {
+    id mockLocationManager = OCMClassMock([CLLocationManager class]);
+    OSLocationProvider *locationProvider = [[OSLocationProvider alloc] initWithDelegate:self.mockDelegate];
+    locationProvider.coreLocationManager = mockLocationManager;
+    [[NSNotificationCenter defaultCenter] postNotificationName:UIApplicationDidEnterBackgroundNotification object:nil];
+    OCMVerify([mockLocationManager stopUpdatingLocation]);
+    OCMVerify([mockLocationManager stopUpdatingHeading]);
+}
+
+- (void)testLocationServicesDoesNotStopUpdatesInBackgroundWhenTrackingUserLocation {
+    id mockLocationManager = OCMClassMock([CLLocationManager class]);
+    OSLocationProvider *locationProvider = [[OSLocationProvider alloc] initWithDelegate:self.mockDelegate];
+    locationProvider.continueUpdatesInBackground = YES;
+    locationProvider.coreLocationManager = mockLocationManager;
+    [[mockLocationManager reject] stopUpdatingLocation];
+    [[mockLocationManager reject] stopUpdatingHeading];
+    [[NSNotificationCenter defaultCenter] postNotificationName:UIApplicationDidEnterBackgroundNotification object:nil];
+}
+
 @end

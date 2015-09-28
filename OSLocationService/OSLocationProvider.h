@@ -117,6 +117,11 @@ typedef NS_OPTIONS(NSUInteger, OSLocationServiceUpdateOptions) {
  */
 @property (assign, nonatomic) BOOL adjustHeadingForDeviceOrientation;
 
+/**
+ *  If updates are needed in background, then this flag should be set to YES. The default implementation stops updates if the app is in background and resumes once it is in foreground.
+ */
+@property (assign, nonatomic) BOOL continueUpdatesInBackground;
+
 @end
 
 NS_ASSUME_NONNULL_END
