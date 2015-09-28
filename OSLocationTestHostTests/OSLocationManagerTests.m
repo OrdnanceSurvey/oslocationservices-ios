@@ -33,6 +33,79 @@
     [super tearDown];
 }
 
+- (void)testItInitilisesItselfWithMediumFrequencyIfNoneIsProvided {
+    expect(self.locationManager.updateFrequency).to.equal(OSLocationUpdatesFrequencyMedium);
+}
+
+- (void)testItUpdatesFiltersForLowFrequency {
+    OSLocationManager *locationManager = [[OSLocationManager alloc] initWithDelegate:self.mockDelegate frequency:OSLocationUpdatesFrequencyLow];
+    expect(locationManager.distanceFilter).to.equal(100);
+    expect(locationManager.desiredAccuracy).to.equal(10);
+}
+
+- (void)testItUpdatesFiltersForMediumFrequency {
+    OSLocationManager *locationManager = [[OSLocationManager alloc] initWithDelegate:self.mockDelegate frequency:OSLocationUpdatesFrequencyMedium];
+    expect(locationManager.distanceFilter).to.equal(40);
+    expect(locationManager.desiredAccuracy).to.equal(25);
+}
+
+- (void)testItUpdatesFiltersForHighFrequency {
+    OSLocationManager *locationManager = [[OSLocationManager alloc] initWithDelegate:self.mockDelegate frequency:OSLocationUpdatesFrequencyHigh];
+    expect(locationManager.distanceFilter).to.equal(10);
+    expect(locationManager.desiredAccuracy).to.equal(40);
+}
+
+- (void)testItSetsFiltersOnlyForCustomFrequency {
+    OSLocationManager *locationManager = [[OSLocationManager alloc] initWithDelegate:self.mockDelegate frequency:OSLocationUpdatesFrequencyCustom];
+    [locationManager startLocationServiceUpdatesWithOptions:OSLocationServiceLocationUpdates];
+    locationManager.distanceFilter = 40;
+    locationManager.desiredAccuracy = 50;
+    expect(locationManager.coreLocationManager.distanceFilter).to.equal(40);
+    expect(locationManager.coreLocationManager.desiredAccuracy).to.equal(50);
+    [locationManager stopLocationserviceUpdates];
+
+    locationManager = [[OSLocationManager alloc] initWithDelegate:self.mockDelegate frequency:OSLocationUpdatesFrequencyLow];
+    [locationManager startLocationServiceUpdatesWithOptions:OSLocationServiceLocationUpdates];
+    locationManager.distanceFilter = 40;
+    locationManager.desiredAccuracy = 50;
+    expect(locationManager.coreLocationManager.distanceFilter).to.equal(100);
+    expect(locationManager.coreLocationManager.desiredAccuracy).to.equal(10);
+    [locationManager stopLocationserviceUpdates];
+}
+
+- (void)testItReportsCorrectlyIfItHasRequestedToUpdateLocation {
+    [self.locationManager startLocationServiceUpdatesWithOptions:OSLocationServiceLocationUpdates];
+    expect(self.locationManager.hasRequestedToUpdateLocation).to.beTruthy();
+    [self.locationManager startLocationServiceUpdatesWithOptions:OSLocationServiceHeadingUpdates];
+    expect(self.locationManager.hasRequestedToUpdateLocation).to.beFalsy();
+}
+
+- (void)testItReportsCorrectlyIfItHasRequestedToUpdateHeading {
+    [self.locationManager startLocationServiceUpdatesWithOptions:OSLocationServiceHeadingUpdates];
+    expect(self.locationManager.hasRequestedToUpdateHeading).to.beTruthy();
+    [self.locationManager startLocationServiceUpdatesWithOptions:OSLocationServiceLocationUpdates];
+    expect(self.locationManager.hasRequestedToUpdateHeading).to.beFalsy();
+}
+
+- (void)testItReportsCorrectlyIfItHasRequestedToUpdateBothLocationAndHeading {
+    [self.locationManager startLocationServiceUpdatesWithOptions:OSLocationServiceAllOptions];
+    expect(self.locationManager.hasRequestedToUpdateLocation).to.beTruthy();
+    expect(self.locationManager.hasRequestedToUpdateHeading).to.beTruthy();
+
+    [self.locationManager startLocationServiceUpdatesWithOptions:OSLocationServiceNoUpdates];
+    expect(self.locationManager.hasRequestedToUpdateLocation).to.beFalsy();
+    expect(self.locationManager.hasRequestedToUpdateHeading).to.beFalsy();
+}
+
+- (void)testItInitilisesCoreLocationManagerWithGivenOptions {
+    [self.locationManager startLocationServiceUpdatesWithOptions:OSLocationServiceLocationUpdates];
+    expect(self.locationManager.coreLocationManager.delegate).to.equal(self.locationManager);
+    expect(self.locationManager.coreLocationManager.pausesLocationUpdatesAutomatically).to.beFalsy();
+    expect(self.locationManager.coreLocationManager.distanceFilter).to.equal(40);
+    expect(self.locationManager.coreLocationManager.desiredAccuracy).to.equal(25);
+    expect(self.locationManager.coreLocationManager.activityType).to.equal(CLActivityTypeFitness);
+}
+
 - (void)testItInformsTheDelegateWhenLocationIsUpdated {
     NSArray *locations = @[ [[CLLocation alloc] initWithLatitude:10 longitude:10] ];
     [self.locationManager locationManager:self.clLocationManager didUpdateLocations:locations];

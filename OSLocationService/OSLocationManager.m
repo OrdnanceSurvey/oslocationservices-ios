@@ -88,12 +88,14 @@
 - (void)setDistanceFilter:(CLLocationDistance)distanceFilter {
     if (_distanceFilter != distanceFilter && _updateFrequency == OSLocationUpdatesFrequencyCustom) {
         _distanceFilter = distanceFilter;
+        self.coreLocationManager.distanceFilter = distanceFilter;
     }
 }
 
 - (void)setDesiredAccuracy:(CLLocationAccuracy)desiredAccuracy {
     if (_desiredAccuracy != desiredAccuracy && _updateFrequency == OSLocationUpdatesFrequencyCustom) {
         _desiredAccuracy = desiredAccuracy;
+        self.coreLocationManager.desiredAccuracy = desiredAccuracy;
     }
 }
 

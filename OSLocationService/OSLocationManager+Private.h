@@ -15,4 +15,7 @@
 @property (assign, nonatomic) OSLocationServiceUpdateOptions updateOptions;
 @property (strong, nonatomic) CLLocationManager *coreLocationManager;
 
+- (BOOL)hasRequestedToUpdateLocation;
+- (BOOL)hasRequestedToUpdateHeading;
+
 @end
