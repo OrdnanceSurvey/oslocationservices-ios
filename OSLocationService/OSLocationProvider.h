@@ -93,11 +93,14 @@ typedef NS_OPTIONS(NSUInteger, OSLocationServiceUpdateOptions) {
 - (void)stopLocationServiceUpdates;
 
 /**
- *  Indicates whether location services are enabled on the device.
- *
- *  @return true if location services are turned on, false if location services are turned off.
+ *  Indicates whether location provider can provide location updates.
  */
-+ (BOOL)locationServicesEnabled;
++ (BOOL)canProvideLocationUpdates;
+
+/**
+ *  Indicates whether location provider can provide heading updates.
+ */
++ (BOOL)canProvideHeadingUpdates;
 
 /**
  *  Specifies the minimum update distance in meters

@@ -83,8 +83,13 @@ const CLLocationDistance kDistanceFilterHigh = 10;
     }
 }
 
-+ (BOOL)locationServicesEnabled {
-    return [CLLocationManager locationServicesEnabled];
++ (BOOL)canProvideLocationUpdates {
+    CLAuthorizationStatus authorizationStatus = [CLLocationManager authorizationStatus];
+    return [CLLocationManager locationServicesEnabled] && (authorizationStatus != kCLAuthorizationStatusRestricted || authorizationStatus != kCLAuthorizationStatusDenied);
+}
+
++ (BOOL)canProvideHeadingUpdates {
+    return [CLLocationManager headingAvailable];
 }
 
 - (BOOL)hasRequestedToUpdateLocation {
