@@ -13,6 +13,8 @@ const CLLocationDistance kDistanceFilterLow = 100;
 const CLLocationDistance kDistanceFilterMedium = 40;
 const CLLocationDistance kDistanceFilterHigh = 10;
 
+@import UIKit.UIDevice;
+
 @implementation OSLocationProvider
 
 - (instancetype)initWithDelegate:(id<OSLocationProviderDelegate>)delegate {
@@ -100,6 +102,7 @@ const CLLocationDistance kDistanceFilterHigh = 10;
     return self.updateOptions & OSLocationServiceHeadingUpdates;
 }
 
+#pragma mark - Setters
 - (void)setDistanceFilter:(CLLocationDistance)distanceFilter {
     if (_distanceFilter != distanceFilter) {
         if (_updateFrequency == OSLocationUpdatesFrequencyCustom) {
@@ -120,6 +123,18 @@ const CLLocationDistance kDistanceFilterHigh = 10;
             NSLog(@"Desired accuracy not updated. Change the update frequency to OSLocationUpdatesFrequencyCustom to use custom desired accuracy");
         }
     }
+}
+
+- (void)setAdjustHeadingForDeviceOrientation:(BOOL)adjustHeadingForDeviceOrientation {
+    _adjustHeadingForDeviceOrientation = adjustHeadingForDeviceOrientation;
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIDeviceOrientationDidChangeNotification object:nil];
+    if (_adjustHeadingForDeviceOrientation) {
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(orientationChanged) name:UIDeviceOrientationDidChangeNotification object:nil];
+    }
+}
+
+- (void)orientationChanged {
+    self.coreLocationManager.headingOrientation = (CLDeviceOrientation)UIDevice.currentDevice.orientation;
 }
 
 #pragma mark - Delegate methods
