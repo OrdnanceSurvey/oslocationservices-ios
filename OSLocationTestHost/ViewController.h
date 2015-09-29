@@ -7,8 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-@import OSLocationService;
 
-@interface ViewController : UIViewController<OSLocationServiceDelegate, OSLocationServiceObserverProtocol>
+@interface ViewController : UIViewController
 
 @end

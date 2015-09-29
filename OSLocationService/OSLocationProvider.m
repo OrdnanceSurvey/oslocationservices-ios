@@ -67,11 +67,11 @@ const CLLocationDistance kDistanceFilterHigh = 10;
     self.coreLocationManager.desiredAccuracy = self.desiredAccuracy;
     self.coreLocationManager.activityType = CLActivityTypeFitness;
 
-    if (self.hasRequestedToUpdateLocation) {
+    if (self.hasRequestedToUpdateLocation && [OSLocationProvider canProvideLocationUpdates]) {
         [self.coreLocationManager requestWhenInUseAuthorization];
         [self.coreLocationManager startUpdatingLocation];
     }
-    if (self.hasRequestedToUpdateHeading) {
+    if (self.hasRequestedToUpdateHeading && [OSLocationProvider canProvideHeadingUpdates]) {
         [self.coreLocationManager startUpdatingHeading];
     }
 }

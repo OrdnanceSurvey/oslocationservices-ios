@@ -7,39 +7,35 @@
 //
 
 #import "ViewController.h"
+#import "OSLocationProvider.h"
 
-@interface ViewController ()
-@property (nonatomic, strong) OSLocationService *locationService;
+@interface ViewController ()<OSLocationProviderDelegate>
+@property (nonatomic, strong) OSLocationProvider *locationProvider;
 @end
 
 @implementation ViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view, typically from a nib.
-    _locationService = [[OSLocationService alloc] init];
-    _locationService.delegate = self;
-    [_locationService startUpdatingWithOptions:OSLocationServiceAllOptions permissionLevel:OSLocationServicePermissionWhenInUse sender:self];
+    self.locationProvider = [[OSLocationProvider alloc] initWithDelegate:self];
+    [self.locationProvider startLocationServiceUpdates];
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
-#pragma mark - OSLocationServiceObserverProtocol
-- (NSString *)locationServiceIdentifier {
-    return @"OSLocationServiceIdentifier";
+#pragma mark - OSLocationProviderDelegate
+- (void)locationProvider:(OSLocationProvider *)manager didUpdateLocations:(NSArray<CLLocation *> *)locations {
+    NSLog(@"location: %@", locations.firstObject);
 }
 
-#pragma mark - OSLocationServiceDelegate
-- (void)locationService:(OSLocationService *)service didUpdateLocations:(NSArray *)locations {
-    OSLocation *location = [locations firstObject];
-    NSLog(@"location: %@", location);
+- (void)locationProvider:(OSLocationProvider *)manager didUpdateHeading:(CLHeading *)newHeading {
+    NSLog(@"heading: %@", newHeading);
 }
 
-- (void)locationService:(OSLocationService *)service didUpdateHeading:(OSLocationDirection)heading {
-    NSLog(@"heading: %f", heading);
+- (void)locationProvider:(OSLocationProvider *)manager didFailWithError:(NSError *)error {
+    NSLog(@"error: %@", error);
 }
 
 @end
