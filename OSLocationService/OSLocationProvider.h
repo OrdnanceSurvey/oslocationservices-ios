@@ -83,7 +83,7 @@ typedef NS_OPTIONS(NSUInteger, OSLocationServiceUpdateOptions) {
 - (instancetype)initWithDelegate:(id<OSLocationProviderDelegate>)delegate options:(OSLocationServiceUpdateOptions)options frequency:(OSLocationUpdatesFrequency)frequency NS_DESIGNATED_INITIALIZER;
 
 /**
- *  Starts location service updates
+ *  Starts location service updates by requesting authorization status - `requestWhenInUseAuthorization`. Currently we only support `requestWhenInUseAuthorization`.
  */
 - (void)startLocationServiceUpdates;
 
