@@ -133,18 +133,11 @@
     OCMVerify([self.mockDelegate locationProvider:self.locationProvider didChangeAuthorizationStatus:status]);
 }
 
-- (void)testItAdjustsHeadingForOrientationWhenAskedTo {
-    self.locationProvider.adjustHeadingForDeviceOrientation = YES;
+- (void)testItAdjustsHeadingWhenOrientationChanges {
     id mockLocationProvider = OCMPartialMock(self.locationProvider);
     [[NSNotificationCenter defaultCenter] postNotificationName:UIDeviceOrientationDidChangeNotification object:nil];
     OCMVerify([mockLocationProvider orientationChanged]);
-}
-
-- (void)testItDoesNotAdjustsHeadingForOrientationWhenAskedNotTo {
-    self.locationProvider.adjustHeadingForDeviceOrientation = NO;
-    id mockLocationProvider = OCMPartialMock(self.locationProvider);
-    [[mockLocationProvider reject] orientationChanged];
-    [[NSNotificationCenter defaultCenter] postNotificationName:UIDeviceOrientationDidChangeNotification object:nil];
+    [mockLocationProvider stopMocking];
 }
 
 - (void)testLocationProviderStopsUpdatesInBackgroundWhenAskedTo {

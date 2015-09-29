@@ -32,6 +32,7 @@ const CLLocationDistance kDistanceFilterHigh = 10;
 
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didEnterBackground:) name:UIApplicationDidEnterBackgroundNotification object:nil];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(willEnterForeground:) name:UIApplicationWillEnterForegroundNotification object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(orientationChanged) name:UIDeviceOrientationDidChangeNotification object:nil];
     }
     return self;
 }
@@ -67,11 +68,8 @@ const CLLocationDistance kDistanceFilterHigh = 10;
     self.coreLocationManager.activityType = CLActivityTypeFitness;
 
     if (self.hasRequestedToUpdateLocation) {
-        if ([CLLocationManager authorizationStatus] == kCLAuthorizationStatusAuthorizedWhenInUse || [CLLocationManager authorizationStatus] == kCLAuthorizationStatusAuthorizedAlways) {
-            [self.coreLocationManager startUpdatingLocation];
-        } else {
-            [self.coreLocationManager requestWhenInUseAuthorization];
-        }
+        [self.coreLocationManager requestWhenInUseAuthorization];
+        [self.coreLocationManager startUpdatingLocation];
     }
     if (self.hasRequestedToUpdateHeading) {
         [self.coreLocationManager startUpdatingHeading];
@@ -127,14 +125,6 @@ const CLLocationDistance kDistanceFilterHigh = 10;
         } else {
             NSLog(@"Desired accuracy not updated. Change the update frequency to OSLocationUpdatesFrequencyCustom to use custom desired accuracy");
         }
-    }
-}
-
-- (void)setAdjustHeadingForDeviceOrientation:(BOOL)adjustHeadingForDeviceOrientation {
-    _adjustHeadingForDeviceOrientation = adjustHeadingForDeviceOrientation;
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIDeviceOrientationDidChangeNotification object:nil];
-    if (_adjustHeadingForDeviceOrientation) {
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(orientationChanged) name:UIDeviceOrientationDidChangeNotification object:nil];
     }
 }
 

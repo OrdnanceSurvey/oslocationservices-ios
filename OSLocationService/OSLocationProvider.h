@@ -113,11 +113,6 @@ typedef NS_OPTIONS(NSUInteger, OSLocationServiceUpdateOptions) {
 @property (assign, nonatomic) CLLocationAccuracy desiredAccuracy;
 
 /**
- *  When true, the provider will listen for device orientation changes and adjust the heading accordingly
- */
-@property (assign, nonatomic) BOOL adjustHeadingForDeviceOrientation;
-
-/**
  *  If updates are needed in background, then this flag should be set to YES. The default implementation stops updates if the app is in background and resumes once it is in foreground.
  */
 @property (assign, nonatomic) BOOL continueUpdatesInBackground;
