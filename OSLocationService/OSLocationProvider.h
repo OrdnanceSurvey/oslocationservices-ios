@@ -83,7 +83,7 @@ typedef NS_OPTIONS(NSUInteger, OSLocationServiceUpdateOptions) {
 - (instancetype)initWithDelegate:(id<OSLocationProviderDelegate>)delegate options:(OSLocationServiceUpdateOptions)options frequency:(OSLocationUpdatesFrequency)frequency NS_DESIGNATED_INITIALIZER;
 
 /**
- *  Starts location service updates
+ *  Starts location service updates by requesting authorization status - `requestWhenInUseAuthorization`. Currently we only support `requestWhenInUseAuthorization`.
  */
 - (void)startLocationServiceUpdates;
 
@@ -91,6 +91,16 @@ typedef NS_OPTIONS(NSUInteger, OSLocationServiceUpdateOptions) {
  *  Stops current location service updates
  */
 - (void)stopLocationServiceUpdates;
+
+/**
+ *  Indicates whether location provider can provide location updates.
+ */
++ (BOOL)canProvideLocationUpdates;
+
+/**
+ *  Indicates whether location provider can provide heading updates.
+ */
++ (BOOL)canProvideHeadingUpdates;
 
 /**
  *  Specifies the minimum update distance in meters
@@ -101,6 +111,11 @@ typedef NS_OPTIONS(NSUInteger, OSLocationServiceUpdateOptions) {
  *  The desired location accuracy
  */
 @property (assign, nonatomic) CLLocationAccuracy desiredAccuracy;
+
+/**
+ *  If updates are needed in background, then this flag should be set to YES. The default implementation stops updates if the app is in background and resumes once it is in foreground.
+ */
+@property (assign, nonatomic) BOOL continueUpdatesInBackground;
 
 @end
 

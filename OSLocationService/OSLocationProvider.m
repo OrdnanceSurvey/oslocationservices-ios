@@ -9,6 +9,13 @@
 #import "OSLocationProvider.h"
 #import "OSLocationProvider+Private.h"
 
+@import UIKit.UIDevice;
+@import UIKit.UIApplication;
+
+const CLLocationDistance kDistanceFilterLow = 100;
+const CLLocationDistance kDistanceFilterMedium = 40;
+const CLLocationDistance kDistanceFilterHigh = 10;
+
 @implementation OSLocationProvider
 
 - (instancetype)initWithDelegate:(id<OSLocationProviderDelegate>)delegate {
@@ -22,6 +29,10 @@
         _updateOptions = options;
         _updateFrequency = frequency;
         [self updateFiltersForFrequency:frequency];
+
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didEnterBackground:) name:UIApplicationDidEnterBackgroundNotification object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(willEnterForeground:) name:UIApplicationWillEnterForegroundNotification object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(orientationChanged) name:UIDeviceOrientationDidChangeNotification object:nil];
     }
     return self;
 }
@@ -29,16 +40,16 @@
 - (void)updateFiltersForFrequency:(OSLocationUpdatesFrequency)frequency {
     switch (frequency) {
         case OSLocationUpdatesFrequencyLow:
-            _distanceFilter = 100;
+            _distanceFilter = kDistanceFilterLow;
             _desiredAccuracy = kCLLocationAccuracyBest;
             break;
         case OSLocationUpdatesFrequencyMedium:
-            _distanceFilter = 40;
+            _distanceFilter = kDistanceFilterMedium;
             _desiredAccuracy = kCLLocationAccuracyNearestTenMeters;
             break;
         case OSLocationUpdatesFrequencyHigh:
         case OSLocationUpdatesFrequencyCustom:
-            _distanceFilter = 10;
+            _distanceFilter = kDistanceFilterHigh;
             _desiredAccuracy = kCLLocationAccuracyHundredMeters;
             break;
     }
@@ -57,7 +68,7 @@
     self.coreLocationManager.activityType = CLActivityTypeFitness;
 
     if (self.hasRequestedToUpdateLocation) {
-        //TODO: Handle permissions
+        [self.coreLocationManager requestWhenInUseAuthorization];
         [self.coreLocationManager startUpdatingLocation];
     }
     if (self.hasRequestedToUpdateHeading) {
@@ -73,7 +84,17 @@
         if (self.hasRequestedToUpdateHeading) {
             [self.coreLocationManager stopUpdatingHeading];
         }
+        self.coreLocationManager = nil;
     }
+}
+
++ (BOOL)canProvideLocationUpdates {
+    CLAuthorizationStatus authorizationStatus = [CLLocationManager authorizationStatus];
+    return [CLLocationManager locationServicesEnabled] && (authorizationStatus != kCLAuthorizationStatusRestricted || authorizationStatus != kCLAuthorizationStatusDenied);
+}
+
++ (BOOL)canProvideHeadingUpdates {
+    return [CLLocationManager headingAvailable];
 }
 
 - (BOOL)hasRequestedToUpdateLocation {
@@ -84,6 +105,7 @@
     return self.updateOptions & OSLocationServiceHeadingUpdates;
 }
 
+#pragma mark - Setters
 - (void)setDistanceFilter:(CLLocationDistance)distanceFilter {
     if (_distanceFilter != distanceFilter) {
         if (_updateFrequency == OSLocationUpdatesFrequencyCustom) {
@@ -129,6 +151,29 @@
     if ([self.delegate respondsToSelector:@selector(locationProvider:didChangeAuthorizationStatus:)]) {
         [self.delegate locationProvider:self didChangeAuthorizationStatus:status];
     }
+}
+
+#pragma mark - Notifications
+- (void)didEnterBackground:(id)sender {
+    if (self.coreLocationManager && !self.continueUpdatesInBackground) {
+        [self.coreLocationManager stopUpdatingLocation];
+        [self.coreLocationManager stopUpdatingHeading];
+    }
+}
+
+- (void)willEnterForeground:(id)sender {
+    if (self.coreLocationManager && !self.continueUpdatesInBackground) {
+        [self.coreLocationManager startUpdatingLocation];
+        [self.coreLocationManager startUpdatingHeading];
+    }
+}
+
+- (void)orientationChanged {
+    self.coreLocationManager.headingOrientation = (CLDeviceOrientation)UIDevice.currentDevice.orientation;
+}
+
+- (void)dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 @end
