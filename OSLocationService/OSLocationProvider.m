@@ -57,7 +57,7 @@ const CLLocationDistance kDistanceFilterHigh = 10;
 
 - (void)startLocationServiceUpdates {
     if (self.coreLocationManager) {
-        [self stopLocationServiceUpdates];
+        [self stopLocationServiceUpdates]; // Don't set coreLocationManager to nil here because it will result in inUseAuthorization prompt to be dismissed immediately.
     } else {
         self.coreLocationManager = [[CLLocationManager alloc] init];
         self.coreLocationManager.delegate = self;
