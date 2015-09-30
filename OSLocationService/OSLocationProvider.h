@@ -84,6 +84,7 @@ typedef NS_OPTIONS(NSUInteger, OSLocationServiceUpdateOptions) {
 
 /**
  *  Starts location service updates by requesting authorization status - `requestWhenInUseAuthorization`. Currently we only support `requestWhenInUseAuthorization`.
+ *  Calling this method several times in succession does not automatically result in new events being generated. Calling stopUpdatingLocation in between, however, does cause a new initial event to be sent the next time you call this method.
  */
 - (void)startLocationServiceUpdates;
 
