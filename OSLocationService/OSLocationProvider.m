@@ -79,10 +79,10 @@ const CLLocationDistance kDistanceFilterHigh = 10;
 
 - (void)stopLocationServiceUpdates {
     if (self.hasRequestedToUpdateLocation) {
-        [_coreLocationManager stopUpdatingLocation];
+        [self.coreLocationManager stopUpdatingLocation];
     }
     if (self.hasRequestedToUpdateHeading) {
-        [_coreLocationManager stopUpdatingHeading];
+        [self.coreLocationManager stopUpdatingHeading];
     }
 }
 
