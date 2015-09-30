@@ -18,6 +18,18 @@ const CLLocationDistance kDistanceFilterHigh = 10;
 
 @implementation OSLocationProvider
 
+- (CLLocationManager *)coreLocationManager {
+    if (!_coreLocationManager) {
+        _coreLocationManager = [[CLLocationManager alloc] init];
+        _coreLocationManager.delegate = self;
+        _coreLocationManager.pausesLocationUpdatesAutomatically = NO;
+        _coreLocationManager.distanceFilter = self.distanceFilter;
+        _coreLocationManager.desiredAccuracy = self.desiredAccuracy;
+        _coreLocationManager.activityType = CLActivityTypeFitness;
+    }
+    return _coreLocationManager;
+}
+
 - (instancetype)initWithDelegate:(id<OSLocationProviderDelegate>)delegate {
     return [self initWithDelegate:delegate options:OSLocationServiceLocationUpdates frequency:OSLocationUpdatesFrequencyMedium];
 }
@@ -56,17 +68,6 @@ const CLLocationDistance kDistanceFilterHigh = 10;
 }
 
 - (void)startLocationServiceUpdates {
-    if (self.coreLocationManager) {
-        [self stopLocationServiceUpdates]; // Don't set coreLocationManager to nil here because it will result in inUseAuthorization prompt to be dismissed immediately.
-    } else {
-        self.coreLocationManager = [[CLLocationManager alloc] init];
-        self.coreLocationManager.delegate = self;
-        self.coreLocationManager.pausesLocationUpdatesAutomatically = NO;
-        self.coreLocationManager.distanceFilter = self.distanceFilter;
-        self.coreLocationManager.desiredAccuracy = self.desiredAccuracy;
-        self.coreLocationManager.activityType = CLActivityTypeFitness;
-    }
-
     if (self.hasRequestedToUpdateLocation && [OSLocationProvider canProvideLocationUpdates]) {
         [self.coreLocationManager requestWhenInUseAuthorization];
         [self.coreLocationManager startUpdatingLocation];
@@ -78,10 +79,10 @@ const CLLocationDistance kDistanceFilterHigh = 10;
 
 - (void)stopLocationServiceUpdates {
     if (self.hasRequestedToUpdateLocation) {
-        [self.coreLocationManager stopUpdatingLocation];
+        [_coreLocationManager stopUpdatingLocation];
     }
     if (self.hasRequestedToUpdateHeading) {
-        [self.coreLocationManager stopUpdatingHeading];
+        [_coreLocationManager stopUpdatingHeading];
     }
 }
 
