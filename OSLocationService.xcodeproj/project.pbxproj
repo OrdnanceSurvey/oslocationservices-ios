@@ -23,10 +23,10 @@
 
 /* Begin PBXBuildFile section */
 		72457F421BB57223004F953F /* OSLocationProvider.h in Headers */ = {isa = PBXBuildFile; fileRef = 72457F401BB57223004F953F /* OSLocationProvider.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		72457F431BB57223004F953F /* OSLocationProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = 72457F411BB57223004F953F /* OSLocationProvider.m */; settings = {ASSET_TAGS = (); }; };
+		72457F431BB57223004F953F /* OSLocationProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = 72457F411BB57223004F953F /* OSLocationProvider.m */; };
 		72457F461BB57281004F953F /* OSLocationProviderDelegate.h in Headers */ = {isa = PBXBuildFile; fileRef = 72457F451BB57281004F953F /* OSLocationProviderDelegate.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		72457F491BB57C93004F953F /* OSLocationProvider+Private.h in Headers */ = {isa = PBXBuildFile; fileRef = 72457F481BB57C93004F953F /* OSLocationProvider+Private.h */; settings = {ASSET_TAGS = (); }; };
-		724C52B91BB5874E0031A3F8 /* OSLocationProviderTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 724C52B81BB5874E0031A3F8 /* OSLocationProviderTests.m */; settings = {ASSET_TAGS = (); }; };
+		72457F491BB57C93004F953F /* OSLocationProvider+Private.h in Headers */ = {isa = PBXBuildFile; fileRef = 72457F481BB57C93004F953F /* OSLocationProvider+Private.h */; };
+		724C52B91BB5874E0031A3F8 /* OSLocationProviderTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 724C52B81BB5874E0031A3F8 /* OSLocationProviderTests.m */; };
 		B3A083221A3EFF6100DAFF3E /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = B3A083211A3EFF6100DAFF3E /* main.m */; };
 		B3A083251A3EFF6100DAFF3E /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = B3A083241A3EFF6100DAFF3E /* AppDelegate.m */; };
 		B3A083281A3EFF6100DAFF3E /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B3A083271A3EFF6100DAFF3E /* ViewController.m */; };
@@ -659,6 +659,7 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_BITCODE = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -691,6 +692,7 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_BITCODE = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
