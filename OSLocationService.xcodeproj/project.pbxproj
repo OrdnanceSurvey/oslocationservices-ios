@@ -22,6 +22,7 @@
 /* End PBXAggregateTarget section */
 
 /* Begin PBXBuildFile section */
+		456F0F361C15B02E00CCA825 /* OSLocationService.h in Headers */ = {isa = PBXBuildFile; fileRef = 456F0F351C15AEDF00CCA825 /* OSLocationService.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		72457F421BB57223004F953F /* OSLocationProvider.h in Headers */ = {isa = PBXBuildFile; fileRef = 72457F401BB57223004F953F /* OSLocationProvider.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		72457F431BB57223004F953F /* OSLocationProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = 72457F411BB57223004F953F /* OSLocationProvider.m */; };
 		72457F461BB57281004F953F /* OSLocationProviderDelegate.h in Headers */ = {isa = PBXBuildFile; fileRef = 72457F451BB57281004F953F /* OSLocationProviderDelegate.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -85,6 +86,7 @@
 /* Begin PBXFileReference section */
 		14CC877619471C2000C0D5BC /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		14CC877A19471C2000C0D5BC /* OSLocationService-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "OSLocationService-Prefix.pch"; sourceTree = "<group>"; };
+		456F0F351C15AEDF00CCA825 /* OSLocationService.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OSLocationService.h; sourceTree = "<group>"; };
 		72457F401BB57223004F953F /* OSLocationProvider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OSLocationProvider.h; sourceTree = "<group>"; };
 		72457F411BB57223004F953F /* OSLocationProvider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OSLocationProvider.m; sourceTree = "<group>"; };
 		72457F451BB57281004F953F /* OSLocationProviderDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OSLocationProviderDelegate.h; sourceTree = "<group>"; };
@@ -185,6 +187,7 @@
 		14CC877819471C2000C0D5BC /* OSLocationService */ = {
 			isa = PBXGroup;
 			children = (
+				456F0F351C15AEDF00CCA825 /* OSLocationService.h */,
 				72457F401BB57223004F953F /* OSLocationProvider.h */,
 				72457F481BB57C93004F953F /* OSLocationProvider+Private.h */,
 				72457F411BB57223004F953F /* OSLocationProvider.m */,
@@ -254,6 +257,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				72457F421BB57223004F953F /* OSLocationProvider.h in Headers */,
+				456F0F361C15B02E00CCA825 /* OSLocationService.h in Headers */,
 				72457F461BB57281004F953F /* OSLocationProviderDelegate.h in Headers */,
 				72457F491BB57C93004F953F /* OSLocationProvider+Private.h in Headers */,
 			);
@@ -654,7 +658,7 @@
 			buildSettings = {
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 2.0.1;
+				CURRENT_PROJECT_VERSION = 2.0.2;
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
@@ -687,7 +691,7 @@
 			buildSettings = {
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 2.0.1;
+				CURRENT_PROJECT_VERSION = 2.0.2;
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
