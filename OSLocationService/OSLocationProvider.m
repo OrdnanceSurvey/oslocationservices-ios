@@ -171,6 +171,7 @@ const CLLocationDistance kDistanceFilterHigh = 10;
 }
 
 - (void)dealloc {
+    _coreLocationManager.delegate = nil;
     [self stopLocationServiceUpdates];
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
