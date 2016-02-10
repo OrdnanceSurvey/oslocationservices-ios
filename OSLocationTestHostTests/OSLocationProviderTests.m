@@ -156,6 +156,7 @@
     locationProvider.coreLocationManager = mockLocationManager;
     [[mockLocationManager reject] stopUpdatingLocation];
     [[mockLocationManager reject] stopUpdatingHeading];
+    locationProvider.coreLocationManager = nil;
     [[NSNotificationCenter defaultCenter] postNotificationName:UIApplicationDidEnterBackgroundNotification object:nil];
 }
 
