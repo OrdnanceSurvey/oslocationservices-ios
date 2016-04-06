@@ -69,12 +69,21 @@ const CLLocationDistance kDistanceFilterHigh = 10;
 
 - (void)startLocationServiceUpdatesForAuthorisationStatus:(CLAuthorizationStatus)authorisationStatus {
     if (self.hasRequestedToUpdateLocation && [OSLocationProvider canProvideLocationUpdates]) {
+        CLAuthorizationStatus existingAuthorisationStatus = [CLLocationManager authorizationStatus];
         switch (authorisationStatus) {
             case kCLAuthorizationStatusAuthorizedWhenInUse:
-                [self.coreLocationManager requestWhenInUseAuthorization];
+                if (existingAuthorisationStatus == kCLAuthorizationStatusAuthorizedWhenInUse || existingAuthorisationStatus == kCLAuthorizationStatusAuthorizedAlways) {
+                    [self.coreLocationManager startUpdatingLocation];
+                } else {
+                    [self.coreLocationManager requestWhenInUseAuthorization];
+                }
                 break;
             case kCLAuthorizationStatusAuthorizedAlways:
-                [self.coreLocationManager requestAlwaysAuthorization];
+                if (existingAuthorisationStatus == kCLAuthorizationStatusAuthorizedAlways) {
+                    [self.coreLocationManager startUpdatingLocation];
+                } else {
+                    [self.coreLocationManager requestAlwaysAuthorization];
+                }
                 break;
             case kCLAuthorizationStatusDenied:
             case kCLAuthorizationStatusNotDetermined:
@@ -84,7 +93,6 @@ const CLLocationDistance kDistanceFilterHigh = 10;
             default:
                 break;
         }
-        [self.coreLocationManager startUpdatingLocation];
     }
     if (self.hasRequestedToUpdateHeading && [OSLocationProvider canProvideHeadingUpdates]) {
         [self.coreLocationManager startUpdatingHeading];
@@ -162,6 +170,10 @@ const CLLocationDistance kDistanceFilterHigh = 10;
 - (void)locationManager:(CLLocationManager *)manager didChangeAuthorizationStatus:(CLAuthorizationStatus)status {
     if ([self.delegate respondsToSelector:@selector(locationProvider:didChangeAuthorizationStatus:)]) {
         [self.delegate locationProvider:self didChangeAuthorizationStatus:status];
+    }
+
+    if (status == kCLAuthorizationStatusAuthorizedWhenInUse || status == kCLAuthorizationStatusAuthorizedAlways) {
+        [self.coreLocationManager startUpdatingLocation];
     }
 }
 
