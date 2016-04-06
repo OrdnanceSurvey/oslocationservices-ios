@@ -18,7 +18,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.locationProvider = [[OSLocationProvider alloc] initWithDelegate:self];
-    [self.locationProvider startLocationServiceUpdates];
+    [self.locationProvider startLocationServiceUpdatesForAuthorisationStatus:kCLAuthorizationStatusAuthorizedWhenInUse];
 }
 
 - (void)didReceiveMemoryWarning {
