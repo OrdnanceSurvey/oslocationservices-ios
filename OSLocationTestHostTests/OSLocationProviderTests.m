@@ -57,7 +57,7 @@
 
 - (void)testItSetsFiltersOnlyForCustomFrequency {
     OSLocationProvider *locationProvider = [[OSLocationProvider alloc] initWithDelegate:self.mockDelegate options:OSLocationServiceLocationUpdates frequency:OSLocationUpdatesFrequencyCustom];
-    [locationProvider startLocationServiceUpdates];
+    [locationProvider startLocationServiceUpdatesForAuthorisationStatus:kCLAuthorizationStatusAuthorizedWhenInUse];
     locationProvider.distanceFilter = 40;
     locationProvider.desiredAccuracy = 50;
     expect(locationProvider.coreLocationManager.distanceFilter).to.equal(40);
@@ -65,7 +65,7 @@
     [locationProvider stopLocationServiceUpdates];
 
     locationProvider = [[OSLocationProvider alloc] initWithDelegate:self.mockDelegate options:OSLocationServiceLocationUpdates frequency:OSLocationUpdatesFrequencyLow];
-    [locationProvider startLocationServiceUpdates];
+    [locationProvider startLocationServiceUpdatesForAuthorisationStatus:kCLAuthorizationStatusAuthorizedWhenInUse];
     locationProvider.distanceFilter = 40;
     locationProvider.desiredAccuracy = 50;
     expect(locationProvider.coreLocationManager.distanceFilter).to.equal(100);
@@ -101,7 +101,7 @@
     OSLocationProvider *locationProvider = [[OSLocationProvider alloc] initWithDelegate:self.mockDelegate options:OSLocationServiceLocationUpdates frequency:OSLocationUpdatesFrequencyCustom];
     locationProvider.distanceFilter = 40;
     locationProvider.desiredAccuracy = 100;
-    [locationProvider startLocationServiceUpdates];
+    [locationProvider startLocationServiceUpdatesForAuthorisationStatus:kCLAuthorizationStatusAuthorizedWhenInUse];
     expect(locationProvider.coreLocationManager.delegate).to.equal(locationProvider);
     expect(locationProvider.coreLocationManager.pausesLocationUpdatesAutomatically).to.beFalsy();
     expect(locationProvider.coreLocationManager.distanceFilter).to.equal(40);
@@ -158,6 +158,35 @@
     [[mockLocationManager reject] stopUpdatingHeading];
     locationProvider.coreLocationManager = nil;
     [[NSNotificationCenter defaultCenter] postNotificationName:UIApplicationDidEnterBackgroundNotification object:nil];
+}
+
+#pragma mark - Authorisation Status
+- (void)testItRaisesWhenRequestingAuthorisationForInvalidStatuses {
+    expect(^{
+        [self.locationProvider startLocationServiceUpdatesForAuthorisationStatus:kCLAuthorizationStatusNotDetermined];
+    }).to.raise(NSInvalidArgumentException);
+    expect(^{
+        [self.locationProvider startLocationServiceUpdatesForAuthorisationStatus:kCLAuthorizationStatusRestricted];
+    }).to.raise(NSInvalidArgumentException);
+    expect(^{
+        [self.locationProvider startLocationServiceUpdatesForAuthorisationStatus:kCLAuthorizationStatusDenied];
+    }).to.raise(NSInvalidArgumentException);
+}
+
+- (void)testItRequestsTheCorrectAuthorisationLevelForValidStatuses {
+    OSLocationProvider *locationProvider = [[OSLocationProvider alloc] initWithDelegate:self.mockDelegate];
+    id mockLocationManager = OCMClassMock([CLLocationManager class]);
+    locationProvider.coreLocationManager = mockLocationManager;
+
+    [[mockLocationManager expect] requestWhenInUseAuthorization];
+    [locationProvider startLocationServiceUpdatesForAuthorisationStatus:kCLAuthorizationStatusAuthorizedWhenInUse];
+    [mockLocationManager verify];
+
+    [[mockLocationManager expect] requestAlwaysAuthorization];
+    [locationProvider startLocationServiceUpdatesForAuthorisationStatus:kCLAuthorizationStatusAuthorizedAlways];
+    [mockLocationManager verify];
+
+    [mockLocationManager stopMocking];
 }
 
 @end

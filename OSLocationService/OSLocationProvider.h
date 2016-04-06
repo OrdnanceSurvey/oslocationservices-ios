@@ -83,10 +83,16 @@ typedef NS_OPTIONS(NSUInteger, OSLocationServiceUpdateOptions) {
 - (instancetype)initWithDelegate:(id<OSLocationProviderDelegate>)delegate options:(OSLocationServiceUpdateOptions)options frequency:(OSLocationUpdatesFrequency)frequency NS_DESIGNATED_INITIALIZER;
 
 /**
- *  Starts location service updates by requesting authorization status - `requestWhenInUseAuthorization`. Currently we only support `requestWhenInUseAuthorization`.
+ *  Starts location service updates by requesting authorization of the given
+ *  status.
  *  Calling this method several times in succession does not automatically result in new events being generated. Calling stopUpdatingLocation in between, however, does cause a new initial event to be sent the next time you call this method.
+ *
+ *  @param authorisationStatus The authorisation status to request location
+ *  updates for. Raises an exception unless
+ *  `kCLAuthorizationStatusAuthorizedAlways` or
+ *  `kCLAuthorizationStatusAuthorizedWhenInUse` is given.
  */
-- (void)startLocationServiceUpdates;
+- (void)startLocationServiceUpdatesForAuthorisationStatus:(CLAuthorizationStatus)authorisationStatus;
 
 /**
  *  Stops current location service updates

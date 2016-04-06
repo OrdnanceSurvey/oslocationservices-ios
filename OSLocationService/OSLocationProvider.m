@@ -67,9 +67,23 @@ const CLLocationDistance kDistanceFilterHigh = 10;
     }
 }
 
-- (void)startLocationServiceUpdates {
+- (void)startLocationServiceUpdatesForAuthorisationStatus:(CLAuthorizationStatus)authorisationStatus {
     if (self.hasRequestedToUpdateLocation && [OSLocationProvider canProvideLocationUpdates]) {
-        [self.coreLocationManager requestWhenInUseAuthorization];
+        switch (authorisationStatus) {
+            case kCLAuthorizationStatusAuthorizedWhenInUse:
+                [self.coreLocationManager requestWhenInUseAuthorization];
+                break;
+            case kCLAuthorizationStatusAuthorizedAlways:
+                [self.coreLocationManager requestAlwaysAuthorization];
+                break;
+            case kCLAuthorizationStatusDenied:
+            case kCLAuthorizationStatusNotDetermined:
+            case kCLAuthorizationStatusRestricted:
+                [NSException raise:NSInvalidArgumentException format:@"%@ is an invalid authorisation status. Request either kCLAuthorizationStatusAuthorizedWhenInUse or kCLAuthorizationStatusAuthorizedAlways", @(authorisationStatus)];
+                break;
+            default:
+                break;
+        }
         [self.coreLocationManager startUpdatingLocation];
     }
     if (self.hasRequestedToUpdateHeading && [OSLocationProvider canProvideHeadingUpdates]) {
