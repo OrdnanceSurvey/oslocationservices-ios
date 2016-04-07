@@ -178,15 +178,74 @@
     id mockLocationManager = OCMClassMock([CLLocationManager class]);
     locationProvider.coreLocationManager = mockLocationManager;
 
+    [[[mockLocationManager stub] andReturnValue:@(kCLAuthorizationStatusNotDetermined)] authorizationStatus];
     [[mockLocationManager expect] requestWhenInUseAuthorization];
     [locationProvider startLocationServiceUpdatesForAuthorisationStatus:kCLAuthorizationStatusAuthorizedWhenInUse];
     [mockLocationManager verify];
 
+    [[[mockLocationManager stub] andReturnValue:@(kCLAuthorizationStatusNotDetermined)] authorizationStatus];
     [[mockLocationManager expect] requestAlwaysAuthorization];
     [locationProvider startLocationServiceUpdatesForAuthorisationStatus:kCLAuthorizationStatusAuthorizedAlways];
     [mockLocationManager verify];
 
     [mockLocationManager stopMocking];
+}
+
+- (void)testItStartsUpdatingLocationsWhenInUseLocationUpdatesAreRequestedAtAnAlreadyAuthorisedLevel {
+    OSLocationProvider *locationProvider = [[OSLocationProvider alloc] initWithDelegate:self.mockDelegate];
+    id mockLocationManager = OCMClassMock([CLLocationManager class]);
+    locationProvider.coreLocationManager = mockLocationManager;
+
+    [[[mockLocationManager stub] andReturnValue:@(kCLAuthorizationStatusAuthorizedWhenInUse)] authorizationStatus];
+    [[mockLocationManager expect] startUpdatingLocation];
+    [locationProvider startLocationServiceUpdatesForAuthorisationStatus:kCLAuthorizationStatusAuthorizedWhenInUse];
+    [mockLocationManager verify];
+
+    [[[mockLocationManager stub] andReturnValue:@(kCLAuthorizationStatusAuthorizedAlways)] authorizationStatus];
+    [[mockLocationManager expect] startUpdatingLocation];
+    [locationProvider startLocationServiceUpdatesForAuthorisationStatus:kCLAuthorizationStatusAuthorizedWhenInUse];
+    [mockLocationManager verify];
+}
+
+- (void)testItStartsUpdatingLocationsWhenAlwaysLocationUpdatesAreRequestedAtAnAlreadyAuthorisedLevel {
+    OSLocationProvider *locationProvider = [[OSLocationProvider alloc] initWithDelegate:self.mockDelegate];
+    id mockLocationManager = OCMClassMock([CLLocationManager class]);
+    locationProvider.coreLocationManager = mockLocationManager;
+
+    [[[mockLocationManager stub] andReturnValue:@(kCLAuthorizationStatusAuthorizedAlways)] authorizationStatus];
+    [[mockLocationManager expect] startUpdatingLocation];
+    [locationProvider startLocationServiceUpdatesForAuthorisationStatus:kCLAuthorizationStatusAuthorizedAlways];
+    [mockLocationManager verify];
+}
+
+- (void)testItStartsUpdatingLocationsWhenTheUserAuthorisesInUseLocationUpdates {
+    OSLocationProvider *locationProvider = [[OSLocationProvider alloc] initWithDelegate:self.mockDelegate];
+    id mockLocationManager = OCMClassMock([CLLocationManager class]);
+    locationProvider.coreLocationManager = mockLocationManager;
+
+    [[mockLocationManager expect] startUpdatingLocation];
+    [locationProvider locationManager:locationProvider.coreLocationManager didChangeAuthorizationStatus:kCLAuthorizationStatusAuthorizedWhenInUse];
+    [mockLocationManager verify];
+}
+
+- (void)testItStartsUpdatingLocationsWhenTheUserAuthorisesAlwaysLocationUpdates {
+    OSLocationProvider *locationProvider = [[OSLocationProvider alloc] initWithDelegate:self.mockDelegate];
+    id mockLocationManager = OCMClassMock([CLLocationManager class]);
+    locationProvider.coreLocationManager = mockLocationManager;
+
+    [[mockLocationManager expect] startUpdatingLocation];
+    [locationProvider locationManager:locationProvider.coreLocationManager didChangeAuthorizationStatus:kCLAuthorizationStatusAuthorizedAlways];
+    [mockLocationManager verify];
+}
+
+- (void)testItDoesNotStartUpdatingLocationsWhenTheUserDeniesLocationUpdateAuthorisation {
+    OSLocationProvider *locationProvider = [[OSLocationProvider alloc] initWithDelegate:self.mockDelegate];
+    id mockLocationManager = OCMClassMock([CLLocationManager class]);
+    locationProvider.coreLocationManager = mockLocationManager;
+
+    [[mockLocationManager reject] startUpdatingLocation];
+    [locationProvider locationManager:locationProvider.coreLocationManager didChangeAuthorizationStatus:kCLAuthorizationStatusDenied];
+    [mockLocationManager verify];
 }
 
 @end
