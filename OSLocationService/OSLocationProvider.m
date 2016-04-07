@@ -23,7 +23,6 @@ const CLLocationDistance kDistanceFilterHigh = 10;
         _coreLocationManager = [[CLLocationManager alloc] init];
         _coreLocationManager.delegate = self;
         _coreLocationManager.pausesLocationUpdatesAutomatically = NO;
-        _coreLocationManager.allowsBackgroundLocationUpdates = YES;
         _coreLocationManager.distanceFilter = self.distanceFilter;
         _coreLocationManager.desiredAccuracy = self.desiredAccuracy;
         _coreLocationManager.activityType = CLActivityTypeFitness;
@@ -145,6 +144,11 @@ const CLLocationDistance kDistanceFilterHigh = 10;
             NSLog(@"Desired accuracy not updated. Change the update frequency to OSLocationUpdatesFrequencyCustom to use custom desired accuracy");
         }
     }
+}
+
+- (void)setContinueUpdatesInBackground:(BOOL)continueUpdatesInBackground {
+    _continueUpdatesInBackground = continueUpdatesInBackground;
+    self.coreLocationManager.allowsBackgroundLocationUpdates = _continueUpdatesInBackground;
 }
 
 #pragma mark - Delegate methods
