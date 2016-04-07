@@ -90,8 +90,6 @@ const CLLocationDistance kDistanceFilterHigh = 10;
             case kCLAuthorizationStatusRestricted:
                 [NSException raise:NSInvalidArgumentException format:@"%@ is an invalid authorisation status. Request either kCLAuthorizationStatusAuthorizedWhenInUse or kCLAuthorizationStatusAuthorizedAlways", @(authorisationStatus)];
                 break;
-            default:
-                break;
         }
     }
     if (self.hasRequestedToUpdateHeading && [OSLocationProvider canProvideHeadingUpdates]) {
