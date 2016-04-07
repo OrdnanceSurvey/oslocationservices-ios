@@ -248,8 +248,4 @@
     [mockLocationManager verify];
 }
 
-- (void)testItAllowsBackgroundLocationUpdates {
-    expect(self.locationProvider.coreLocationManager.allowsBackgroundLocationUpdates).to.beTruthy();
-}
-
 @end

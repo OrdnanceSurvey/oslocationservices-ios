@@ -23,7 +23,6 @@ const CLLocationDistance kDistanceFilterHigh = 10;
         _coreLocationManager = [[CLLocationManager alloc] init];
         _coreLocationManager.delegate = self;
         _coreLocationManager.pausesLocationUpdatesAutomatically = NO;
-        _coreLocationManager.allowsBackgroundLocationUpdates = YES;
         _coreLocationManager.distanceFilter = self.distanceFilter;
         _coreLocationManager.desiredAccuracy = self.desiredAccuracy;
         _coreLocationManager.activityType = CLActivityTypeFitness;
