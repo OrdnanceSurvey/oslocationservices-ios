@@ -248,8 +248,15 @@
     [mockLocationManager verify];
 }
 
-- (void)testItAllowsBackgroundLocationUpdates {
+- (void)testItDoesNotAllowBackgroundLocationUpdatesByDefault {
+    expect(self.locationProvider.coreLocationManager.allowsBackgroundLocationUpdates).to.beFalsy();
+}
+
+- (void)testItAllowsBackgroundLocationUpdatesToBeEnabledAndDisabled {
+    self.locationProvider.continueUpdatesInBackground = YES;
     expect(self.locationProvider.coreLocationManager.allowsBackgroundLocationUpdates).to.beTruthy();
+    self.locationProvider.continueUpdatesInBackground = NO;
+    expect(self.locationProvider.coreLocationManager.allowsBackgroundLocationUpdates).to.beFalsy();
 }
 
 @end
