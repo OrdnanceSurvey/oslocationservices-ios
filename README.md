@@ -1,4 +1,7 @@
 # OSLocationService Framework
+[![CircleCI](https://circleci.com/gh/OrdnanceSurvey/oslocationservices-ios.svg?style=svg)](https://circleci.com/gh/OrdnanceSurvey/oslocationservices-ios)
+[![Coverage Status](https://coveralls.io/repos/github/OrdnanceSurvey/oslocationservices-ios/badge.svg?branch=master)](https://coveralls.io/github/OrdnanceSurvey/oslocationservices-ios?branch=master)
+
 Simple wrapper around Core Location's `CLLocationManager` to provide a sensible
 set of defaults to make configuration simple.
 
