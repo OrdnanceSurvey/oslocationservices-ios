@@ -1,6 +1,6 @@
 coverage_service: coveralls
 ci_service: circleci
 xcodeproj: OSLocationService.xcodeproj
-scheme: OSLocationTestHost
+scheme: OSLocationService
 ignore:
   - OSLocationTestHost/*
