@@ -1,6 +1,6 @@
 machine:
   xcode:
-    version: "7.2"
+    version: "7.3"
 dependencies:
   override:
     - if [ ! -f /usr/local/bin/scan-build ]; then curl http://clang-analyzer.llvm.org/downloads/checker-276.tar.bz2 -o /usr/local/Cellar/checker-276.bz2; cd /usr/local/Cellar/; tar -jxvf checker-276.bz2; ln -s /usr/local/Cellar/checker-276/scan-build /usr/local/bin/scan-build; rm checker-276.bz2; fi
