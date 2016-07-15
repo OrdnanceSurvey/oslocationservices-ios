@@ -11,7 +11,7 @@
 @interface OSLocationProvider ()<CLLocationManagerDelegate>
 
 @property (weak, nonatomic) id<OSLocationProviderDelegate> delegate;
-@property (assign, nonatomic) OSLocationUpdatesFrequency updateFrequency;
+@property (assign, nonatomic) OSLocationUpdatePurpose updatePurpose;
 @property (assign, nonatomic) OSLocationServiceUpdateOptions updateOptions;
 @property (strong, nonatomic) CLLocationManager *coreLocationManager;
 

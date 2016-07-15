@@ -30,16 +30,17 @@ const CLLocationDistance kDistanceFilterHigh = 10;
 }
 
 - (instancetype)initWithDelegate:(id<OSLocationProviderDelegate>)delegate {
-    return [self initWithDelegate:delegate options:OSLocationServiceLocationUpdates frequency:OSLocationUpdatesFrequencyMedium];
+    return [self initWithDelegate:delegate options:OSLocationServiceLocationUpdates purpose:OSLocationUpdatePurposeCurrentLocation];
 }
 
-- (instancetype)initWithDelegate:(id<OSLocationProviderDelegate>)delegate options:(OSLocationServiceUpdateOptions)options frequency:(OSLocationUpdatesFrequency)frequency {
+- (instancetype)initWithDelegate:(id<OSLocationProviderDelegate>)delegate options:(OSLocationServiceUpdateOptions)options purpose:(OSLocationUpdatePurpose)purpose {
     self = [super init];
     if (self) {
         _delegate = delegate;
         _updateOptions = options;
-        _updateFrequency = frequency;
-        [self updateFiltersForFrequency:frequency];
+        _distanceFilter = kCLDistanceFilterNone;
+        _updatePurpose = purpose;
+        [self updateFiltersForPurpose:purpose];
 
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didEnterBackground:) name:UIApplicationDidEnterBackgroundNotification object:nil];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(willEnterForeground:) name:UIApplicationWillEnterForegroundNotification object:nil];
@@ -48,20 +49,15 @@ const CLLocationDistance kDistanceFilterHigh = 10;
     return self;
 }
 
-- (void)updateFiltersForFrequency:(OSLocationUpdatesFrequency)frequency {
-    switch (frequency) {
-        case OSLocationUpdatesFrequencyLow:
-            _distanceFilter = kDistanceFilterLow;
+- (void)updateFiltersForPurpose:(OSLocationUpdatePurpose)purpose {
+    switch (purpose) {
+        case OSLocationUpdatePurposeCurrentLocation:
             _desiredAccuracy = kCLLocationAccuracyBest;
             break;
-        case OSLocationUpdatesFrequencyMedium:
-            _distanceFilter = kDistanceFilterMedium;
-            _desiredAccuracy = kCLLocationAccuracyNearestTenMeters;
+        case OSLocationUpdatePurposeNavigation:
+            _desiredAccuracy = kCLLocationAccuracyBestForNavigation;
             break;
-        case OSLocationUpdatesFrequencyHigh:
-        case OSLocationUpdatesFrequencyCustom:
-            _distanceFilter = kDistanceFilterHigh;
-            _desiredAccuracy = kCLLocationAccuracyHundredMeters;
+        case OSLocationUpdatePurposeCustom:
             break;
     }
 }
@@ -125,7 +121,7 @@ const CLLocationDistance kDistanceFilterHigh = 10;
 #pragma mark - Setters
 - (void)setDistanceFilter:(CLLocationDistance)distanceFilter {
     if (_distanceFilter != distanceFilter) {
-        if (_updateFrequency == OSLocationUpdatesFrequencyCustom) {
+        if (self.updatePurpose == OSLocationUpdatePurposeCustom) {
             _distanceFilter = distanceFilter;
             self.coreLocationManager.distanceFilter = distanceFilter;
         } else {
@@ -136,7 +132,7 @@ const CLLocationDistance kDistanceFilterHigh = 10;
 
 - (void)setDesiredAccuracy:(CLLocationAccuracy)desiredAccuracy {
     if (_desiredAccuracy != desiredAccuracy) {
-        if (_updateFrequency == OSLocationUpdatesFrequencyCustom) {
+        if (self.updatePurpose == OSLocationUpdatePurposeCustom) {
             _desiredAccuracy = desiredAccuracy;
             self.coreLocationManager.desiredAccuracy = desiredAccuracy;
         } else {
