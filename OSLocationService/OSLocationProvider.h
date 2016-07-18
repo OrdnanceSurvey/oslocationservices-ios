@@ -125,6 +125,11 @@ typedef NS_OPTIONS(NSUInteger, OSLocationServiceUpdateOptions) {
  */
 @property (assign, nonatomic) BOOL continueUpdatesInBackground;
 
+/**
+ *  Should we allow the underlying location manager to defer updates?
+ */
+@property (assign, nonatomic) BOOL allowsDeferredUpdates;
+
 @end
 
 NS_ASSUME_NONNULL_END

@@ -151,6 +151,9 @@ const CLLocationDistance kDistanceFilterHigh = 10;
     if ([self.delegate respondsToSelector:@selector(locationProvider:didUpdateLocations:)]) {
         [self.delegate locationProvider:self didUpdateLocations:locations];
     }
+    if (self.allowsDeferredUpdates) {
+        [self.coreLocationManager allowDeferredLocationUpdatesUntilTraveled:CLLocationDistanceMax timeout:CLTimeIntervalMax];
+    }
 }
 
 - (void)locationManager:(CLLocationManager *)manager didUpdateHeading:(CLHeading *)newHeading {
