@@ -253,6 +253,40 @@
     expect(self.locationProvider.coreLocationManager.allowsBackgroundLocationUpdates).to.beFalsy();
 }
 
+- (void)runForegroundTestWithBlock:(void (^)(id mockLocationManager, OSLocationProvider *provider))expectationsBlock {
+    id mockLocationManager = OCMClassMock([CLLocationManager class]);
+    self.locationProvider.coreLocationManager = mockLocationManager;
+    expectationsBlock(mockLocationManager, self.locationProvider);
+    [NSNotificationCenter.defaultCenter postNotificationName:UIApplicationWillEnterForegroundNotification object:self];
+    [mockLocationManager verify];
+}
+
+- (void)testItRestartsLocationUpdatesWhenReturningToTheForeground {
+    [self runForegroundTestWithBlock:^(id mockLocationManager, OSLocationProvider *provider) {
+        provider.updateOptions = OSLocationServiceAllOptions;
+        [[mockLocationManager expect] startUpdatingHeading];
+        [[mockLocationManager expect] startUpdatingLocation];
+    }];
+
+    [self runForegroundTestWithBlock:^(id mockLocationManager, OSLocationProvider *provider) {
+        provider.updateOptions = OSLocationServiceHeadingUpdates;
+        [[mockLocationManager expect] startUpdatingHeading];
+        [[mockLocationManager reject] startUpdatingLocation];
+    }];
+
+    [self runForegroundTestWithBlock:^(id mockLocationManager, OSLocationProvider *provider) {
+        provider.updateOptions = OSLocationServiceLocationUpdates;
+        [[mockLocationManager reject] startUpdatingHeading];
+        [[mockLocationManager expect] startUpdatingLocation];
+    }];
+
+    [self runForegroundTestWithBlock:^(id mockLocationManager, OSLocationProvider *provider) {
+        provider.updateOptions = OSLocationServiceNoUpdates;
+        [[mockLocationManager reject] startUpdatingHeading];
+        [[mockLocationManager reject] startUpdatingLocation];
+    }];
+}
+
 - (void)testItAllowsDeferredUpdatesWhenRequested {
     id mockLocationManager = OCMClassMock([CLLocationManager class]);
     self.locationProvider.coreLocationManager = mockLocationManager;

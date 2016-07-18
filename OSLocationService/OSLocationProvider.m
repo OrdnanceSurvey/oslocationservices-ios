@@ -192,8 +192,12 @@ const CLLocationDistance kDistanceFilterHigh = 10;
 
 - (void)willEnterForeground:(id)sender {
     if (self.coreLocationManager && !self.continueUpdatesInBackground) {
-        [self.coreLocationManager startUpdatingLocation];
-        [self.coreLocationManager startUpdatingHeading];
+        if (self.hasRequestedToUpdateLocation) {
+            [self.coreLocationManager startUpdatingLocation];
+        }
+        if (self.hasRequestedToUpdateHeading) {
+            [self.coreLocationManager startUpdatingHeading];
+        }
     }
 }
 
