@@ -12,25 +12,26 @@
 NS_ASSUME_NONNULL_BEGIN
 
 /**
- *  Different frequency options for location updates
+ *  Options for predefined setups for the location provider
  */
-typedef NS_ENUM(NSInteger, OSLocationUpdatesFrequency) {
+typedef NS_ENUM(NSInteger, OSLocationUpdatePurpose) {
     /**
-     *  Low frequency updates at 100 meters with accuracy kCLLocationAccuracyBest
+     *  The provider will be used to provide the user's location.
+     *  No distance filter will be set and the desired accuracy will be set to 
+     *  `kCLLocationAccuracyBest`
      */
-    OSLocationUpdatesFrequencyLow,
+    OSLocationUpdatePurposeCurrentLocation,
     /**
-     *  Medium frequency updates at 40 meters with accuracy kCLLocationAccuracyNearestTenMeters
+     *  The provider will be used to provide the navigation information.
+     *  No distance filter will be set and the desired accuracy will be set to
+     *  `kCLLocationAccuracyBestForNavigation`
      */
-    OSLocationUpdatesFrequencyMedium,
+    OSLocationUpdatePurposeNavigation,
     /**
-     *  High frequency updates at 10 meters with accuracy kCLLocationAccuracyHundredMeters
+     *  The provider is being used for an unknown purpose. `distanceFilter`
+     *  and `desiredAccuracy` properties should be set as desired.
      */
-    OSLocationUpdatesFrequencyHigh,
-    /**
-     *  Custom frequency updates. Use `distanceFilter` and `desiredAccuracy` properties to set desired values.
-     */
-    OSLocationUpdatesFrequencyCustom
+    OSLocationUpdatePurposeCustom
 };
 
 /**
@@ -63,7 +64,7 @@ typedef NS_OPTIONS(NSUInteger, OSLocationServiceUpdateOptions) {
 - (instancetype)init NS_UNAVAILABLE;
 
 /**
- *  Convenience initialiser with `OSLocationServiceLocationUpdates` options and `OSLocationUpdatesFrequencyMedium` update frequency
+ *  Convenience initialiser with `OSLocationServiceLocationUpdates` options and `OSLocationUpdatePurposeCurrentLocation` purpose
  *
  *  @param delegate the delegate to receive callback
  *
@@ -76,11 +77,11 @@ typedef NS_OPTIONS(NSUInteger, OSLocationServiceUpdateOptions) {
  *
  *  @param delegate  the delegate to receive callback
  *  @param options   the different updates needed
- *  @param frequency the frequency for the updates
+ *  @param purpose   the purpose of the provider
  *
  *  @return instance of `OSLocationProvider`
  */
-- (instancetype)initWithDelegate:(id<OSLocationProviderDelegate>)delegate options:(OSLocationServiceUpdateOptions)options frequency:(OSLocationUpdatesFrequency)frequency NS_DESIGNATED_INITIALIZER;
+- (instancetype)initWithDelegate:(id<OSLocationProviderDelegate>)delegate options:(OSLocationServiceUpdateOptions)options purpose:(OSLocationUpdatePurpose)purpose NS_DESIGNATED_INITIALIZER;
 
 /**
  *  Starts location service updates by requesting authorization of the given
@@ -123,6 +124,11 @@ typedef NS_OPTIONS(NSUInteger, OSLocationServiceUpdateOptions) {
  *  If updates are needed in background, then this flag should be set to YES. The default implementation stops updates if the app is in background and resumes once it is in foreground.
  */
 @property (assign, nonatomic) BOOL continueUpdatesInBackground;
+
+/**
+ *  Should we allow the underlying location manager to defer updates?
+ */
+@property (assign, nonatomic) BOOL allowsDeferredUpdates;
 
 @end
 

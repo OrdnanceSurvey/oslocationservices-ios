@@ -33,30 +33,24 @@
     [super tearDown];
 }
 
-- (void)testItInitilisesItselfWithMediumFrequencyIfNoneIsProvided {
-    expect(self.locationProvider.updateFrequency).to.equal(OSLocationUpdatesFrequencyMedium);
+- (void)testItInitilisesItselfWithCurrentLocationPurposeIfNoneIsProvided {
+    expect(self.locationProvider.updatePurpose).to.equal(OSLocationUpdatePurposeCurrentLocation);
 }
 
-- (void)testItUpdatesFiltersForLowFrequency {
-    OSLocationProvider *locationProvider = [[OSLocationProvider alloc] initWithDelegate:self.mockDelegate options:OSLocationServiceLocationUpdates frequency:OSLocationUpdatesFrequencyLow];
-    expect(locationProvider.distanceFilter).to.equal(100);
+- (void)testItUpdatesFiltersForCurrentLocation {
+    OSLocationProvider *locationProvider = [[OSLocationProvider alloc] initWithDelegate:self.mockDelegate options:OSLocationServiceLocationUpdates purpose:OSLocationUpdatePurposeCurrentLocation];
+    expect(locationProvider.distanceFilter).to.equal(kCLDistanceFilterNone);
     expect(locationProvider.desiredAccuracy).to.equal(kCLLocationAccuracyBest);
 }
 
-- (void)testItUpdatesFiltersForMediumFrequency {
-    OSLocationProvider *locationProvider = [[OSLocationProvider alloc] initWithDelegate:self.mockDelegate options:OSLocationServiceLocationUpdates frequency:OSLocationUpdatesFrequencyMedium];
-    expect(locationProvider.distanceFilter).to.equal(40);
-    expect(locationProvider.desiredAccuracy).to.equal(kCLLocationAccuracyNearestTenMeters);
+- (void)testItUpdatesFiltersForNavigation {
+    OSLocationProvider *locationProvider = [[OSLocationProvider alloc] initWithDelegate:self.mockDelegate options:OSLocationServiceLocationUpdates purpose:OSLocationUpdatePurposeNavigation];
+    expect(locationProvider.distanceFilter).to.equal(kCLDistanceFilterNone);
+    expect(locationProvider.desiredAccuracy).to.equal(kCLLocationAccuracyBestForNavigation);
 }
 
-- (void)testItUpdatesFiltersForHighFrequency {
-    OSLocationProvider *locationProvider = [[OSLocationProvider alloc] initWithDelegate:self.mockDelegate options:OSLocationServiceLocationUpdates frequency:OSLocationUpdatesFrequencyHigh];
-    expect(locationProvider.distanceFilter).to.equal(10);
-    expect(locationProvider.desiredAccuracy).to.equal(kCLLocationAccuracyHundredMeters);
-}
-
-- (void)testItSetsFiltersOnlyForCustomFrequency {
-    OSLocationProvider *locationProvider = [[OSLocationProvider alloc] initWithDelegate:self.mockDelegate options:OSLocationServiceLocationUpdates frequency:OSLocationUpdatesFrequencyCustom];
+- (void)testItSetsFiltersOnlyForCustomPurpose {
+    OSLocationProvider *locationProvider = [[OSLocationProvider alloc] initWithDelegate:self.mockDelegate options:OSLocationServiceLocationUpdates purpose:OSLocationUpdatePurposeCustom];
     [locationProvider startLocationServiceUpdatesForAuthorisationStatus:kCLAuthorizationStatusAuthorizedWhenInUse];
     locationProvider.distanceFilter = 40;
     locationProvider.desiredAccuracy = 50;
@@ -64,41 +58,41 @@
     expect(locationProvider.coreLocationManager.desiredAccuracy).to.equal(50);
     [locationProvider stopLocationServiceUpdates];
 
-    locationProvider = [[OSLocationProvider alloc] initWithDelegate:self.mockDelegate options:OSLocationServiceLocationUpdates frequency:OSLocationUpdatesFrequencyLow];
+    locationProvider = [[OSLocationProvider alloc] initWithDelegate:self.mockDelegate options:OSLocationServiceLocationUpdates purpose:OSLocationUpdatePurposeNavigation];
     [locationProvider startLocationServiceUpdatesForAuthorisationStatus:kCLAuthorizationStatusAuthorizedWhenInUse];
     locationProvider.distanceFilter = 40;
     locationProvider.desiredAccuracy = 50;
-    expect(locationProvider.coreLocationManager.distanceFilter).to.equal(100);
-    expect(locationProvider.coreLocationManager.desiredAccuracy).to.equal(kCLLocationAccuracyBest);
+    expect(locationProvider.coreLocationManager.distanceFilter).to.equal(kCLDistanceFilterNone);
+    expect(locationProvider.coreLocationManager.desiredAccuracy).to.equal(kCLLocationAccuracyBestForNavigation);
     [locationProvider stopLocationServiceUpdates];
 }
 
 - (void)testItReportsCorrectlyIfItHasRequestedToUpdateLocation {
-    OSLocationProvider *locationProvider = [[OSLocationProvider alloc] initWithDelegate:self.mockDelegate options:OSLocationServiceLocationUpdates frequency:OSLocationUpdatesFrequencyCustom];
+    OSLocationProvider *locationProvider = [[OSLocationProvider alloc] initWithDelegate:self.mockDelegate options:OSLocationServiceLocationUpdates purpose:OSLocationUpdatePurposeCustom];
     expect(locationProvider.hasRequestedToUpdateLocation).to.beTruthy();
-    locationProvider = [[OSLocationProvider alloc] initWithDelegate:self.mockDelegate options:OSLocationServiceHeadingUpdates frequency:OSLocationUpdatesFrequencyCustom];
+    locationProvider = [[OSLocationProvider alloc] initWithDelegate:self.mockDelegate options:OSLocationServiceHeadingUpdates purpose:OSLocationUpdatePurposeCustom];
     expect(locationProvider.hasRequestedToUpdateLocation).to.beFalsy();
 }
 
 - (void)testItReportsCorrectlyIfItHasRequestedToUpdateHeading {
-    OSLocationProvider *locationProvider = [[OSLocationProvider alloc] initWithDelegate:self.mockDelegate options:OSLocationServiceHeadingUpdates frequency:OSLocationUpdatesFrequencyCustom];
+    OSLocationProvider *locationProvider = [[OSLocationProvider alloc] initWithDelegate:self.mockDelegate options:OSLocationServiceHeadingUpdates purpose:OSLocationUpdatePurposeCustom];
     expect(locationProvider.hasRequestedToUpdateHeading).to.beTruthy();
-    locationProvider = [[OSLocationProvider alloc] initWithDelegate:self.mockDelegate options:OSLocationServiceLocationUpdates frequency:OSLocationUpdatesFrequencyCustom];
+    locationProvider = [[OSLocationProvider alloc] initWithDelegate:self.mockDelegate options:OSLocationServiceLocationUpdates purpose:OSLocationUpdatePurposeCustom];
     expect(locationProvider.hasRequestedToUpdateHeading).to.beFalsy();
 }
 
 - (void)testItReportsCorrectlyIfItHasRequestedToUpdateBothLocationAndHeading {
-    OSLocationProvider *locationProvider = [[OSLocationProvider alloc] initWithDelegate:self.mockDelegate options:OSLocationServiceAllOptions frequency:OSLocationUpdatesFrequencyCustom];
+    OSLocationProvider *locationProvider = [[OSLocationProvider alloc] initWithDelegate:self.mockDelegate options:OSLocationServiceAllOptions purpose:OSLocationUpdatePurposeCustom];
     expect(locationProvider.hasRequestedToUpdateLocation).to.beTruthy();
     expect(locationProvider.hasRequestedToUpdateHeading).to.beTruthy();
 
-    locationProvider = [[OSLocationProvider alloc] initWithDelegate:self.mockDelegate options:OSLocationServiceNoUpdates frequency:OSLocationUpdatesFrequencyCustom];
+    locationProvider = [[OSLocationProvider alloc] initWithDelegate:self.mockDelegate options:OSLocationServiceNoUpdates purpose:OSLocationUpdatePurposeCustom];
     expect(locationProvider.hasRequestedToUpdateLocation).to.beFalsy();
     expect(locationProvider.hasRequestedToUpdateHeading).to.beFalsy();
 }
 
 - (void)testItInitilisesCoreLocationManagerWithGivenOptions {
-    OSLocationProvider *locationProvider = [[OSLocationProvider alloc] initWithDelegate:self.mockDelegate options:OSLocationServiceLocationUpdates frequency:OSLocationUpdatesFrequencyCustom];
+    OSLocationProvider *locationProvider = [[OSLocationProvider alloc] initWithDelegate:self.mockDelegate options:OSLocationServiceLocationUpdates purpose:OSLocationUpdatePurposeCustom];
     locationProvider.distanceFilter = 40;
     locationProvider.desiredAccuracy = 100;
     [locationProvider startLocationServiceUpdatesForAuthorisationStatus:kCLAuthorizationStatusAuthorizedWhenInUse];
@@ -257,6 +251,53 @@
     expect(self.locationProvider.coreLocationManager.allowsBackgroundLocationUpdates).to.beTruthy();
     self.locationProvider.continueUpdatesInBackground = NO;
     expect(self.locationProvider.coreLocationManager.allowsBackgroundLocationUpdates).to.beFalsy();
+}
+
+- (void)runForegroundTestWithBlock:(void (^)(id mockLocationManager, OSLocationProvider *provider))expectationsBlock {
+    id mockLocationManager = OCMClassMock([CLLocationManager class]);
+    self.locationProvider.coreLocationManager = mockLocationManager;
+    expectationsBlock(mockLocationManager, self.locationProvider);
+    [NSNotificationCenter.defaultCenter postNotificationName:UIApplicationWillEnterForegroundNotification object:self];
+    [mockLocationManager verify];
+}
+
+- (void)testItRestartsLocationUpdatesWhenReturningToTheForeground {
+    [self runForegroundTestWithBlock:^(id mockLocationManager, OSLocationProvider *provider) {
+        provider.updateOptions = OSLocationServiceAllOptions;
+        [[mockLocationManager expect] startUpdatingHeading];
+        [[mockLocationManager expect] startUpdatingLocation];
+    }];
+
+    [self runForegroundTestWithBlock:^(id mockLocationManager, OSLocationProvider *provider) {
+        provider.updateOptions = OSLocationServiceHeadingUpdates;
+        [[mockLocationManager expect] startUpdatingHeading];
+        [[mockLocationManager reject] startUpdatingLocation];
+    }];
+
+    [self runForegroundTestWithBlock:^(id mockLocationManager, OSLocationProvider *provider) {
+        provider.updateOptions = OSLocationServiceLocationUpdates;
+        [[mockLocationManager reject] startUpdatingHeading];
+        [[mockLocationManager expect] startUpdatingLocation];
+    }];
+
+    [self runForegroundTestWithBlock:^(id mockLocationManager, OSLocationProvider *provider) {
+        provider.updateOptions = OSLocationServiceNoUpdates;
+        [[mockLocationManager reject] startUpdatingHeading];
+        [[mockLocationManager reject] startUpdatingLocation];
+    }];
+}
+
+- (void)testItAllowsDeferredUpdatesWhenRequested {
+    id mockLocationManager = OCMClassMock([CLLocationManager class]);
+    self.locationProvider.coreLocationManager = mockLocationManager;
+    self.locationProvider.allowsDeferredUpdates = YES;
+    [[mockLocationManager expect] allowDeferredLocationUpdatesUntilTraveled:CLLocationDistanceMax timeout:CLTimeIntervalMax];
+    [self.locationProvider locationManager:mockLocationManager didUpdateLocations:@[]];
+    [mockLocationManager verify];
+    self.locationProvider.allowsDeferredUpdates = NO;
+    [[mockLocationManager reject] allowDeferredLocationUpdatesUntilTraveled:CLLocationDistanceMax timeout:CLTimeIntervalMax];
+    [self.locationProvider locationManager:mockLocationManager didUpdateLocations:@[]];
+    [mockLocationManager verify];
 }
 
 @end
