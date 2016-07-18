@@ -178,6 +178,10 @@ const CLLocationDistance kDistanceFilterHigh = 10;
     }
 }
 
+- (void)locationManager:(CLLocationManager *)manager didFinishDeferredUpdatesWithError:(NSError *)error {
+    NSLog(@"Finished deferred updates: %@", error);
+}
+
 #pragma mark - Notifications
 - (void)didEnterBackground:(id)sender {
     if (self.coreLocationManager && !self.continueUpdatesInBackground) {
