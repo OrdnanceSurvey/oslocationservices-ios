@@ -125,7 +125,7 @@ const CLLocationDistance kDistanceFilterHigh = 10;
             _distanceFilter = distanceFilter;
             self.coreLocationManager.distanceFilter = distanceFilter;
         } else {
-            NSLog(@"Distance filter not updated. Change the update frequency to OSLocationUpdatesFrequencyCustom to use custom distance filter");
+            NSLog(@"Distance filter not updated. Instantiate the location provider with OSLocationUpdatePurposeCustom to use custom distance filter.");
         }
     }
 }
@@ -136,7 +136,7 @@ const CLLocationDistance kDistanceFilterHigh = 10;
             _desiredAccuracy = desiredAccuracy;
             self.coreLocationManager.desiredAccuracy = desiredAccuracy;
         } else {
-            NSLog(@"Desired accuracy not updated. Change the update frequency to OSLocationUpdatesFrequencyCustom to use custom desired accuracy");
+            NSLog(@"Desired accuracy not updated. Instantiate the location provider with OSLocationUpdatePurposeCustom to use custom desired accuracy");
         }
     }
 }
