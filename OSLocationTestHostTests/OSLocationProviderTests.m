@@ -253,4 +253,17 @@
     expect(self.locationProvider.coreLocationManager.allowsBackgroundLocationUpdates).to.beFalsy();
 }
 
+- (void)testItAllowsDeferredUpdatesWhenRequested {
+    id mockLocationManager = OCMClassMock([CLLocationManager class]);
+    self.locationProvider.coreLocationManager = mockLocationManager;
+    self.locationProvider.allowsDeferredUpdates = YES;
+    [[mockLocationManager expect] allowDeferredLocationUpdatesUntilTraveled:CLLocationDistanceMax timeout:CLTimeIntervalMax];
+    [self.locationProvider locationManager:mockLocationManager didUpdateLocations:@[]];
+    [mockLocationManager verify];
+    self.locationProvider.allowsDeferredUpdates = NO;
+    [[mockLocationManager reject] allowDeferredLocationUpdatesUntilTraveled:CLLocationDistanceMax timeout:CLTimeIntervalMax];
+    [self.locationProvider locationManager:mockLocationManager didUpdateLocations:@[]];
+    [mockLocationManager verify];
+}
+
 @end
