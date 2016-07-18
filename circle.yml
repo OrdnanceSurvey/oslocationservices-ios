@@ -10,4 +10,4 @@ test:
     - set -o pipefail && xcodebuild -destination 'platform=iOS Simulator,name=iPhone 6,OS=latest' -sdk iphonesimulator -scheme "OSLocationService" test | tee $CIRCLE_ARTIFACTS/xcodebuild.log | xcpretty --report html --output $CIRCLE_TEST_REPORTS/results.html --report junit --output $CIRCLE_TEST_REPORTS/results.xml
     - scan-build --status-bugs --use-analyzer=Xcode -o $CIRCLE_ARTIFACTS/analysis xcodebuild -project OSLocationService.xcodeproj -scheme OSLocationService -sdk iphonesimulator clean analyze
   post:
-    - bundle exec slather
+    - bundle exec slather --verbose
