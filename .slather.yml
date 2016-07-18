@@ -1,3 +1,4 @@
+verbose: true
 coverage_service: coveralls
 ci_service: circleci
 xcodeproj: OSLocationService.xcodeproj
