@@ -57,6 +57,10 @@ const CLLocationDistance kDistanceFilterHigh = 10;
         case OSLocationUpdatePurposeNavigation:
             _desiredAccuracy = kCLLocationAccuracyBestForNavigation;
             break;
+        case OSLocationUpdatePurposeRouteRecording:
+            _desiredAccuracy = kCLLocationAccuracyBestForNavigation;
+            _distanceFilter = 5;
+            break;
         case OSLocationUpdatePurposeCustom:
             break;
     }
