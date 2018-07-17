@@ -28,6 +28,12 @@ typedef NS_ENUM(NSInteger, OSLocationUpdatePurpose) {
      */
     OSLocationUpdatePurposeNavigation,
     /**
+     *  The provider will be used to route recording.
+     *  5 meters distance filter will be set and the desired accuracy will be set to
+     *  `kCLLocationAccuracyBestForNavigation`
+     */
+    OSLocationUpdatePurposeRouteRecording,
+    /**
      *  The provider is being used for an unknown purpose. `distanceFilter`
      *  and `desiredAccuracy` properties should be set as desired.
      */
