@@ -67,7 +67,7 @@ typedef NS_OPTIONS(NSUInteger, OSLocationServiceUpdateOptions) {
  */
 @interface OSLocationProvider : NSObject
 
-- (instancetype)init NS_UNAVAILABLE;
+@property (weak, nonatomic) id<OSLocationProviderDelegate> delegate;
 
 /**
  *  Convenience initialiser with `OSLocationServiceLocationUpdates` options and `OSLocationUpdatePurposeCurrentLocation` purpose
@@ -76,7 +76,7 @@ typedef NS_OPTIONS(NSUInteger, OSLocationServiceUpdateOptions) {
  *
  *  @return instance of `OSLocationProvider`
  */
-- (instancetype)initWithDelegate:(id<OSLocationProviderDelegate>)delegate;
+- (instancetype)initWithDelegate:(id<OSLocationProviderDelegate> _Nullable)delegate;
 
 /**
  *  Designated initialiser
@@ -87,7 +87,7 @@ typedef NS_OPTIONS(NSUInteger, OSLocationServiceUpdateOptions) {
  *
  *  @return instance of `OSLocationProvider`
  */
-- (instancetype)initWithDelegate:(id<OSLocationProviderDelegate>)delegate options:(OSLocationServiceUpdateOptions)options purpose:(OSLocationUpdatePurpose)purpose NS_DESIGNATED_INITIALIZER;
+- (instancetype)initWithDelegate:(id<OSLocationProviderDelegate> _Nullable)delegate options:(OSLocationServiceUpdateOptions)options purpose:(OSLocationUpdatePurpose)purpose NS_DESIGNATED_INITIALIZER;
 
 /**
  *  Starts location service updates by requesting authorization of the given

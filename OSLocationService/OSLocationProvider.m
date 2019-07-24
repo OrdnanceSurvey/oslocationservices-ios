@@ -29,6 +29,10 @@ const CLLocationDistance kDistanceFilterHigh = 10;
     return _coreLocationManager;
 }
 
+-(instancetype)init {
+    return [self initWithDelegate:nil];
+}
+
 - (instancetype)initWithDelegate:(id<OSLocationProviderDelegate>)delegate {
     return [self initWithDelegate:delegate options:OSLocationServiceLocationUpdates purpose:OSLocationUpdatePurposeCurrentLocation];
 }
@@ -97,10 +101,10 @@ const CLLocationDistance kDistanceFilterHigh = 10;
 }
 
 - (void)stopLocationServiceUpdates {
-    if (self.hasRequestedToUpdateLocation) {
+    if (self.hasRequestedToUpdateLocation && _coreLocationManager != nil) {
         [self.coreLocationManager stopUpdatingLocation];
     }
-    if (self.hasRequestedToUpdateHeading) {
+    if (self.hasRequestedToUpdateHeading && _coreLocationManager != nil) {
         [self.coreLocationManager stopUpdatingHeading];
     }
 }
